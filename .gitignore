@@ -6,4 +6,5 @@
 *.cydsn/codegentemp
 *.cywrk.*
 Backup/
-
+BUILD.log
+CLEAN.log
