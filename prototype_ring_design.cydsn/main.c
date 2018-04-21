@@ -16,8 +16,37 @@
 #include "i2cFunctions.h"
 #include <stdlib.h>
 
+CY_ISR(QuadInt0)
+{
+    
+}
+
+CY_ISR(QuadInt1)
+{
+    
+}
+
+CY_ISR(QuadInt2)
+{
+    
+}
+
+CY_ISR(QuadInt3)
+{
+    
+}
+
 int main(void)
 {
+    CyGlobalIntDisable;
+    QuadDec_0_Start();
+    QuadDec_1_Start();
+    QuadDec_2_Start();
+    QuadDec_3_Start();
+    QuadIsr_0_StartEx(QuadInt0);
+    QuadIsr_1_StartEx(QuadInt1);
+    QuadIsr_2_StartEx(QuadInt2);
+    QuadIsr_3_StartEx(QuadInt3);
     CyGlobalIntEnable; /* Enable global interrupts. */
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
