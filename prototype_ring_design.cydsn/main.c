@@ -18,22 +18,22 @@
 
 CY_ISR(QuadInt0)
 {
-    
+    QuadDec_0_ClearInterrupt(QuadDec_0_GetInterruptSource());
 }
 
 CY_ISR(QuadInt1)
 {
-    
+    QuadDec_1_ClearInterrupt(QuadDec_1_GetInterruptSource());
 }
 
 CY_ISR(QuadInt2)
 {
-    
+    QuadDec_2_ClearInterrupt(QuadDec_2_GetInterruptSource());
 }
 
 CY_ISR(QuadInt3)
 {
-    
+    QuadDec_3_ClearInterrupt(QuadDec_3_GetInterruptSource());
 }
 
 int main(void)
