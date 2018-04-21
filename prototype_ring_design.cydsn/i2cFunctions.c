@@ -2,19 +2,6 @@
 #include "i2cFunctions.h"
 #include <stdlib.h>
 
-//***Should work
-
-/**void clearBus()
-{
- 
-    if(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP)
-    {
-        while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP);
-        while(I2C_I2CMasterStatus() != I2C_I2C_MSTAT_WR_CMPLT);
-    }
-    
-}*/
-
 void motorSetSpeed(MotorAddress MA,int targetVelocity)
 {
 	uint8* buf = malloc(5*sizeof(*buf));	//Set up a buffer for command code and argument
