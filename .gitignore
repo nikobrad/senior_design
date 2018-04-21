@@ -1,0 +1,10 @@
+*.arh
+*~
+*.cydsn/Cortex*/*
+*.cydsn/Export/*
+*.cydsn/Generated_Source
+*.cydsn/codegentemp
+*.cywrk.*
+Backup/
+BUILD.log
+CLEAN.log
