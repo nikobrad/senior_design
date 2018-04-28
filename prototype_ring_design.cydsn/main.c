@@ -18,8 +18,8 @@
 
 #define DELAY 500
 
-extern int indices[4];
-extern int motorRotations[4];
+int indices[4];
+int motorRotations[4];
 
 int main(void)
 {

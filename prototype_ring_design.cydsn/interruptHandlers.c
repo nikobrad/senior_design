@@ -1,9 +1,6 @@
 #include "interruptHandlers.h"
 #include "project.h"
 
-extern int indices[4];
-extern int motorRotations[4];
-
 //Quadrature decoder interrupt handlers
 
 CY_ISR(QuadInt0)
