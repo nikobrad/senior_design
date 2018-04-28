@@ -27,9 +27,9 @@ void motorSetSpeed(MotorAddress MA,int targetVelocity)
 	buf[3] = (stepVelocity >> 16) & 0xFF;
 	buf[4] = (stepVelocity >> 24) & 0xFF;
 	
-    while(I2C_I2CMasterStatus() != I2C_I2C_MSTAT_WR_CMPLT); //Wait for any previous transmission to end
-	I2C_I2CMasterWriteBuf(addr,buf,5,I2C_I2C_MODE_COMPLETE_XFER);	//Set speed of selected motor through I2C connection
     
+	I2C_I2CMasterWriteBuf(addr,buf,5,I2C_I2C_MODE_COMPLETE_XFER);	//Set speed of selected motor through I2C connection
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 	
 	free(buf);
 }	//motorSetSpeed()
@@ -46,9 +46,9 @@ void motorSetPosition(MotorAddress MA,int targetPosition)
 	buf[3] = (targetPosition >> 16) & 0xFF;
 	buf[4] = (targetPosition >> 24) & 0xFF;
 	
-    while(I2C_I2CMasterStatus() != I2C_I2C_MSTAT_WR_CMPLT); //Wait for any previous transmission to end
-	I2C_I2CMasterWriteBuf(addr,buf,5,I2C_I2C_MODE_COMPLETE_XFER);	//Set position of selected motor through I2C connection
     
+	I2C_I2CMasterWriteBuf(addr,buf,5,I2C_I2C_MODE_COMPLETE_XFER);	//Set position of selected motor through I2C connection
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 	
 	free(buf);
 }	//motorSetPosition()
@@ -59,9 +59,9 @@ void motorSafeStartExit(MotorAddress MA)
 	*buf = 0x83;	//Command code for safe start
 	uint8 addr = (uint8)MA;
 	
-    while(I2C_I2CMasterStatus() != I2C_I2C_MSTAT_WR_CMPLT); //Wait for any previous transmission to end
-	I2C_I2CMasterWriteBuf(addr,buf,1,I2C_I2C_MODE_COMPLETE_XFER);	//Transmit safe start command to I2C
     
+	I2C_I2CMasterWriteBuf(addr,buf,1,I2C_I2C_MODE_COMPLETE_XFER);	//Transmit safe start command to I2C
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 	
 	free(buf);
 }	//MotorSafeStartExit()
@@ -72,9 +72,9 @@ void motorEnergize(MotorAddress MA)
 	*buf = 0x85;	//Command code for energize
 	uint8 addr = (uint8)MA;
 	
-    while(I2C_I2CMasterStatus() != I2C_I2C_MSTAT_WR_CMPLT); //Wait for any previous transmission to end
-	I2C_I2CMasterWriteBuf(addr,buf,1,I2C_I2C_MODE_COMPLETE_XFER);	//Transmit safe start command to I2C
     
+	I2C_I2CMasterWriteBuf(addr,buf,1,I2C_I2C_MODE_COMPLETE_XFER);	//Transmit safe start command to I2C
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 	
 	free(buf);
 }	//MotorEnergize()
