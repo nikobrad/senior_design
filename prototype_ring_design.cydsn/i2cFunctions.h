@@ -20,6 +20,7 @@ void motorSetSpeed(MotorAddress MA,int targetVelocity);
 void motorSetPosition(MotorAddress MA,int targetPosition);
 void motorSafeStartExit(MotorAddress MA);
 void motorEnergize(MotorAddress MA);
+void motorDeenergize(MotorAddress MA);
 
 
 	
