@@ -10,31 +10,16 @@
  * ========================================
 */
 
-#define DELAY 500
 
-#include "project.h"
 #include "i2cFunctions.h"
+#include "interruptHandlers.h"
+#include "project.h"
 #include <stdlib.h>
 
-CY_ISR(QuadInt0)
-{
-    QuadDec_0_ClearInterrupt(QuadDec_0_GetInterruptSource());
-}
+#define DELAY 500
 
-CY_ISR(QuadInt1)
-{
-    QuadDec_1_ClearInterrupt(QuadDec_1_GetInterruptSource());
-}
-
-CY_ISR(QuadInt2)
-{
-    QuadDec_2_ClearInterrupt(QuadDec_2_GetInterruptSource());
-}
-
-CY_ISR(QuadInt3)
-{
-    QuadDec_3_ClearInterrupt(QuadDec_3_GetInterruptSource());
-}
+extern int indices[4];
+extern int motorRotations[4];
 
 int main(void)
 {
@@ -48,6 +33,11 @@ int main(void)
     QuadIsr_2_StartEx(QuadInt2);
     QuadIsr_3_StartEx(QuadInt3);
     CyGlobalIntEnable; /* Enable global interrupts. */
+    
+    indices[0] = 0;
+    indices[1] = 0;
+    indices[2] = 0;
+    indices[3] = 0;
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
