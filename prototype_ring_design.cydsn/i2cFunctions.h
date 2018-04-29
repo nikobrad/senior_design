@@ -12,8 +12,8 @@ typedef enum
 
 typedef struct
 {
-	int counters[4];
-	int indices[4];
+	int counter;
+	int index;
 } MotorPositions;
 
 void motorSetSpeed(MotorAddress MA,int targetVelocity);

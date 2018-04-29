@@ -17,8 +17,7 @@
 
 #define DELAY 500
 
-int indices[4];
-int motorRotations[4];
+MotorPositions motorPos[4];
 
 int main(void)
 {
@@ -33,10 +32,10 @@ int main(void)
     QuadIsr_3_StartEx(QuadInt3);
     CyGlobalIntEnable; /* Enable global interrupts. */
     
-    indices[0] = 0;
-    indices[1] = 0;
-    indices[2] = 0;
-    indices[3] = 0;
+    motorPos[0].index = 0;
+    motorPos[1].index = 0;
+    motorPos[2].index = 0;
+    motorPos[3].index = 0;
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
@@ -62,53 +61,11 @@ int main(void)
     int vel1 = 2500;
     int vel2 = -2500;
     int vel3 = -2500;
-    
-    for(int i = 0; i < 20; i = i + 1)
-    {
-        motorSetSpeed(Motor0,vel0);
-        motorSetSpeed(Motor1,vel1);
-        motorSetSpeed(Motor2,vel2);
-        motorSetSpeed(Motor3,vel3);
-        
-        vel0 = vel0 + 31;
-        vel1 = vel1 + 31;
-        vel2 = vel2 + 62;
-        vel3 = vel3 + 62;
-        
-        CyDelay(10);
-        
-    }
-    
-    motorSetSpeed(Motor0,0);
-    motorSetSpeed(Motor1,0);
-    motorSetSpeed(Motor2,0);
-    motorSetSpeed(Motor3,0);
-    
-    vel0 = -4000;
-    vel1 = -1250;
-    vel2 = 5000;
-    vel3 = -2000;
-    
-       for(int i = 0; i < 19; i = i + 1)
-    {
-        motorSetSpeed(Motor0,vel0);
-        motorSetSpeed(Motor1,vel1);
-        motorSetSpeed(Motor2,vel2);
-        motorSetSpeed(Motor3,vel3);
-        
-        vel0 = vel0 + 50;
-        vel1 = vel1 + 125;
 
-        vel3 = vel3 + 400;
-        
-        CyDelay(5);
-        
-    }
-    
-    motorSetSpeed(Motor0,0);
-    motorSetSpeed(Motor1,0);
-    motorSetSpeed(Motor2,0);
-    motorSetSpeed(Motor3,0);
+    motorSetSpeed(Motor0,vel0);
+    motorSetSpeed(Motor1,vel1);
+    motorSetSpeed(Motor2,vel2);
+    motorSetSpeed(Motor3,vel3);
     
     for(;;)
     {
