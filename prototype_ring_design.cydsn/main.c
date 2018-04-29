@@ -110,6 +110,11 @@ int main(void)
         */
     }
     
+    motorDeenergize(Motor0);
+    motorDeenergize(Motor1);
+    motorDeenergize(Motor2);
+    motorDeenergize(Motor3); 
+    
     return(0);
     
 }
