@@ -12,7 +12,6 @@
 
 #define DELAY 500
 
-#include "project.h"
 #include "i2cFunctions.h"
 #include <stdlib.h>
 
