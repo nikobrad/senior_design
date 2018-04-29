@@ -1,4 +1,3 @@
-#include "project.h"
 #include "i2cFunctions.h"
 #include <stdlib.h>
 
@@ -62,6 +61,31 @@ void motorDeenergize(MotorAddress MA)
     while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 }	//motorDeenergize()
 
+void motorCommand32(MotorAddress MA,uint8 cmd,uint32 arg)
+{
+    if(arg)
+    {
+        uint8 buf[5];	//Set up a buffer for command code and argument
+    	uint8 addr = (uint8)MA;
+    	
+    	buf[0] = cmd;	//Command code for set position
+    	buf[1] = arg & 0xFF;	//Shift argument value and save bytes in buffer
+    	buf[2] = (arg >> 8) & 0xFF;
+    	buf[3] = (arg >> 16) & 0xFF;
+    	buf[4] = (arg >> 24) & 0xFF;
+    	
+    	I2C_I2CMasterWriteBuf(addr,buf,5,I2C_I2C_MODE_COMPLETE_XFER);	//Set position of selected motor through I2C connection
+    }
+    else
+    {
+        uint8 buf = cmd;	//Set up buffer for command code
+    	uint8 addr = (uint8)MA;
+    	
+    	I2C_I2CMasterWriteBuf(addr,&buf,1,I2C_I2C_MODE_COMPLETE_XFER);	//Transmit safe start command to I2C
+    }
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
+}   //motorCommand32
+
 //***Experimental/in development
 
 /*
@@ -93,5 +117,4 @@ int radialToLinear(float rotVal)
 	float linear = rotVal * (float)(1.0/48.0) * (float)(2.0*PI*SPOOL_RADIUS);	//rotVal steps * 1/48 rotations/step * 2*PI*SPOOL_RADIUS units/rotation = linear units
 	return linear;
 }	//radialToLinear()
-
 */

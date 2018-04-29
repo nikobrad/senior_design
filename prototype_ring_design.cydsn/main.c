@@ -10,15 +10,38 @@
  * ========================================
 */
 
+#include "i2cFunctions.h"
+#include "interruptHandlers.h"
+#include "project.h"
+#include <stdlib.h>
+
 #define DELAY 500
 
-#include "project.h"
-#include "i2cFunctions.h"
-#include <stdlib.h>
+MotorPositions motorPos[4];
 
 int main(void)
 {
+    
+    
+    CyGlobalIntDisable;
+    QuadDec_0_Start();
+    QuadDec_1_Start();
+    QuadDec_2_Start();
+    QuadDec_3_Start();
+    UART_Start();
+    QuadIsr_0_StartEx(QuadInt0);
+    QuadIsr_1_StartEx(QuadInt1);
+    QuadIsr_2_StartEx(QuadInt2);
+    QuadIsr_3_StartEx(QuadInt3);
+    //UartIsr_StartEx(UartInt);
     CyGlobalIntEnable; /* Enable global interrupts. */
+    
+    motorPos[0].index = 0;
+    motorPos[1].index = 0;
+    motorPos[2].index = 0;
+    motorPos[3].index = 0;
+    
+    UART_UartPutString("Welcome to Senior Design\n\r");
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
@@ -44,48 +67,13 @@ int main(void)
     int vel1 = 2500;
     int vel2 = -2500;
     int vel3 = -2500;
-    
-    for(int i = 0; i < 20; i = i + 1)
-    {
-        motorSetSpeed(Motor0,vel0);
-        motorSetSpeed(Motor1,vel1);
-        motorSetSpeed(Motor2,vel2);
-        motorSetSpeed(Motor3,vel3);
-        
-        vel0 = vel0 + 31;
-        vel1 = vel1 + 31;
-        vel2 = vel2 + 62;
-        vel3 = vel3 + 62;
-        
-        CyDelay(10);
-        
-    }
-    
-    motorSetSpeed(Motor0,0);
-    motorSetSpeed(Motor1,0);
-    motorSetSpeed(Motor2,0);
-    motorSetSpeed(Motor3,0);
-    
-    vel0 = -4000;
-    vel1 = -1250;
-    vel2 = 5000;
-    vel3 = -2000;
-    
-       for(int i = 0; i < 19; i = i + 1)
-    {
-        motorSetSpeed(Motor0,vel0);
-        motorSetSpeed(Motor1,vel1);
-        motorSetSpeed(Motor2,vel2);
-        motorSetSpeed(Motor3,vel3);
-        
-        vel0 = vel0 + 50;
-        vel1 = vel1 + 125;
 
-        vel3 = vel3 + 400;
-        
-        CyDelay(5);
-        
-    }
+    motorSetSpeed(Motor0,vel0);
+    motorSetSpeed(Motor1,vel1);
+    motorSetSpeed(Motor2,vel2);
+    motorSetSpeed(Motor3,vel3);
+    
+    CyDelay(5000);
     
     motorSetSpeed(Motor0,0);
     motorSetSpeed(Motor1,0);
