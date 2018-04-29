@@ -21,21 +21,27 @@ MotorPositions motorPos[4];
 
 int main(void)
 {
+    
+    
     CyGlobalIntDisable;
     QuadDec_0_Start();
     QuadDec_1_Start();
     QuadDec_2_Start();
     QuadDec_3_Start();
+    UART_Start();
     QuadIsr_0_StartEx(QuadInt0);
     QuadIsr_1_StartEx(QuadInt1);
     QuadIsr_2_StartEx(QuadInt2);
     QuadIsr_3_StartEx(QuadInt3);
+    //UartIsr_StartEx(UartInt);
     CyGlobalIntEnable; /* Enable global interrupts. */
     
     motorPos[0].index = 0;
     motorPos[1].index = 0;
     motorPos[2].index = 0;
     motorPos[3].index = 0;
+    
+    UART_UartPutString("Welcome to Senior Design\n\r");
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
@@ -66,6 +72,13 @@ int main(void)
     motorSetSpeed(Motor1,vel1);
     motorSetSpeed(Motor2,vel2);
     motorSetSpeed(Motor3,vel3);
+    
+    CyDelay(5000);
+    
+    motorSetSpeed(Motor0,0);
+    motorSetSpeed(Motor1,0);
+    motorSetSpeed(Motor2,0);
+    motorSetSpeed(Motor3,0);
     
     for(;;)
     {

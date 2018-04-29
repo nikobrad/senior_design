@@ -16,6 +16,8 @@ typedef struct
 	int index;
 } MotorPositions;
 
+extern MotorPositions motorPos[4];
+
 void motorSetSpeed(MotorAddress MA,int targetVelocity);
 void motorSetPosition(MotorAddress MA,int targetPosition);
 void motorSafeStartExit(MotorAddress MA);

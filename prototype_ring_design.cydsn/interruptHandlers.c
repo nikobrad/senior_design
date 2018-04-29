@@ -1,3 +1,4 @@
+#include "i2cFunctions.h"
 #include "interruptHandlers.h"
 #include "project.h"
 #include <stdio.h>
@@ -59,3 +60,9 @@ CY_ISR(QuadInt3)
 //Timer interrupt handlers
 
 //UART interrupt handlers
+
+CY_ISR(UartInt)
+{
+    UartIsr_ClearPending();
+    UART_ClearRxInterruptSource(UART_GetRxInterruptSource());
+}
