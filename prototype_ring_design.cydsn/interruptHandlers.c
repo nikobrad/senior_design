@@ -36,7 +36,7 @@ CY_ISR(QuadInt2)
     if(tmp > 0x8000)    //Change index counter
         motorPos[2].index = motorPos[2].index + 1;
     else if(tmp < 0x8000)
-        motorPos[2].index = motorPos[2].index;
+        motorPos[2].index = motorPos[2].index - 1;
     QuadDec_2_ClearInterrupt(QuadDec_2_GetInterruptSource());
     char prt[24];
     sprintf(prt,"Motor 2 Index %d\n\r",motorPos[2].index);
