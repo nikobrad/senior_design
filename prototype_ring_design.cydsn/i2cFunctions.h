@@ -14,6 +14,7 @@ typedef enum
 
 typedef struct
 {
+    MotorAddress MA;
 	int counter;
 	int index;
     int calibrationLength;

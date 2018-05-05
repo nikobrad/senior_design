@@ -39,6 +39,10 @@ int main(void)
     //UartIsr_StartEx(UartInt);
     CyGlobalIntEnable; /* Enable global interrupts. */
     
+    motorPos[0].MA = Motor0;
+    motorPos[1].MA = Motor1;
+    motorPos[2].MA = Motor2;
+    motorPos[3].MA = Motor3;
     motorPos[0].index = 0;
     motorPos[1].index = 0;
     motorPos[2].index = 0;
@@ -54,34 +58,34 @@ int main(void)
     LED_Write(0);
     LED_Write(1);
     // exit safe start
-    motorSafeStartExit(Motor0);
-    motorSafeStartExit(Motor1);
-    motorSafeStartExit(Motor2);
-    motorSafeStartExit(Motor3);
+    motorSafeStartExit(motorPos[0].MA);
+    motorSafeStartExit(motorPos[1].MA);
+    motorSafeStartExit(motorPos[2].MA);
+    motorSafeStartExit(motorPos[3].MA);
     LED_Write(0);
     LED_Write(1);
     LED_Write(0);
     //re-energize
-    motorEnergize(Motor0);
-    motorEnergize(Motor1);
-    motorEnergize(Motor2);
-    motorEnergize(Motor3);    
+    motorEnergize(motorPos[0].MA);
+    motorEnergize(motorPos[1].MA);
+    motorEnergize(motorPos[2].MA);
+    motorEnergize(motorPos[3].MA);    
     int vel0 = 2500;
     int vel1 = 2500;
     int vel2 = -2500;
     int vel3 = -2500;
 
-    motorSetSpeed(Motor0,vel0);
-    motorSetSpeed(Motor1,vel1);
-    motorSetSpeed(Motor2,vel2);
-    motorSetSpeed(Motor3,vel3);
+    motorSetSpeed(motorPos[0].MA,vel0);
+    motorSetSpeed(motorPos[1].MA,vel1);
+    motorSetSpeed(motorPos[2].MA,vel2);
+    motorSetSpeed(motorPos[3].MA,vel3);
     
     CyDelay(5000);
     
-    motorSetSpeed(Motor0,0);
-    motorSetSpeed(Motor1,0);
-    motorSetSpeed(Motor2,0);
-    motorSetSpeed(Motor3,0);
+    motorSetSpeed(motorPos[0].MA,0);
+    motorSetSpeed(motorPos[1].MA,0);
+    motorSetSpeed(motorPos[2].MA,0);
+    motorSetSpeed(motorPos[3].MA,0);
     
     for(;;)
     {
@@ -113,10 +117,10 @@ int main(void)
         */
     }
     
-    motorDeenergize(Motor0);
-    motorDeenergize(Motor1);
-    motorDeenergize(Motor2);
-    motorDeenergize(Motor3); 
+    motorDeenergize(motorPos[0].MA);
+    motorDeenergize(motorPos[1].MA);
+    motorDeenergize(motorPos[2].MA);
+    motorDeenergize(motorPos[3].MA); 
     
     return(0);
     
