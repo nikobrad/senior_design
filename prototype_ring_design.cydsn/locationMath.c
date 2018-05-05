@@ -1,4 +1,5 @@
 #include "locationMath.h"
+#include "i2cFunctions.h"
 
 void getMotor0()
 {
@@ -47,4 +48,9 @@ void payloadCorners() // milli-inches
     
     PAYLOAD_CORNERS[3][0] = PAYLOAD_CENTER[0];
     PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - (PAYLOAD_SIDELEN * 1414 / 2);
+}
+
+void wheresthepayload()
+{
+    
 }

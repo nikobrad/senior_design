@@ -43,6 +43,7 @@ int main(void)
     motorDat[1].MA = Motor1;
     motorDat[2].MA = Motor2;
     motorDat[3].MA = Motor3;
+    
     motorDat[0].index = 0;
     motorDat[1].index = 0;
     motorDat[2].index = 0;

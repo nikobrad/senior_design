@@ -1,4 +1,6 @@
-#include "i2cFunctions.h"
+#ifndef interruptHandlers_h
+#define interruptHandlers_h
+
 #include "project.h"
 #include <stdio.h>
 
@@ -12,3 +14,5 @@ CY_ISR(QuadInt3);
 
 //UART interrupt handlers
 CY_ISR(UartInt);
+
+#endif

@@ -1,4 +1,5 @@
 #include "interruptHandlers.h"
+#include "i2cFunctions.h"
 
 //Quadrature decoder interrupt handlers
 

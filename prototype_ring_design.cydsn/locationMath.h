@@ -1,4 +1,6 @@
-#include "i2cFunctions.h"
+#ifndef locationMath_h
+#define locationMath_h
+    
 #include "project.h"
 
 #define STEP_CONSTANT 48
@@ -21,3 +23,5 @@ void getMotor3();
 
 void linearConv(uint8 MA);
 void payloadCorners();
+
+#endif

@@ -1,8 +1,9 @@
-#include "project.h"
+#ifndef i2cFunctions_h
+#define i2cFunctions_h
+
+#include "project.h"    
 
 #define STEP_SCALE 100
-#define PI 3.1415927
-#define SPOOL_RADIUS 1
 
 typedef enum
 { 
@@ -30,6 +31,8 @@ void motorSetPosition(MotorAddress MA,int targetPosition);
 void motorSafeStartExit(MotorAddress MA);
 void motorEnergize(MotorAddress MA);
 void motorDeenergize(MotorAddress MA);
+
+#endif
 
 //From Tic C++ Arduino library:
 /*

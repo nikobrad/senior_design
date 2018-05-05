@@ -1,3 +1,4 @@
+#include "project.h"
 #include "i2cFunctions.h"
 
 void motorSetSpeed(MotorAddress MA,int targetVelocity)
