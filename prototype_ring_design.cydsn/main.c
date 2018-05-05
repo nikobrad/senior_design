@@ -12,6 +12,7 @@
 
 #include "i2cFunctions.h"
 #include "interruptHandlers.h"
+#include "locationMath.h"
 #include "project.h"
 #include <stdlib.h>
 

@@ -16,6 +16,7 @@ typedef struct
 {
 	int counter;
 	int index;
+    int calibrationLength;
 } MotorPositions;
 
 extern MotorPositions motorPos[4];

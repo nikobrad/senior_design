@@ -1,4 +1,6 @@
+#include "i2cFunctions.h"
 #include "project.h"
+#include <stdio.h>
 
 //Quadrature decoder interrupt handlers
 CY_ISR(QuadInt0);
