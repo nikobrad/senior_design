@@ -19,6 +19,8 @@
 #define DELAY 500
 
 MotorPositions motorPos[4];
+int PAYLOAD_CENTER[2];
+int PAYLOAD_CORNERS[4][2];
 
 int main(void)
 {
