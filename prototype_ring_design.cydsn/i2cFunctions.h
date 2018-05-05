@@ -19,9 +19,9 @@ typedef struct
 	int index;
     int calibrationLength;
     int lineLength;
-} MotorPositions;
+} MotorData;
 
-extern MotorPositions motorPos[4];
+extern MotorData motorDat[4];
 
 void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
 
