@@ -1,5 +1,37 @@
 #include "locationMath.h"
 
+void getMotorRotation(uint8 MA)
+{
+    MA = MA % 4;
+    int tmp;
+    switch(MA)
+    {
+        case 0:
+        {
+            tmp = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
+            break;
+        }
+        case 1:
+        {
+            tmp = QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER;
+            break;
+        }
+        case 2:
+        {
+            tmp = QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER;
+            break;
+        }
+        case 3:
+        {
+            tmp = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
+            break;
+        }
+    }
+    tmp = tmp / DECODER_RESOLUTION;
+    tmp = tmp + (motorDat[MA].index * STEP_CONSTANT);
+    motorDat[MA].counter = tmp;
+}
+/* DEFUNCT (potentially)
 void getMotor0()
 {
     int tmp = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
@@ -28,7 +60,7 @@ void getMotor3()
     tmp = tmp + (motorDat[3].index * STEP_CONSTANT);
     motorDat[3].counter = tmp;
 }
-
+*/
 void linearConv(uint8 MA) // milli-inche
 {
     motorDat[MA].lineLength = (motorDat[MA].counter * STEP_SIZE * PI * SPOOL_DIAMETER) / 360; // milli-inches
