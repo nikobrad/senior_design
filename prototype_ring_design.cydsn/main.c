@@ -59,34 +59,34 @@ int main(void)
     LED_Write(0);
     LED_Write(1);
     // exit safe start
-    motorSafeStartExit(motorDat[0].MA);
-    motorSafeStartExit(motorDat[1].MA);
-    motorSafeStartExit(motorDat[2].MA);
-    motorSafeStartExit(motorDat[3].MA);
+    motorSafeStartExit(0);
+    motorSafeStartExit(1);
+    motorSafeStartExit(2);
+    motorSafeStartExit(3);
     LED_Write(0);
     LED_Write(1);
     LED_Write(0);
     //re-energize
-    motorEnergize(motorDat[0].MA);
-    motorEnergize(motorDat[1].MA);
-    motorEnergize(motorDat[2].MA);
-    motorEnergize(motorDat[3].MA);    
+    motorEnergize(0);
+    motorEnergize(1);
+    motorEnergize(2);
+    motorEnergize(3);    
     int vel0 = 2500;
     int vel1 = 2500;
     int vel2 = -2500;
     int vel3 = -2500;
 
-    motorSetSpeed(motorDat[0].MA,vel0);
-    motorSetSpeed(motorDat[1].MA,vel1);
-    motorSetSpeed(motorDat[2].MA,vel2);
-    motorSetSpeed(motorDat[3].MA,vel3);
+    motorSetSpeed(0,vel0);
+    motorSetSpeed(1,vel1);
+    motorSetSpeed(2,vel2);
+    motorSetSpeed(3,vel3);
     
     CyDelay(5000);
     
-    motorSetSpeed(motorDat[0].MA,0);
-    motorSetSpeed(motorDat[1].MA,0);
-    motorSetSpeed(motorDat[2].MA,0);
-    motorSetSpeed(motorDat[3].MA,0);
+    motorSetSpeed(0,0);
+    motorSetSpeed(1,0);
+    motorSetSpeed(2,0);
+    motorSetSpeed(3,0);
     
     for(;;)
     {
@@ -118,10 +118,10 @@ int main(void)
         */
     }
     
-    motorDeenergize(motorDat[0].MA);
-    motorDeenergize(motorDat[1].MA);
-    motorDeenergize(motorDat[2].MA);
-    motorDeenergize(motorDat[3].MA); 
+    motorDeenergize(0);
+    motorDeenergize(1);
+    motorDeenergize(2);
+    motorDeenergize(3); 
     
     return(0);
     
