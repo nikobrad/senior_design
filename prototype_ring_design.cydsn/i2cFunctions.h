@@ -1,36 +1,36 @@
 #ifndef i2cFunctions_h
-#define i2cFunctions_h
+    #define i2cFunctions_h
 
-#include "project.h"    
+    #include "project.h"    
 
-#define STEP_SCALE 100
+    #define STEP_SCALE 100
 
-typedef enum
-{ 
-	Motor0 		= 	10,
-	Motor1 		= 	11,
-	Motor2 		= 	12,
-	Motor3 		= 	13,
-} MotorAddress;
+    typedef enum
+    { 
+    	Motor0 		= 	10,
+    	Motor1 		= 	11,
+    	Motor2 		= 	12,
+    	Motor3 		= 	13,
+    } MotorAddress;
 
-typedef struct
-{
-    MotorAddress MA;
-	int counter;
-	int index;
-    int calibrationLength;
-    int lineLength;
-} MotorData;
+    typedef struct
+    {
+        MotorAddress MA;
+    	int counter;
+    	int index;
+        int calibrationLength;
+        int lineLength;
+    } MotorData;
 
-extern MotorData motorDat[4];
+    extern MotorData motorDat[4];
 
-void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
+    void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
 
-void motorSetSpeed(MotorAddress MA,int targetVelocity);
-void motorSetPosition(MotorAddress MA,int targetPosition);
-void motorSafeStartExit(MotorAddress MA);
-void motorEnergize(MotorAddress MA);
-void motorDeenergize(MotorAddress MA);
+    void motorSetSpeed(MotorAddress MA,int targetVelocity);
+    void motorSetPosition(MotorAddress MA,int targetPosition);
+    void motorSafeStartExit(MotorAddress MA);
+    void motorEnergize(MotorAddress MA);
+    void motorDeenergize(MotorAddress MA);
 
 #endif
 
