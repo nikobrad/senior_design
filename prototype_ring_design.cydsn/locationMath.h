@@ -1,5 +1,5 @@
-#ifndef locationmotorIndexth_h
-    #define locationmotorIndexth_h
+#ifndef locationMath_h
+    #define locationMath_h
         
     #include "project.h"
     #include "i2cFunctions.h"
@@ -19,15 +19,15 @@
     extern int PAYLOAD_CENTER[2];
     extern int PAYLOAD_CORNERS[4][2];
 
-    void updateMotorRotation(uint8 motorIndex);
-    void linearConv(uint8 motorIndex);
-    void payloadCorners();
-    void calcPayloadCenter(uint8 motorIndex);
-
+    void getMotorRotation(uint8 MA);
     /* DEFUNCT
     void getMotor0();
     void getMotor1();
     void getMotor2();
     void getMotor3();
     */
+    void linearConv(uint8 MA);
+    void payloadCorners();
+    void calcPayloadCenter(uint8 MA);
+
 #endif

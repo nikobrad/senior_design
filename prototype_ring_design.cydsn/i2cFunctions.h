@@ -24,15 +24,13 @@
 
     extern MotorData motorDat[4];
 
-    
+    void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
 
-    void motorSetSpeed(uint8 motorIndex,int targetVelocity);
-    void motorSetPosition(uint8 motorIndex,int targetPosition);
-    void motorSafeStartExit(uint8 motorIndex);
-    void motorEnergize(uint8 motorIndex);
-    void motorDeenergize(uint8 motorIndex);
-    
-    void motorCommotorIndexnd32(uint8 motorIndex,uint8 cmd,uint32 arg);
+    void motorSetSpeed(MotorAddress MA,int targetVelocity);
+    void motorSetPosition(MotorAddress MA,int targetPosition);
+    void motorSafeStartExit(MotorAddress MA);
+    void motorEnergize(MotorAddress MA);
+    void motorDeenergize(MotorAddress MA);
 
 #endif
 
@@ -46,12 +44,12 @@ typedef enum
   KillSwitch               = 3,
   RequiredInputInvalid     = 4,
   SerialError              = 5,
-  CommotorIndexndTimeout           = 6,
+  CommandTimeout           = 6,
   SafeStartViolation       = 7,
   ErrLineHigh              = 8,
   SerialFraming            = 16,
   RxOverrun                = 17,
-  FormotorIndext                   = 18,
+  Format                   = 18,
   Crc                      = 19,
   EncoderSkip              = 20,
 } TicError;
@@ -62,24 +60,24 @@ typedef enum
   SetTargetVelocity                 = 0xE3,
   HaltAndSetPosition                = 0xEC,
   HaltAndHold                       = 0x89,
-  ResetCommotorIndexndTimeout               = 0x8C,
+  ResetCommandTimeout               = 0x8C,
   Deenergize                        = 0x86,
   Energize                          = 0x85,
   ExitSafeStart                     = 0x83,
   EnterSafeStart                    = 0x8F,
   Reset                             = 0xB0,
   ClearDriverError                  = 0x8A,
-  SetSpeedmotorIndexx                       = 0xE6,
+  SetSpeedMax                       = 0xE6,
   SetStartingSpeed                  = 0xE5,
-  SetAccelmotorIndexx                       = 0xEA,
-  SetDecelmotorIndexx                       = 0xE9,
+  SetAccelMax                       = 0xEA,
+  SetDecelMax                       = 0xE9,
   SetStepMode                       = 0x94,
   SetCurrentLimit                   = 0x91,
   SetDecayMode                      = 0x92,
   GetVariable                       = 0xA1,
   GetVariableAndClearErrorsOccurred = 0xA2,
   GetSetting                        = 0xA8,
-} TicCommotorIndexnd;
+} TicCommand;
 
 typedef enum
 {
@@ -88,7 +86,7 @@ typedef enum
   SoftError         = 4,
   WaitingForErrLine = 6,
   StartingUp        = 8,
-  NormotorIndexl            = 10,
+  Normal            = 10,
 } TicOperationState;
 
 typedef enum
