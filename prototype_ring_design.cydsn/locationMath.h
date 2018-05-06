@@ -19,15 +19,15 @@
     extern int PAYLOAD_CENTER[2];
     extern int PAYLOAD_CORNERS[4][2];
 
-    void getMotorRotation(uint8 MA);
+    void updateEncoderCount(uint8 motorNum);
     /* DEFUNCT
     void getMotor0();
     void getMotor1();
     void getMotor2();
     void getMotor3();
     */
-    void linearConv(uint8 MA);
+    void linearConv(uint8 motorNum);
     void payloadCorners();
-    void calcPayloadCenter(uint8 MA);
+    void calcPayloadCenter(uint8 motorNum);
 
 #endif

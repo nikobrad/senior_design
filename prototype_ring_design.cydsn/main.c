@@ -39,10 +39,10 @@ int main(void)
     //UartIsr_StartEx(UartInt);
     CyGlobalIntEnable; /* Enable global interrupts. */
     
-    motorDat[0].MA = Motor0;
-    motorDat[1].MA = Motor1;
-    motorDat[2].MA = Motor2;
-    motorDat[3].MA = Motor3;
+    motorDat[0].addr = Motor0;
+    motorDat[1].addr = Motor1;
+    motorDat[2].addr = Motor2;
+    motorDat[3].addr = Motor3;
     
     motorDat[0].index = 0;
     motorDat[1].index = 0;
@@ -59,34 +59,34 @@ int main(void)
     LED_Write(0);
     LED_Write(1);
     // exit safe start
-    motorSafeStartExit(motorDat[0].MA);
-    motorSafeStartExit(motorDat[1].MA);
-    motorSafeStartExit(motorDat[2].MA);
-    motorSafeStartExit(motorDat[3].MA);
+    motorSafeStartExit(motorDat[0].addr);
+    motorSafeStartExit(motorDat[1].addr);
+    motorSafeStartExit(motorDat[2].addr);
+    motorSafeStartExit(motorDat[3].addr);
     LED_Write(0);
     LED_Write(1);
     LED_Write(0);
     //re-energize
-    motorEnergize(motorDat[0].MA);
-    motorEnergize(motorDat[1].MA);
-    motorEnergize(motorDat[2].MA);
-    motorEnergize(motorDat[3].MA);    
+    motorEnergize(motorDat[0].addr);
+    motorEnergize(motorDat[1].addr);
+    motorEnergize(motorDat[2].addr);
+    motorEnergize(motorDat[3].addr);    
     int vel0 = 2500;
     int vel1 = 2500;
     int vel2 = -2500;
     int vel3 = -2500;
 
-    motorSetSpeed(motorDat[0].MA,vel0);
-    motorSetSpeed(motorDat[1].MA,vel1);
-    motorSetSpeed(motorDat[2].MA,vel2);
-    motorSetSpeed(motorDat[3].MA,vel3);
+    motorSetSpeed(motorDat[0].addr,vel0);
+    motorSetSpeed(motorDat[1].addr,vel1);
+    motorSetSpeed(motorDat[2].addr,vel2);
+    motorSetSpeed(motorDat[3].addr,vel3);
     
     CyDelay(5000);
     
-    motorSetSpeed(motorDat[0].MA,0);
-    motorSetSpeed(motorDat[1].MA,0);
-    motorSetSpeed(motorDat[2].MA,0);
-    motorSetSpeed(motorDat[3].MA,0);
+    motorSetSpeed(motorDat[0].addr,0);
+    motorSetSpeed(motorDat[1].addr,0);
+    motorSetSpeed(motorDat[2].addr,0);
+    motorSetSpeed(motorDat[3].addr,0);
     
     for(;;)
     {
@@ -118,10 +118,10 @@ int main(void)
         */
     }
     
-    motorDeenergize(motorDat[0].MA);
-    motorDeenergize(motorDat[1].MA);
-    motorDeenergize(motorDat[2].MA);
-    motorDeenergize(motorDat[3].MA); 
+    motorDeenergize(motorDat[0].addr);
+    motorDeenergize(motorDat[1].addr);
+    motorDeenergize(motorDat[2].addr);
+    motorDeenergize(motorDat[3].addr); 
     
     return(0);
     

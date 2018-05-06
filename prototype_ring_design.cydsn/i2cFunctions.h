@@ -15,7 +15,7 @@
 
     typedef struct
     {
-        MotorAddress MA;
+        MotorAddress addr;
     	int counter;
     	int index;
         int calibrationLength;
@@ -24,13 +24,13 @@
 
     extern MotorData motorDat[4];
 
-    void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
+    void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg);
 
-    void motorSetSpeed(MotorAddress MA,int targetVelocity);
-    void motorSetPosition(MotorAddress MA,int targetPosition);
-    void motorSafeStartExit(MotorAddress MA);
-    void motorEnergize(MotorAddress MA);
-    void motorDeenergize(MotorAddress MA);
+    void motorSetSpeed(MotorAddress addr,int targetVelocity);
+    void motorSetPosition(MotorAddress addr,int targetPosition);
+    void motorSafeStartExit(MotorAddress addr);
+    void motorEnergize(MotorAddress addr);
+    void motorDeenergize(MotorAddress addr);
 
 #endif
 

@@ -1,10 +1,9 @@
 #include "locationMath.h"
 
-void getMotorRotation(uint8 MA)
+void updateEncoderCount(uint8 motorNum)
 {
-    MA = MA % 4;
     int tmp;
-    switch(MA)
+    switch(motorNum)
     {
         case 0:
         {
@@ -26,10 +25,16 @@ void getMotorRotation(uint8 MA)
             tmp = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
             break;
         }
+        default:
+        {
+            tmp = BASE_DECODER_REGISTER;
+        }
     }
+    //TODO: Figure out actual calculations here 
     tmp = tmp / DECODER_RESOLUTION;
-    tmp = tmp + (motorDat[MA].index * STEP_CONSTANT);
-    motorDat[MA].counter = tmp;
+    tmp = tmp + (motorDat[motorNum].index * STEP_CONSTANT); //shouldn't scale with STEP_CONSTANT, encoder pulse != motor step
+    motorDat[motorNum].counter = tmp;
+    //TODO: call linearConv()? any reason not to?
 }
 /* DEFUNCT (potentially)
 void getMotor0()
@@ -61,9 +66,9 @@ void getMotor3()
     motorDat[3].counter = tmp;
 }
 */
-void linearConv(uint8 MA) // milli-inche
+void linearConv(uint8 motorNum) // milli-inche
 {
-    motorDat[MA].lineLength = (motorDat[MA].counter * STEP_SIZE * PI * SPOOL_DIAMETER) / 360; // milli-inches
+    motorDat[motorNum].lineLength = (motorDat[motorNum].counter * STEP_SIZE * PI * SPOOL_DIAMETER) / 360; // milli-inches
 }
 
 void payloadCorners() // milli-inches
@@ -81,29 +86,29 @@ void payloadCorners() // milli-inches
     PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - ((PAYLOAD_SIDELEN * 1414) / 2000);
 }
 
-void calcPayloadCenter(uint8 MA)
+void calcPayloadCenter(uint8 motorNum)
 {
     int i;
     for(i = 0;i < 2;i = i + 1)
     {
-        float sideA = (float)motorDat[MA % 4].lineLength / 1000.0; // Scale triangle sides to actual size for float math
-        float sideB = (float)motorDat[(MA + 1) % 4].lineLength / 1000.0;
+        float sideA = (float)motorDat[motorNum % 4].lineLength / 1000.0; // Scale triangle sides to actual size for float math
+        float sideB = (float)motorDat[(motorNum + 1) % 4].lineLength / 1000.0;
         float sideC = (float)FRAME_DIAMETER / 1414.0;
-        float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor MA
+        float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
         tmp = acos(tmp) + (3.14159/4); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
         tmp = sideA * cos(tmp); // Convert to offset and scale by line length
         tmp = tmp * 1000; // Convert back to milli-inches
         int ret = (int) tmp; // Integer milli-inches
-        PAYLOAD_CENTER[(MA + 1) % 2] = ret; // For even MA, calculates py and stores in PAYLOAD_CENTER[1]; for odd MA, calculates px and stores in PAYLOAD_CENTER[0]
+        PAYLOAD_CENTER[(motorNum + 1) % 2] = ret; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
         char prt[16]; // Print findings to UART terminal for verification
-        sprintf(prt,"Motor %d: Coordinate %d\n\r",(MA % 4),ret);
+        sprintf(prt,"Motor %d: Coordinate %d\n\r",(motorNum % 4),ret);
         UART_UartPutString(prt);
-        MA = MA + 1; // Increment MA to do it all over again; find other part of coordinates, verify calculations, etc
+        motorNum = motorNum + 1; // Increment motorNum to do it all over again; find other part of coordinates, verify calculations, etc
     }
     for(i = 0;i < 2;i = i + 1) // Same code, but doesn't change any values; just calculating same values from other two line lengths for confirmation
     {
-        float sideA = (float)motorDat[MA % 4].lineLength / 1000.0;
-        float sideB = (float)motorDat[(MA + 1) % 4].lineLength / 1000.0;
+        float sideA = (float)motorDat[motorNum % 4].lineLength / 1000.0;
+        float sideB = (float)motorDat[(motorNum + 1) % 4].lineLength / 1000.0;
         float sideC = (float)FRAME_DIAMETER / 1414.0;
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC);
         tmp = acos(tmp) + (3.14159/4);
@@ -112,8 +117,8 @@ void calcPayloadCenter(uint8 MA)
         int ret = (int) tmp;
         //PAYLOAD_CENTER[(MA + 1) % 2] = ret;
         char prt[16];
-        sprintf(prt,"Motor %d: Coordinate %d\n\r",(MA % 4),ret);
+        sprintf(prt,"Motor %d: Coordinate %d\n\r",(motorNum % 4),ret);
         UART_UartPutString(prt);
-        MA = MA + 1;
+        motorNum = motorNum + 1;
     }
 }
