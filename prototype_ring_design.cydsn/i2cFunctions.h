@@ -1,5 +1,5 @@
 #ifndef i2cFunctions_h
-    #define i2cFunctions_h
+#define i2cFunctions_h
 
     #include "project.h"    
 

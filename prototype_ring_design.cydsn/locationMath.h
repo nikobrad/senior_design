@@ -1,5 +1,5 @@
 #ifndef locationMath_h
-    #define locationMath_h
+#define locationMath_h
         
     #include "project.h"
     #include "i2cFunctions.h"
