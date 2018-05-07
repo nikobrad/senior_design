@@ -16,7 +16,7 @@
     typedef struct
     {
         MotorAddress addr;
-    	int counter;
+    	uint8 counter;
     	int index;
         int calibrationLength;
         int lineLength;

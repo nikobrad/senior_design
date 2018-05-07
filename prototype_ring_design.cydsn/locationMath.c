@@ -2,44 +2,40 @@
 
 void updateEncoderCount(uint8 motorNum)
 {
-    int tmp;
+    int counter;
     switch(motorNum)
     {
         case 0:
         {
-            tmp = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
+            counter = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
             break;
         }
         case 1:
         {
-            tmp = QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER;
+            counter = QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER;
             break;
         }
         case 2:
         {
-            tmp = QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER;
+            counter = QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER;
             break;
         }
         case 3:
         {
-            tmp = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
+            counter = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
             break;
         }
         default:
         {
-            tmp = BASE_DECODER_REGISTER;
+            counter = BASE_DECODER_REGISTER;
+            break;
         }
     }
-    //TODO: Figure out actual calculations here 
-    tmp = tmp / DECODER_RESOLUTION;
-    tmp = tmp + (motorDat[motorNum].index * STEP_CONSTANT); //shouldn't scale with STEP_CONSTANT, encoder pulse != motor step
-    motorDat[motorNum].counter = tmp;
-    //TODO: call linearConv()? any reason not to?
-}
 
-void linearConv(uint8 motorNum) // milli-inche
-{
-    motorDat[motorNum].lineLength = (motorDat[motorNum].counter * STEP_SIZE * PI * SPOOL_DIAMETER) / 360; // milli-inches
+    counter = counter + (motorDat[motorNum].index * ENCODER_RESOLUTION);
+    motorDat[motorNum].counter = counter;
+    motorDat[motorNum].lineLength = (((motorDat[motorNum].counter) / ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER) / (MEASUREMENT_SCALE * MEASUREMENT_SCALE); // milli-inches
+    //TODO: fix this MEASUREMENT_SCALE foolishness (let's just use floats)
 }
 
 void payloadCorners() // milli-inches
