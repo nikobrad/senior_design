@@ -21,6 +21,7 @@
 MotorData motorDat[4];
 float PAYLOAD_CENTER[2];
 float PAYLOAD_CORNERS[4][2];
+float MOUNT_POINTS[4][2] = {{(FRAME_DIAMETER/2.0),0},{0,(FRAME_DIAMETER/2.0)},{(-1*FRAME_DIAMETER/2.0),0},{0,(-1*FRAME_DIAMETER/2.0)}};
 
 int main(void)
 {
@@ -48,6 +49,8 @@ int main(void)
     motorDat[1].index = 0;
     motorDat[2].index = 0;
     motorDat[3].index = 0;
+    
+    float* linesFromPayload = malloc(4*sizeof(*linesFromPayload)); // for use in payloadToLineLength(float* length) in locationMath.{c,h}
     
     UART_UartPutString("Welcome to Senior Design\n\r");
 
@@ -122,6 +125,8 @@ int main(void)
     motorDeenergize(motorDat[1].addr);
     motorDeenergize(motorDat[2].addr);
     motorDeenergize(motorDat[3].addr); 
+    
+    free(linesFromPayload);
     
     return(0);
     

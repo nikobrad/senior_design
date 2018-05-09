@@ -18,8 +18,8 @@
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_SIDELEN 2.500
     #define MAX_MOTOR_STEP_SPEED 195.0
-    #define MOUNT_POINTS {{(FRAME_DIAMETER/2),0},{0,(FRAME_DIAMETER/2)},{(-1*FRAME_DIAMETER/2),0},{0,(-1*FRAME_DIAMETER/2)}}
 
+    extern float MOUNT_POINTS[4][2];
     extern float PAYLOAD_CENTER[2];
     extern float PAYLOAD_CORNERS[4][2];
 
@@ -30,5 +30,6 @@
     void lineLengthToPayloadCenter(uint8 motorNum);
     
     void deltaLToSpeed();
+    void payloadToLineLength();
 
 #endif

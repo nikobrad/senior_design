@@ -85,6 +85,22 @@ void lineLengthToPayloadCenter(uint8 motorNum)
     }
 }
 
+void payloadToLineLength(float* length) // length should be an array of length 4 allocated on the heap
+{
+    float tmp = ((MOUNT_POINTS[0][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[0][0]-PAYLOAD_CENTER[0]))
+    + ((MOUNT_POINTS[0][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[0][1]-PAYLOAD_CENTER[1]));
+    length[0] = sqrt(tmp);
+    tmp = ((MOUNT_POINTS[1][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[1][0]-PAYLOAD_CENTER[0]))
+    + ((MOUNT_POINTS[1][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[1][1]-PAYLOAD_CENTER[1]));
+    length[1] = sqrt(tmp);
+    tmp = ((MOUNT_POINTS[2][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[2][0]-PAYLOAD_CENTER[0]))
+    + ((MOUNT_POINTS[2][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[2][1]-PAYLOAD_CENTER[1]));
+    length[2] = sqrt(tmp);
+    tmp = ((MOUNT_POINTS[3][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[3][0]-PAYLOAD_CENTER[0]))
+    + ((MOUNT_POINTS[3][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[3][1]-PAYLOAD_CENTER[1]));
+    length[3] = sqrt(tmp);
+}
+
 void deltaLToSpeed()
 {
     int i;
