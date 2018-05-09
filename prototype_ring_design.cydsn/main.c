@@ -19,8 +19,8 @@
 #define DELAY 500
 
 MotorData motorDat[4];
-int PAYLOAD_CENTER[2];
-int PAYLOAD_CORNERS[4][2];
+float PAYLOAD_CENTER[2];
+float PAYLOAD_CORNERS[4][2];
 
 int main(void)
 {

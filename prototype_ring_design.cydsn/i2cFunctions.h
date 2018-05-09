@@ -1,5 +1,5 @@
 #ifndef i2cFunctions_h
-#define i2cFunctions_h
+    #define i2cFunctions_h
 
     #include "project.h"    
 
@@ -19,7 +19,9 @@
     	uint8 counter;
     	int index;
         int calibrationLength;
-        int lineLength;
+        int stepSpeed;
+        float lineLength;
+        float deltaL;
     } MotorData;
 
     extern MotorData motorDat[4];

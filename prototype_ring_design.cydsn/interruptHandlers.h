@@ -1,5 +1,5 @@
 #ifndef interruptHandlers_h
-#define interruptHandlers_h
+    #define interruptHandlers_h
 
     #include "i2cFunctions.h"
     #include "project.h"
