@@ -19,9 +19,10 @@
 #define DELAY 500
 
 MotorData motorDat[4];
-float PAYLOAD_CENTER[2];
-float PAYLOAD_CORNERS[4][2];
 float MOUNT_POINTS[4][2] = {{(FRAME_DIAMETER/2.0),0},{0,(FRAME_DIAMETER/2.0)},{(-1*FRAME_DIAMETER/2.0),0},{0,(-1*FRAME_DIAMETER/2.0)}};
+float PAYLOAD_CENTER[2];
+float NEXT_PAYLOAD_GOAL[2];
+float NEXT_PAYLOAD_SLICE[2];
 
 int main(void)
 {
@@ -50,7 +51,7 @@ int main(void)
     motorDat[2].index = 0;
     motorDat[3].index = 0;
     
-    float* linesFromPayload = malloc(4*sizeof(*linesFromPayload)); // for use in payloadToLineLength(float* length) in locationMath.{c,h}
+    float* lineLengths = malloc(4*sizeof(*lineLengths)); // for use in payloadToLineLength in locationMath.{c,h}; declared extern for use elsewhere
     
     UART_UartPutString("Welcome to Senior Design\n\r");
 
@@ -126,7 +127,7 @@ int main(void)
     motorDeenergize(motorDat[2].addr);
     motorDeenergize(motorDat[3].addr); 
     
-    free(linesFromPayload);
+    free(lineLengths);
     
     return(0);
     

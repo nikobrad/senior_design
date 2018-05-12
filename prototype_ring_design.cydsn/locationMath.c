@@ -1,6 +1,6 @@
 #include "locationMath.h"
 
-void updateEncoderCount(uint8 motorNum)
+void updateEncoderCount(uint8 motorNum) // Now contains contents of linearConv as well
 {
     int counter;
     switch(motorNum)
@@ -37,7 +37,8 @@ void updateEncoderCount(uint8 motorNum)
     motorDat[motorNum].lineLength = ((motorDat[motorNum].counter) / ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
 }
 
-void payloadCorners() // regular-ol'-inches
+/*
+void payloadCorners() // moot; not needed
 {
     PAYLOAD_CORNERS[0][0] = PAYLOAD_CENTER[0] + (PAYLOAD_SIDELEN / 1.414); // Add to and subtract from payload center coordinates using payload dimensions to find corner coordinates
     PAYLOAD_CORNERS[0][1] = PAYLOAD_CENTER[1];
@@ -51,6 +52,7 @@ void payloadCorners() // regular-ol'-inches
     PAYLOAD_CORNERS[3][0] = PAYLOAD_CENTER[0];
     PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - (PAYLOAD_SIDELEN / 1.414);
 }
+*/
 
 void lineLengthToPayloadCenter(uint8 motorNum)
 {
@@ -85,20 +87,50 @@ void lineLengthToPayloadCenter(uint8 motorNum)
     }
 }
 
-void payloadToLineLength(float* length) // length should be an array of length 4 allocated on the heap
-{
-    float tmp = ((MOUNT_POINTS[0][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[0][0]-PAYLOAD_CENTER[0]))
-    + ((MOUNT_POINTS[0][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[0][1]-PAYLOAD_CENTER[1]));
+void payloadToLineLength(float* payload,float* length) // length should be an array of length 4 allocated on the heap
+{ // payload should be any of the 1x2 payload coordinates arrays listed in locationMath.h
+    float tmp = ((MOUNT_POINTS[0][0]-payload[0])*(MOUNT_POINTS[0][0]-payload[0]))
+    + ((MOUNT_POINTS[0][1]-payload[1])*(MOUNT_POINTS[0][1]-payload[1]));
     length[0] = sqrt(tmp);
-    tmp = ((MOUNT_POINTS[1][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[1][0]-PAYLOAD_CENTER[0]))
-    + ((MOUNT_POINTS[1][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[1][1]-PAYLOAD_CENTER[1]));
+    tmp = ((MOUNT_POINTS[1][0]-payload[0])*(MOUNT_POINTS[1][0]-payload[0]))
+    + ((MOUNT_POINTS[1][1]-payload[1])*(MOUNT_POINTS[1][1]-payload[1]));
     length[1] = sqrt(tmp);
-    tmp = ((MOUNT_POINTS[2][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[2][0]-PAYLOAD_CENTER[0]))
-    + ((MOUNT_POINTS[2][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[2][1]-PAYLOAD_CENTER[1]));
+    tmp = ((MOUNT_POINTS[2][0]-payload[0])*(MOUNT_POINTS[2][0]-payload[0]))
+    + ((MOUNT_POINTS[2][1]-payload[1])*(MOUNT_POINTS[2][1]-payload[1]));
     length[2] = sqrt(tmp);
-    tmp = ((MOUNT_POINTS[3][0]-PAYLOAD_CENTER[0])*(MOUNT_POINTS[3][0]-PAYLOAD_CENTER[0]))
-    + ((MOUNT_POINTS[3][1]-PAYLOAD_CENTER[1])*(MOUNT_POINTS[3][1]-PAYLOAD_CENTER[1]));
+    tmp = ((MOUNT_POINTS[3][0]-payload[0])*(MOUNT_POINTS[3][0]-payload[0]))
+    + ((MOUNT_POINTS[3][1]-payload[1])*(MOUNT_POINTS[3][1]-payload[1]));
     length[3] = sqrt(tmp);
+}
+
+void findNextPayloadCenter()
+{
+    // Use physics calculations/arbitrary requests here, e.g.
+    // NEXT_PAYLOAD_GOAL = {10.3,0.125};
+}
+
+void findNextPayloadSlice()
+{
+    float payloadDiff[2] = {(NEXT_PAYLOAD_GOAL[0] - PAYLOAD_CENTER[0]),(NEXT_PAYLOAD_GOAL[1] - PAYLOAD_CENTER[1])};
+    /* Time slice calculation (sort of)
+    float biggestMove;
+    if(abs((int)payloadDiff[0]) > abs((int)payloadDiff[1]))
+        biggestMove = payloadDiff[0];
+    else
+        biggestMove = payloadDiff[1];
+    float divisor = biggestMove;
+    */
+    NEXT_PAYLOAD_SLICE[0] = PAYLOAD_CENTER[0] + (payloadDiff[0] / SLICE_DIVIDER); // I don't know if this is the best way to do this right now
+    NEXT_PAYLOAD_SLICE[1] = PAYLOAD_CENTER[1] + (payloadDiff[1] / SLICE_DIVIDER); // It's a placeholder at least
+}
+
+void lToDeltaL()
+{
+    int i;
+    for(i = 0;i < 4;i = i + 1)
+    {
+        motorDat[i].deltaL = motorDat[i].nextLineLength - motorDat[i].lineLength;
+    }
 }
 
 void deltaLToSpeed()

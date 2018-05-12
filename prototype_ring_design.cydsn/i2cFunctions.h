@@ -21,6 +21,7 @@
         int calibrationLength;
         int stepSpeed;
         float lineLength;
+        float nextLineLength;
         float deltaL;
     } MotorData;
 
