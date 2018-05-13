@@ -28,11 +28,12 @@
 
     // void linearConv(uint8 motorNum); // Now contained in updateEncoderCount
     // void payloadCorners(); // Moot; unneeded
-    void updateEncoderCount(uint8 motorNum);
-    void lineLengthToPayloadCenter(uint8 motorNum);
+    void updateEncoderCount();
+    void lineLengthToPayloadCenter();
     void payloadToLineLength(float* payload,float* length);
     void findNextPayloadSlice();
     void lToDeltaL();
     void deltaLToSpeed();
+    float pointDistance(float* payloadObserved,float* payloadExpected);
 
 #endif

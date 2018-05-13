@@ -14,6 +14,7 @@
 #include "interruptHandlers.h"
 #include "locationMath.h"
 #include "project.h"
+#include "testBench.h"
 #include <stdlib.h>
 
 #define DELAY 500
@@ -57,6 +58,8 @@ int main(void)
 
     /* Place your initialization/startup code here (e.g. MyInst_Start()) */
 
+    
+    
     // start and enable master
     I2C_Start();
     I2C_Enable();
@@ -74,7 +77,10 @@ int main(void)
     motorEnergize(motorDat[0].addr);
     motorEnergize(motorDat[1].addr);
     motorEnergize(motorDat[2].addr);
-    motorEnergize(motorDat[3].addr);    
+    motorEnergize(motorDat[3].addr);   
+    
+    mainLoop();
+    /*
     int vel0 = 2500;
     int vel1 = 2500;
     int vel2 = -2500;
@@ -94,7 +100,7 @@ int main(void)
     
     for(;;)
     {
-        /*
+        
         motorSetSpeed(Motor0,50);
         motorSetSpeed(Motor2,-50);
         
@@ -119,8 +125,9 @@ int main(void)
         LED_Write(1);
         CyDelay(DELAY);
     
-        */
+        
     }
+*/
     
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);

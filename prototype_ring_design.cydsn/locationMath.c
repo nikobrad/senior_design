@@ -1,40 +1,19 @@
 #include "locationMath.h"
 
-void updateEncoderCount(uint8 motorNum) // Now contains contents of linearConv as well
+void updateEncoderCount() // Now contains contents of linearConv as well
 {
-    int counter;
-    switch(motorNum)
+    int counter[4];
+    counter[0] = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
+    counter[1] = QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER;
+    counter[2] = QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER;
+    counter[3] = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
+    
+    int i;
+    for(i = 0;i < 4;i = i + 1)
     {
-        case 0:
-        {
-            counter = QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER;
-            break;
-        }
-        case 1:
-        {
-            counter = QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER;
-            break;
-        }
-        case 2:
-        {
-            counter = QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER;
-            break;
-        }
-        case 3:
-        {
-            counter = QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER;
-            break;
-        }
-        default:
-        {
-            counter = BASE_DECODER_REGISTER;
-            break;
-        }
+        motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationLength;
+        motorDat[i].lineLength = ((motorDat[i].counter) / ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
     }
-
-    counter = counter + (motorDat[motorNum].index * ENCODER_RESOLUTION);
-    motorDat[motorNum].counter = counter;
-    motorDat[motorNum].lineLength = ((motorDat[motorNum].counter) / ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
 }
 
 /*
@@ -54,42 +33,41 @@ void payloadCorners() // moot; not needed
 }
 */
 
-void lineLengthToPayloadCenter(uint8 motorNum)
+void lineLengthToPayloadCenter()
 {
     int i;
     for(i = 0;i < 2;i = i + 1)
     {
-        float sideA = motorDat[motorNum % 4].lineLength; // Scale triangle sides to actual size for float math
-        float sideB = motorDat[(motorNum + 1) % 4].lineLength;
+        float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
+        float sideB = motorDat[i + 1].lineLength;
         float sideC = FRAME_DIAMETER / 1.414;
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
         tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
         tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-        PAYLOAD_CENTER[(motorNum + 1) % 2] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
+        PAYLOAD_CENTER[(i + 1) % 2] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
         char prt[16]; // Print findings to UART terminal for verification
-        sprintf(prt,"Motor %d: Coordinate %f\n\r",(motorNum % 4),tmp);
+        sprintf(prt,"Motor %d: Coordinate %f\n\r",(i),tmp);
         UART_UartPutString(prt);
-        motorNum = motorNum + 1; // Increment motorNum to do it all over again; find other part of coordinates, verify calculations, etc
     }
-    for(i = 0;i < 2;i = i + 1) // Same code, but doesn't change any values; just calculating same values from other two line lengths for confirmation
+    for(i = 2;i < 4;i = i + 1) // Same code, but doesn't change any values; just calculating same values from other two line lengths for confirmation
     {
-        float sideA = motorDat[motorNum % 4].lineLength; // Scale triangle sides to actual size for float math
-        float sideB = motorDat[(motorNum + 1) % 4].lineLength;
+        float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
+        float sideB = motorDat[i + 1].lineLength;
         float sideC = FRAME_DIAMETER / 1.414;
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
         tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
         tmp = sideA * cos(tmp); // Convert to offset and scale by line length
         // PAYLOAD_CENTER[(motorNum + 1) % 2] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
         char prt[16]; // Print findings to UART terminal for verification
-        sprintf(prt,"Motor %d: Coordinate %f\n\r",(motorNum % 4),tmp);
+        sprintf(prt,"Motor %d: Coordinate %f\n\r",i,tmp);
         UART_UartPutString(prt);
-        motorNum = motorNum + 1; // Increment motorNum to do it all over again; find other part of coordinates, verify calculations, etc
     }
 }
 
 void payloadToLineLength(float* payload,float* length) // length should be an array of length 4 allocated on the heap
 { // payload should be any of the 1x2 payload coordinates arrays listed in locationMath.h
-    float tmp = ((MOUNT_POINTS[0][0]-payload[0])*(MOUNT_POINTS[0][0]-payload[0]))
+    float tmp;
+    tmp = ((MOUNT_POINTS[0][0]-payload[0])*(MOUNT_POINTS[0][0]-payload[0]))
     + ((MOUNT_POINTS[0][1]-payload[1])*(MOUNT_POINTS[0][1]-payload[1]));
     length[0] = sqrt(tmp);
     tmp = ((MOUNT_POINTS[1][0]-payload[0])*(MOUNT_POINTS[1][0]-payload[0]))
@@ -148,4 +126,17 @@ void deltaLToSpeed()
     {
         motorDat[i].stepSpeed = (int)((speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q));
     }
+}
+
+float pointDistance(float* payloadObserved,float* payloadExpected)
+{
+    float distance;
+    float dx = payloadObserved[0] - payloadExpected[0];
+    float dy = payloadObserved[1] - payloadExpected[1];
+    
+    dx = dx * dx;
+    dy = dy * dy;
+    
+    distance = sqrt(dx + dy);
+    return distance;
 }
