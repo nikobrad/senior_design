@@ -70,10 +70,6 @@ int main(void)
     lineLengths[3] = 0.0;
     
     UART_UartPutString("Welcome to Senior Design\n\r");
-
-    /* Place your initialization/startup code here (e.g. MyInst_Start()) */
-
-    
     
     // start and enable master
     I2C_Start();
@@ -94,8 +90,8 @@ int main(void)
     motorEnergize(motorDat[2].addr);
     motorEnergize(motorDat[3].addr);   
     
-    //mainLoop();
-    testGetLineLengths();
+    mainLoop();
+    //testGetLineLengths();
     
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
@@ -103,7 +99,6 @@ int main(void)
     motorDeenergize(motorDat[3].addr); 
     
     return(0);
-    
 }
 
 /* [] END OF FILE */

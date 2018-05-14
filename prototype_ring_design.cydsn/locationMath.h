@@ -19,6 +19,8 @@
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_SIDELEN 2.500
     #define MAX_MOTOR_STEP_SPEED 195.0
+    #define LINE_START_LENGTH (FRAME_DIAMETER/2)
+    #define sideC (FRAME_DIAMETER/1.414)
     
     #define CALIBRATION_0 0
     #define CALIBRATION_1 0

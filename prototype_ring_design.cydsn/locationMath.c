@@ -15,7 +15,7 @@ void updateEncoderCount() // Now contains contents of linearConv as well
             motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationSteps;
         else
             motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION);
-        motorDat[i].lineLength = (((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
+        motorDat[i].lineLength = ((((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER) + LINE_START_LENGTH; // normal-inches
     }
 }
 
@@ -35,24 +35,11 @@ void payloadCorners() // moot; not needed
     PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - (PAYLOAD_SIDELEN / 1.414);
 }
 */
-
+/*
 void lineLengthToPayloadCenter()
 {
     int i;
-    for(i = 0;i < 2;i = i + 1)
-    {
-        float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
-        float sideB = motorDat[i + 1].lineLength;
-        float sideC = FRAME_DIAMETER / 1.414;
-        float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-        tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-        tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-        PAYLOAD_CENTER[(i + 1) % 2] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
-        char prt[16]; // Print findings to UART terminal for verification
-        sprintf(prt,"Motor %d: Coordinate %f\n\r",(i),tmp);
-        UART_UartPutString(prt);
-    }
-    for(i = 2;i < 4;i = i + 1) // Same code, but doesn't change any values; just calculating same values from other two line lengths for confirmation
+    for(i = 0;i < 4;i = i + 1)
     {
         float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
         float sideB = motorDat[(i + 1) % 4].lineLength;
@@ -60,11 +47,57 @@ void lineLengthToPayloadCenter()
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
         tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
         tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-        // PAYLOAD_CENTER[(motorNum + 1) % 2] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
+        if(i == 0)
+            PAYLOAD_CENTER[1] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
+        else if(i == 3)
+            PAYLOAD_CENTER[0] = tmp;
+        else
+            tmp = tmp * (-1);
         char prt[16]; // Print findings to UART terminal for verification
-        sprintf(prt,"Motor %d: Coordinate %f\n\r",i,tmp);
+        sprintf(prt,"Motor %d: Coordinate %d\n\r",i,(int)(tmp*1000));
         UART_UartPutString(prt);
     }
+}
+*/
+
+void lineLengthToPayloadCenter()
+{
+    float sideA = motorDat[0].lineLength; // Scale triangle sides to actual size for float math
+    float sideB = motorDat[1].lineLength;
+    float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
+    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
+    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
+    PAYLOAD_CENTER[1] = tmp;
+    char prt[16]; // Print findings to UART terminal for verification
+    sprintf(prt,"Motor %d: Coordinate %d\n\r",0,(int)(tmp*1000));
+    UART_UartPutString(prt);
+    
+    sideA = motorDat[1].lineLength; // Scale triangle sides to actual size for float math
+    sideB = motorDat[2].lineLength;
+    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
+    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
+    tmp = sideA * cos(tmp);
+    tmp = tmp * (-1);
+    sprintf(prt,"Motor %d: Coordinate %d\n\r",1,(int)(tmp*1000));
+    UART_UartPutString(prt);
+    
+    sideA = motorDat[2].lineLength; // Scale triangle sides to actual size for float math
+    sideB = motorDat[3].lineLength;
+    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
+    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
+    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
+    tmp = tmp * (-1);
+    sprintf(prt,"Motor %d: Coordinate %d\n\r",2,(int)(tmp*1000));
+    UART_UartPutString(prt);
+    
+    sideA = motorDat[3].lineLength; // Scale triangle sides to actual size for float math
+    sideB = motorDat[0].lineLength;
+    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
+    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
+    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
+    PAYLOAD_CENTER[0] = tmp;
+    sprintf(prt,"Motor %d: Coordinate %d\n\r",3,(int)(tmp*1000));
+    UART_UartPutString(prt);
 }
 
 void payloadToLineLength(float* payload,float* length) // length should be an array of length 4 allocated on the heap
@@ -121,7 +154,7 @@ void deltaLToSpeed()
     float speed[4];
     for(i = 0;i < 4;i = i + 1)
     {
-        speed[i] = (motorDat[i].deltaL * 360.0 ) / (PI * SPOOL_DIAMETER * TIME_SLICE);
+        speed[i] = (motorDat[i].deltaL * 360.0) / (PI * SPOOL_DIAMETER * TIME_SLICE * STEP_SIZE);
         if(abs((int)speed[i]) > abs((int)q))
             q = speed[i];
     }

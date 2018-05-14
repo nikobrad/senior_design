@@ -2,14 +2,16 @@
 
 void controlAlgorithm()
 {
-    char tmp[32];
-    sprintf(tmp,"Payload goal: %.2f,%.2f.\n\r",NEXT_PAYLOAD_GOAL[0],NEXT_PAYLOAD_GOAL[1]);
+    char tmp[64];
+    sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
     UART_UartPutString(tmp);
     float errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
     
     int i;
     while(errorDist > ACCEPTABLE_ERROR)
     {
+        sprintf(tmp,"Error: %d\n\r",(int)(errorDist*1000));
+        UART_UartPutString(tmp);
         findNextPayloadSlice();
         payloadToLineLength(NEXT_PAYLOAD_SLICE,lineLengths);
         for(i = 0;i < 4;i = i + 1)
@@ -22,7 +24,11 @@ void controlAlgorithm()
         {
             motorSetSpeed(motorDat[i].addr,motorDat[i].stepSpeed);
         }
-        CyDelay(20);
+        CyDelay(100);
+        for(i = 0;i < 4;i = i + 1)
+        {
+            motorSetSpeed(motorDat[i].addr,0);
+        }
         updateEncoderCount();
         lineLengthToPayloadCenter();
         errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
@@ -34,8 +40,8 @@ void mainLoop()
 {
     PAYLOAD_CENTER[0] = 0.0;
     PAYLOAD_CENTER[1] = 0.0;
-    NEXT_PAYLOAD_GOAL[0] = 0.0;
-    NEXT_PAYLOAD_GOAL[1] = 5.0;
+    NEXT_PAYLOAD_GOAL[0] = 3.0;
+    NEXT_PAYLOAD_GOAL[1] = 3.0;
     int i;
     
     payloadToLineLength(PAYLOAD_CENTER,lineLengths);
