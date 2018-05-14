@@ -36,7 +36,7 @@
     void motorEnergize(MotorAddress addr);
     void motorDeenergize(MotorAddress addr);
 
-#endif
+
 
 //From Tic C++ Arduino library:
 /*
@@ -57,7 +57,7 @@ typedef enum
   Crc                      = 19,
   EncoderSkip              = 20,
 } TicError;
-
+*/
 typedef enum
 {
   SetTargetPosition                 = 0xE0,
@@ -82,7 +82,7 @@ typedef enum
   GetVariableAndClearErrorsOccurred = 0xA2,
   GetSetting                        = 0xA8,
 } TicCommand;
-
+/*
 typedef enum
 {
   Reset             = 0,
@@ -141,4 +141,4 @@ typedef enum
   OutputHigh    = 3,
 } TicPinState;
 */
-	
+#endif
