@@ -1,5 +1,53 @@
 #include "locationMath.h"
 
+void calibrateEncoders()
+{
+    
+    float offsetLength;
+    
+    for(int i = 0; i< 4; i++)
+    {
+        motorDat[i].index = 0;   
+    }
+
+    motorSetSpeed(motorDat[0].addr, 1000); 
+    while(motorDat[0].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[0].addr, HaltAndHold, 0);
+    
+    motorSetSpeed(motorDat[1].addr, 1000); 
+    while(motorDat[1].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[1].addr, HaltAndHold, 0);
+    
+    motorSetSpeed(motorDat[2].addr, 1000); 
+    while(motorDat[2].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[2].addr, HaltAndHold, 0);
+    
+    motorSetSpeed(motorDat[3].addr, 1000); 
+    while(motorDat[3].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[3].addr, HaltAndHold, 0);
+    
+    updateEncoderCount();
+    
+    motorDat[0].index = CALIBRATION_INDEX_0;
+    offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;
+    motorDat[0].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorDat[1].index = CALIBRATION_INDEX_1;
+    offsetLength = CALIBRATION_LENGTH_1 - motorDat[1].lineLength;
+    motorDat[1].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorDat[2].index = CALIBRATION_INDEX_2;
+    offsetLength = CALIBRATION_LENGTH_2 - motorDat[2].lineLength;
+    motorDat[2].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorDat[3].index = CALIBRATION_INDEX_3;
+    offsetLength = CALIBRATION_LENGTH_3 - motorDat[3].lineLength;
+    motorDat[3].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    //setPayloadTarget(0,0);
+    
+}
+
 void updateEncoderCount() // Now contains contents of linearConv as well
 {
     int counter[4];
@@ -11,10 +59,8 @@ void updateEncoderCount() // Now contains contents of linearConv as well
     int i;
     for(i = 0;i < 4;i = i + 1)
     {
-        if(calFlags[i])
-            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationSteps;
-        else
-            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION);
+        //we should wither disable interrupts or aquire a lock on motorDat to prevent index from changing 
+        motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) + motorDat[i].calibrationSteps;
         motorDat[i].lineLength = (((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
     }
 }

@@ -49,10 +49,10 @@ int main(void)
     motorDat[2].addr = Motor2;
     motorDat[3].addr = Motor3;
     
-    motorDat[0].calibrationSteps = CALIBRATION_0;
-    motorDat[1].calibrationSteps = CALIBRATION_1;
-    motorDat[2].calibrationSteps = CALIBRATION_2;
-    motorDat[3].calibrationSteps = CALIBRATION_3;
+    motorDat[0].calibrationSteps = 0;
+    motorDat[1].calibrationSteps = 0;
+    motorDat[2].calibrationSteps = 0;
+    motorDat[3].calibrationSteps = 0;
     
     motorDat[0].index = 0;
     motorDat[1].index = 0;
