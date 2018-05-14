@@ -25,7 +25,7 @@
     #define CALIBRATION_2 0
     #define CALIBRATION_3 0
 
-    extern float* lineLengths;
+    extern float lineLengths[4];
     extern float MOUNT_POINTS[4][2];
     extern float PAYLOAD_CENTER[2];
     extern float NEXT_PAYLOAD_GOAL[2];

@@ -20,6 +20,7 @@
 #define DELAY 500
 
 MotorData motorDat[4];
+float lineLengths[4]; // for use in payloadToLineLength in locationMath.{c,h}; declared extern for use elsewhere
 float MOUNT_POINTS[4][2] = {{(FRAME_DIAMETER/2.0),0},{0,(FRAME_DIAMETER/2.0)},{(-1*FRAME_DIAMETER/2.0),0},{0,(-1*FRAME_DIAMETER/2.0)}};
 float PAYLOAD_CENTER[2];
 float NEXT_PAYLOAD_GOAL[2];
@@ -63,7 +64,10 @@ int main(void)
     calFlags[2] = 0;
     calFlags[3] = 0;
     
-    float* lineLengths = malloc(4*sizeof(*lineLengths)); // for use in payloadToLineLength in locationMath.{c,h}; declared extern for use elsewhere
+    lineLengths[0] = 0.0;
+    lineLengths[1] = 0.0;
+    lineLengths[2] = 0.0;
+    lineLengths[3] = 0.0;
     
     UART_UartPutString("Welcome to Senior Design\n\r");
 
@@ -90,62 +94,13 @@ int main(void)
     motorEnergize(motorDat[2].addr);
     motorEnergize(motorDat[3].addr);   
     
-    mainLoop();
-    /*
-    int vel0 = 2500;
-    int vel1 = 2500;
-    int vel2 = -2500;
-    int vel3 = -2500;
-
-    motorSetSpeed(motorDat[0].addr,vel0);
-    motorSetSpeed(motorDat[1].addr,vel1);
-    motorSetSpeed(motorDat[2].addr,vel2);
-    motorSetSpeed(motorDat[3].addr,vel3);
-    
-    CyDelay(5000);
-    
-    motorSetSpeed(motorDat[0].addr,0);
-    motorSetSpeed(motorDat[1].addr,0);
-    motorSetSpeed(motorDat[2].addr,0);
-    motorSetSpeed(motorDat[3].addr,0);
-    
-    for(;;)
-    {
-        
-        motorSetSpeed(Motor0,50);
-        motorSetSpeed(Motor2,-50);
-        
-        LED_Write(0);
-        CyDelay(DELAY);
-       
-        motorSetSpeed(Motor0,0);
-        motorSetSpeed(Motor2,0);
-        
-        LED_Write(1);
-        CyDelay(DELAY);
-        
-        motorSetSpeed(Motor0,-50);
-        motorSetSpeed(Motor2,50);
-        
-        LED_Write(0);
-        CyDelay(DELAY);
-        
-        motorSetSpeed(Motor0,0);
-        motorSetSpeed(Motor2,0);
-        
-        LED_Write(1);
-        CyDelay(DELAY);
-    
-        
-    }
-*/
+    //mainLoop();
+    testGetLineLengths();
     
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
     motorDeenergize(motorDat[2].addr);
     motorDeenergize(motorDat[3].addr); 
-    
-    free(lineLengths);
     
     return(0);
     
