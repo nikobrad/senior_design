@@ -880,10 +880,11 @@
         <Value>false</Value>
       </Parameter>
       <Parameter name="I2cClockFromTerm">
-        <Value>true</Value>
+        <Value>false</Value>
       </Parameter>
       <Parameter name="I2cDataRate">
-        <Value>100</Value>
+        <Value>1000</Value>
+        <Expression>1000u</Expression>
       </Parameter>
       <Parameter name="I2cExternIntrHandler">
         <Value>false</Value>
@@ -5331,9 +5332,8 @@
       </Parameter>
     </Instance>
   </Instances>
-  <Signals count="91">
-    <Signal name="Net_4" type="Digital" terminalCount="2">
-      <Terminal name="I2C.clock" type="Instance Digital Input" />
+  <Signals count="92">
+    <Signal name="Net_4" type="Digital" terminalCount="1">
       <Terminal name="Clk.clock_out" type="Instance Digital Output" />
     </Signal>
     <Signal name="Net_21" type="Digital" terminalCount="2">
@@ -5628,6 +5628,9 @@
     </Signal>
     <Signal name="Net_207" type="Digital" terminalCount="1">
       <Terminal name="I2C.rx_tx_out" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_208" type="Digital" terminalCount="1">
+      <Terminal name="I2C.clock" type="Instance Digital Input" />
     </Signal>
   </Signals>
   <Properties>

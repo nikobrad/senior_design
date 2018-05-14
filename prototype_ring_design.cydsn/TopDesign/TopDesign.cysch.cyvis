@@ -79,11 +79,11 @@
       </SubShapes>
     </Instance>
     <Instance shapeName="Shape_2" zorder="3" guid="c2a50500-ef4e-4053-a3ba-2849cfd410d2" name="Clk" component="cy_clock_v2_20">
-      <Location x="127.8672" y="499" />
+      <Location x="103.8672" y="391" />
       <Size width="43.13281" height="16.60449" />
       <SubShapes>
         <Rectangle>
-          <Location x="144" y="499" />
+          <Location x="120" y="391" />
           <Size width="18" height="10" />
           <Outline dashStyle="Solid" startCap="Flat" endCap="Flat" lineJoin="Miter" weight="0">
             <SolidBrush color="0, 0, 0" />
@@ -93,31 +93,31 @@
           </Fill>
         </Rectangle>
         <Terminal name="Clk.clock_out" type="Instance Digital Output">
-          <Location x="168" y="504" />
+          <Location x="144" y="396" />
           <ShowWireGuide value="true" />
         </Terminal>
         <ClosedShape>
-          <Point x="147.7652" y="505.9238" />
-          <Point x="147.7652" y="500.6332" />
-          <Point x="152.0251" y="500.6332" />
-          <Point x="152.0251" y="505.9238" />
-          <Point x="154.1551" y="505.9238" />
-          <Point x="154.1551" y="500.6332" />
-          <Point x="158.415" y="500.6332" />
-          <Point x="158.415" y="505.9238" />
-          <Point x="160.545" y="505.9238" />
-          <Point x="160.545" y="507.3667" />
-          <Point x="157.3501" y="507.3667" />
-          <Point x="157.3501" y="502.0761" />
-          <Point x="155.2201" y="502.0761" />
-          <Point x="155.2201" y="507.3667" />
-          <Point x="150.9601" y="507.3667" />
-          <Point x="150.9601" y="502.0761" />
-          <Point x="148.8302" y="502.0761" />
-          <Point x="148.8302" y="507.3667" />
-          <Point x="145.6352" y="507.3667" />
-          <Point x="145.6352" y="505.9238" />
-          <Point x="147.7652" y="505.9238" />
+          <Point x="123.7652" y="397.9238" />
+          <Point x="123.7652" y="392.6332" />
+          <Point x="128.0252" y="392.6332" />
+          <Point x="128.0252" y="397.9238" />
+          <Point x="130.1551" y="397.9238" />
+          <Point x="130.1551" y="392.6332" />
+          <Point x="134.4151" y="392.6332" />
+          <Point x="134.4151" y="397.9238" />
+          <Point x="136.5451" y="397.9238" />
+          <Point x="136.5451" y="399.3667" />
+          <Point x="133.3501" y="399.3667" />
+          <Point x="133.3501" y="394.0761" />
+          <Point x="131.2201" y="394.0761" />
+          <Point x="131.2201" y="399.3667" />
+          <Point x="126.9602" y="399.3667" />
+          <Point x="126.9602" y="394.0761" />
+          <Point x="124.8302" y="394.0761" />
+          <Point x="124.8302" y="399.3667" />
+          <Point x="121.6352" y="399.3667" />
+          <Point x="121.6352" y="397.9238" />
+          <Point x="123.7652" y="397.9238" />
           <Outline dashStyle="Solid" startCap="Flat" endCap="Flat" lineJoin="Miter" weight="0">
             <SolidBrush color="255, 255, 255" />
           </Outline>
@@ -126,7 +126,7 @@
           </Fill>
         </ClosedShape>
         <Annotation>
-          <Location x="144" y="504" />
+          <Location x="120" y="396" />
           <Text>Clk</Text>
           <Vertical value="false" />
           <Expression><![CDATA[`=($is_direct) ? "Unknown Source Clock" : $INSTANCE_NAME`]]></Expression>
@@ -137,7 +137,7 @@
           <TextAlignment value="MiddleRight" />
         </Annotation>
         <Annotation>
-          <Location x="162" y="510" />
+          <Location x="138" y="402" />
           <Text>400 kHz</Text>
           <Vertical value="false" />
           <Expression><![CDATA[`=($is_divider) ? $source_clock_name  . " / " . $pretty_divisor : ($is_direct) ? "" : $pretty_desired_freq`]]></Expression>
@@ -216,11 +216,11 @@
       </SubShapes>
     </Instance>
     <Instance shapeName="Shape_6" zorder="0" guid="3dbba19d-7851-4a83-b204-a0a386fe8d68" name="I2C" component="SCB_P4_v4_0">
-      <Location x="171" y="457.3619" />
-      <Size width="90" height="66.11078" />
+      <Location x="180" y="457.3619" />
+      <Size width="81" height="66.11078" />
       <SubShapes>
         <Annotation>
-          <Location x="252.2079" y="516" />
+          <Location x="252.208" y="516" />
           <Text>Master</Text>
           <Vertical value="false" />
           <Expression><![CDATA[`= ((EZI2C == $ScbMode) || 
@@ -287,30 +287,6 @@
           <Font value="Microsoft Sans Serif, 10pt" />
           <TextAlignment value="TopRight" />
         </Annotation>
-        <Terminal name="I2C.clock" type="Instance Digital Input">
-          <Location x="174" y="504" />
-          <ShowWireGuide value="true" />
-        </Terminal>
-        <Annotation>
-          <Location x="186" y="504" />
-          <Text>clock</Text>
-          <Vertical value="false" />
-          <TextAlignment value="MiddleLeft" />
-        </Annotation>
-        <Line>
-          <Point x="180" y="498" />
-          <Point x="186" y="504" />
-          <Outline dashStyle="Solid" startCap="Round" endCap="Round" lineJoin="Round" weight="1">
-            <SolidBrush color="0, 0, 0" />
-          </Outline>
-        </Line>
-        <Line>
-          <Point x="186" y="504" />
-          <Point x="180" y="510" />
-          <Outline dashStyle="Solid" startCap="Round" endCap="Round" lineJoin="Round" weight="1">
-            <SolidBrush color="0, 0, 0" />
-          </Outline>
-        </Line>
         <Terminal name="I2C.scl_b" type="Instance Digital InOut">
           <Location x="258" y="492" />
           <ShowWireGuide value="true" />
@@ -621,8 +597,8 @@
           <Point x="118.1551" y="182.6333" />
           <Point x="122.4151" y="182.6333" />
           <Point x="122.4151" y="187.9238" />
-          <Point x="124.545" y="187.9238" />
-          <Point x="124.545" y="189.3667" />
+          <Point x="124.5451" y="187.9238" />
+          <Point x="124.5451" y="189.3667" />
           <Point x="121.3501" y="189.3667" />
           <Point x="121.3501" y="184.0761" />
           <Point x="119.2201" y="184.0761" />
@@ -811,7 +787,7 @@
           </Outline>
         </Line>
         <Annotation>
-          <Location x="330.4188" y="77.30206" />
+          <Location x="330.4188" y="77.30207" />
           <Text>index</Text>
           <Vertical value="false" />
           <Fill>
@@ -821,7 +797,7 @@
           <TextAlignment value="TopLeft" />
         </Annotation>
         <Annotation>
-          <Location x="330.4188" y="89.30206" />
+          <Location x="330.4188" y="89.30207" />
           <Text>phiA</Text>
           <Vertical value="false" />
           <Fill>
@@ -1710,7 +1686,7 @@
           </Outline>
         </Line>
         <Annotation>
-          <Location x="600.4188" y="77.30206" />
+          <Location x="600.4188" y="77.30207" />
           <Text>index</Text>
           <Vertical value="false" />
           <Fill>
@@ -1720,7 +1696,7 @@
           <TextAlignment value="TopLeft" />
         </Annotation>
         <Annotation>
-          <Location x="600.4188" y="89.30206" />
+          <Location x="600.4188" y="89.30207" />
           <Text>phiA</Text>
           <Vertical value="false" />
           <Fill>
@@ -1809,7 +1785,7 @@
           <TextAlignment value="MiddleRight" />
         </Annotation>
         <Annotation>
-          <Location x="612.4904" y="197.9038" />
+          <Location x="612.4904" y="197.9039" />
           <Text>QuadDec</Text>
           <Vertical value="false" />
           <Fill>
@@ -1942,7 +1918,7 @@
           <TextAlignment value="MiddleRight" />
         </Annotation>
         <Annotation>
-          <Location x="342.4904" y="197.9038" />
+          <Location x="342.4904" y="197.9039" />
           <Text>QuadDec</Text>
           <Vertical value="false" />
           <Fill>
@@ -2208,8 +2184,8 @@
       </SubShapes>
     </Instance>
     <Wire shapeName="Shape_230" zorder="72" effectiveName="Net_4" type="Digital">
-      <Point1 x="168" y="504" />
-      <Point2 x="174" y="504" />
+      <Point1 x="144" y="396" />
+      <Point2 x="150" y="396" />
     </Wire>
     <Wire shapeName="Shape_250" zorder="74" effectiveName="Net_164" type="Digital">
       <Point1 x="582" y="492" />
