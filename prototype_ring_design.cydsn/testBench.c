@@ -52,3 +52,34 @@ void mainLoop()
     NEXT_PAYLOAD_GOAL[1] = 0.0;
     controlAlgorithm();
 }
+
+void testGetLineLengths()
+{
+    UART_UartPutString("Got into the function\n\r");
+    char prt[32];
+    int i;
+    updateEncoderCount();
+    int tmp = (int)(1000 * motorDat[0].lineLength);
+    sprintf(prt,"Motor 0 line length: %d milliinches\n\r",tmp);
+    UART_UartPutString(prt);
+    motorSetSpeed(Motor0,2000);
+    for(i = 0;i < 5;i = i + 1)
+    {
+        CyDelay(1000);
+        updateEncoderCount();
+        tmp = (int)(1000 * motorDat[0].lineLength);
+        sprintf(prt,"Motor 0 line length: %d milliinches\n\r",tmp);
+        UART_UartPutString(prt);
+    }
+    motorSetSpeed(Motor0,-2000);
+    for(i = 0;i < 10;i = i + 1)
+    {
+        CyDelay(1000);
+        updateEncoderCount();
+        tmp = (int)(1000 * motorDat[0].lineLength);
+        sprintf(prt,"Motor 0 line length: %d milliinches\n\r",tmp);
+        UART_UartPutString(prt);
+    }
+    motorSetSpeed(Motor0,0);
+    return;
+}

@@ -9,6 +9,8 @@
     
     #define ACCEPTABLE_ERROR 0.25 // inches
     
+    void controlAlgorithm();
     void mainLoop();
+    void testGetLineLengths();
     
 #endif

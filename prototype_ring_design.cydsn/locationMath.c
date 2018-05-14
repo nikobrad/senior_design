@@ -11,8 +11,11 @@ void updateEncoderCount() // Now contains contents of linearConv as well
     int i;
     for(i = 0;i < 4;i = i + 1)
     {
-        motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationLength;
-        motorDat[i].lineLength = ((motorDat[i].counter) / ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
+        if(calFlags[i])
+            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationSteps;
+        else
+            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION);
+        motorDat[i].lineLength = (((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
     }
 }
 
@@ -52,7 +55,7 @@ void lineLengthToPayloadCenter()
     for(i = 2;i < 4;i = i + 1) // Same code, but doesn't change any values; just calculating same values from other two line lengths for confirmation
     {
         float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
-        float sideB = motorDat[i + 1].lineLength;
+        float sideB = motorDat[(i + 1) % 4].lineLength;
         float sideC = FRAME_DIAMETER / 1.414;
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
         tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference

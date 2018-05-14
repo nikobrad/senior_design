@@ -24,6 +24,7 @@ float MOUNT_POINTS[4][2] = {{(FRAME_DIAMETER/2.0),0},{0,(FRAME_DIAMETER/2.0)},{(
 float PAYLOAD_CENTER[2];
 float NEXT_PAYLOAD_GOAL[2];
 float NEXT_PAYLOAD_SLICE[2];
+uint8 calFlags[4];
 
 int main(void)
 {
@@ -47,10 +48,20 @@ int main(void)
     motorDat[2].addr = Motor2;
     motorDat[3].addr = Motor3;
     
+    motorDat[0].calibrationSteps = CALIBRATION_0;
+    motorDat[1].calibrationSteps = CALIBRATION_1;
+    motorDat[2].calibrationSteps = CALIBRATION_2;
+    motorDat[3].calibrationSteps = CALIBRATION_3;
+    
     motorDat[0].index = 0;
     motorDat[1].index = 0;
     motorDat[2].index = 0;
     motorDat[3].index = 0;
+    
+    calFlags[0] = 0;
+    calFlags[1] = 0;
+    calFlags[2] = 0;
+    calFlags[3] = 0;
     
     float* lineLengths = malloc(4*sizeof(*lineLengths)); // for use in payloadToLineLength in locationMath.{c,h}; declared extern for use elsewhere
     

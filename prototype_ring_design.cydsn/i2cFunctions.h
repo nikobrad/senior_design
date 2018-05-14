@@ -2,6 +2,7 @@
 #define i2cFunctions_h
 
     #include "project.h"    
+    #include "locationMath.h"
 
     #define STEP_SCALE 100
 
@@ -16,9 +17,9 @@
     typedef struct
     {
         MotorAddress addr;
-    	uint8 counter;
+    	int16 counter; // NOT a uint8
     	int index;
-        int calibrationLength;
+        int calibrationSteps;
         int stepSpeed;
         float lineLength;
         float nextLineLength;

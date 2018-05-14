@@ -19,12 +19,18 @@
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_SIDELEN 2.500
     #define MAX_MOTOR_STEP_SPEED 195.0
+    
+    #define CALIBRATION_0 0
+    #define CALIBRATION_1 0
+    #define CALIBRATION_2 0
+    #define CALIBRATION_3 0
 
     extern float* lineLengths;
     extern float MOUNT_POINTS[4][2];
     extern float PAYLOAD_CENTER[2];
     extern float NEXT_PAYLOAD_GOAL[2];
     extern float NEXT_PAYLOAD_SLICE[2];
+    extern uint8 calFlags[4];
 
     // void linearConv(uint8 motorNum); // Now contained in updateEncoderCount
     // void payloadCorners(); // Moot; unneeded
