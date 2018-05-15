@@ -3,6 +3,7 @@
 void calibrateEncoders()
 {
     
+    char prt[40];
     float offsetLength;
     
     for(int i = 0; i< 4; i++)
@@ -10,23 +11,37 @@ void calibrateEncoders()
         motorDat[i].index = 0;   
     }
 
-    motorSetSpeed(motorDat[0].addr, 1000); 
+    motorSetSpeed(motorDat[0].addr, -1000); 
     while(motorDat[0].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[0].addr, HaltAndHold, 0);
     
-    motorSetSpeed(motorDat[1].addr, 1000); 
+    motorSetSpeed(motorDat[1].addr, -1000); 
     while(motorDat[1].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[1].addr, HaltAndHold, 0);
     
-    motorSetSpeed(motorDat[2].addr, 1000); 
+    motorSetSpeed(motorDat[2].addr, -1000); 
     while(motorDat[2].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[2].addr, HaltAndHold, 0);
     
-    motorSetSpeed(motorDat[3].addr, 1000); 
+    motorSetSpeed(motorDat[3].addr, -1000); 
     while(motorDat[3].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[3].addr, HaltAndHold, 0);
     
     updateEncoderCount();
+    
+    sprintf(prt,"Motor 0: Calculated Length: %d\n\r", (int)(motorDat[0].lineLength * 1000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 1: Calculated Length: %d\n\r", (int)(motorDat[1].lineLength * 1000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 2: Calculated Length: %d\n\r", (int)(motorDat[2].lineLength * 1000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 3: Calculated Length: %d\n\r", (int)(motorDat[3].lineLength * 1000));
+    UART_UartPutString(prt);
+    
+    return;
     
     motorDat[0].index = CALIBRATION_INDEX_0;
     offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;

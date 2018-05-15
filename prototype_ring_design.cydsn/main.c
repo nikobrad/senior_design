@@ -95,7 +95,8 @@ int main(void)
     motorEnergize(motorDat[3].addr);   
     
     //mainLoop();
-    testGetLineLengths();
+    //testGetLineLengths();
+    calibrateEncoders();
     
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
