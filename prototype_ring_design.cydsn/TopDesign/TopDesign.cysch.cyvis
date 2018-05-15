@@ -611,10 +611,10 @@
           <Point x="109.6352" y="187.9238" />
           <Point x="111.7652" y="187.9238" />
           <Outline dashStyle="Solid" startCap="Flat" endCap="Flat" lineJoin="Miter" weight="0">
-            <SolidBrush color="255, 255, 255" />
+            <SolidBrush color="0, 0, 0" />
           </Outline>
           <Fill>
-            <SolidBrush color="255, 255, 255" />
+            <SolidBrush color="128, 0, 128" />
           </Fill>
         </ClosedShape>
         <Annotation>
