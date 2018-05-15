@@ -3,7 +3,7 @@
 void calibrateEncoders()
 {
     
-    char prt[40];
+    char prt[60];
     float offsetLength;
     
     for(int i = 0; i< 4; i++)
@@ -27,35 +27,46 @@ void calibrateEncoders()
     while(motorDat[3].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[3].addr, HaltAndHold, 0);
     
+    motorDat[0].index = CALIBRATION_INDEX_0;
+    motorDat[1].index = CALIBRATION_INDEX_1;
+    motorDat[2].index = CALIBRATION_INDEX_2;
+    motorDat[3].index = CALIBRATION_INDEX_3;
+    
     updateEncoderCount();
     
-    sprintf(prt,"Motor 0: Calculated Length: %d\n\r", (int)(motorDat[0].lineLength * 1000));
+    sprintf(prt,"Motor 0: Calculated Length: %d\n\r", (int)(motorDat[0].lineLength * 100000));
     UART_UartPutString(prt);
     
-    sprintf(prt,"Motor 1: Calculated Length: %d\n\r", (int)(motorDat[1].lineLength * 1000));
+    sprintf(prt,"Motor 0: Counter value: %d\n\r", (int)(QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER));
     UART_UartPutString(prt);
     
-    sprintf(prt,"Motor 2: Calculated Length: %d\n\r", (int)(motorDat[2].lineLength * 1000));
+    sprintf(prt,"Motor 1: Calculated Length: %d\n\r", (int)(motorDat[1].lineLength * 100000));
     UART_UartPutString(prt);
     
-    sprintf(prt,"Motor 3: Calculated Length: %d\n\r", (int)(motorDat[3].lineLength * 1000));
+    sprintf(prt,"Motor 1: Counter value: %d\n\r", (int)(QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+       
+    sprintf(prt,"Motor 2: Calculated Length: %d\n\r", (int)(motorDat[2].lineLength * 100000));
     UART_UartPutString(prt);
     
-    return;
+    sprintf(prt,"Motor 2: Counter value: %d\n\r", (int)(QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
     
-    motorDat[0].index = CALIBRATION_INDEX_0;
+    sprintf(prt,"Motor 3: Calculated Length: %d\n\r", (int)(motorDat[3].lineLength * 100000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 3: Counter value: %d\n\r", (int)(QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+    
     offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;
     motorDat[0].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorDat[1].index = CALIBRATION_INDEX_1;
     offsetLength = CALIBRATION_LENGTH_1 - motorDat[1].lineLength;
     motorDat[1].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorDat[2].index = CALIBRATION_INDEX_2;
     offsetLength = CALIBRATION_LENGTH_2 - motorDat[2].lineLength;
     motorDat[2].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorDat[3].index = CALIBRATION_INDEX_3;
     offsetLength = CALIBRATION_LENGTH_3 - motorDat[3].lineLength;
     motorDat[3].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     

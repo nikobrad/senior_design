@@ -98,8 +98,22 @@ int main(void)
     //testGetLineLengths();
     calibrateEncoders();
     
+    
+    motorSetSpeed(motorDat[1].addr, 2000);
+    
+    CyDelay(1000);
+    motorCommand(motorDat[1].addr,HaltAndHold,0);
+    
+    updateEncoderCount();
+    
+    char prt[50]; // Print findings to UART terminal for verification
+    sprintf(prt,"Motor 1: Calibrated Line Length: %d\n\r", (int)(motorDat[1].lineLength * 1000));
+    UART_UartPutString(prt);
+    
+    
+    
     motorDeenergize(motorDat[0].addr);
-    motorDeenergize(motorDat[1].addr);
+    //motorDeenergize(motorDat[1].addr);
     motorDeenergize(motorDat[2].addr);
     motorDeenergize(motorDat[3].addr); 
     

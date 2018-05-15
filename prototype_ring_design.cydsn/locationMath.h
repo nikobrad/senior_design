@@ -20,15 +20,15 @@
     #define PAYLOAD_SIDELEN 2.500
     #define MAX_MOTOR_STEP_SPEED 195.0
     
-    #define CALIBRATION_LENGTH_0 0
-    #define CALIBRATION_LENGTH_1 0
-    #define CALIBRATION_LENGTH_2 0
-    #define CALIBRATION_LENGTH_3 0
+    #define CALIBRATION_LENGTH_0 10.125
+    #define CALIBRATION_LENGTH_1 10.75
+    #define CALIBRATION_LENGTH_2 8.5
+    #define CALIBRATION_LENGTH_3 10.625
     
-    #define CALIBRATION_INDEX_0 0
-    #define CALIBRATION_INDEX_1 0
-    #define CALIBRATION_INDEX_2 0
-    #define CALIBRATION_INDEX_3 0
+    #define CALIBRATION_INDEX_0 3
+    #define CALIBRATION_INDEX_1 3
+    #define CALIBRATION_INDEX_2 3
+    #define CALIBRATION_INDEX_3 3
 
     extern float lineLengths[4];
     extern float MOUNT_POINTS[4][2];
