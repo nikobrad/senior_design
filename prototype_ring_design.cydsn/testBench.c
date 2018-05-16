@@ -25,13 +25,13 @@ void controlAlgorithm()
             motorSetSpeed(motorDat[i].addr,motorDat[i].stepSpeed);
         }
         CyDelay(100);
-        for(i = 0;i < 4;i = i + 1)
-        {
-            motorSetSpeed(motorDat[i].addr,0);
-        }
         updateEncoderCount();
         lineLengthToPayloadCenter();
         errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
+    }
+    for(i = 0;i < 4;i = i + 1)
+    {
+        motorSetSpeed(motorDat[i].addr,0);
     }
     UART_UartPutString("Goal reached.\n\r");
 }
@@ -41,7 +41,7 @@ void mainLoop()
     PAYLOAD_CENTER[0] = 0.0;
     PAYLOAD_CENTER[1] = 0.0;
     NEXT_PAYLOAD_GOAL[0] = 3.0;
-    NEXT_PAYLOAD_GOAL[1] = 3.0;
+    NEXT_PAYLOAD_GOAL[1] = 0.0;
     int i;
     
     payloadToLineLength(PAYLOAD_CENTER,lineLengths);
@@ -51,12 +51,14 @@ void mainLoop()
     }
     
     controlAlgorithm();
+    /*
     NEXT_PAYLOAD_GOAL[0] = 3.0;
     NEXT_PAYLOAD_GOAL[1] = -3.0;
     controlAlgorithm();
     NEXT_PAYLOAD_GOAL[0] = -5.0;
     NEXT_PAYLOAD_GOAL[1] = 0.0;
     controlAlgorithm();
+    */
 }
 
 void testGetLineLengths()

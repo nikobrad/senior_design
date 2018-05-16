@@ -148,7 +148,7 @@ void payloadCorners() // moot; not needed
     PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - (PAYLOAD_SIDELEN / 1.414);
 }
 */
-/*
+
 void lineLengthToPayloadCenter()
 {
     int i;
@@ -156,62 +156,23 @@ void lineLengthToPayloadCenter()
     {
         float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
         float sideB = motorDat[(i + 1) % 4].lineLength;
-        float sideC = FRAME_DIAMETER / 1.414;
         float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-        tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
+        tmp = acos(tmp) + ((float)PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
         tmp = sideA * cos(tmp); // Convert to offset and scale by line length
+        char prt[32];
+        sprintf(prt,"Side A: %d\n\r",(int)(sideA*1000));
+        UART_UartPutString(prt);
         if(i == 0)
             PAYLOAD_CENTER[1] = tmp; // For even motorNum, calculates py and stores in PAYLOAD_CENTER[1]; for odd motorNum, calculates px and stores in PAYLOAD_CENTER[0]
         else if(i == 3)
             PAYLOAD_CENTER[0] = tmp;
         else
             tmp = tmp * (-1);
-        char prt[16]; // Print findings to UART terminal for verification
         sprintf(prt,"Motor %d: Coordinate %d\n\r",i,(int)(tmp*1000));
         UART_UartPutString(prt);
     }
 }
-*/
 
-void lineLengthToPayloadCenter()
-{
-    float sideA = motorDat[0].lineLength; // Scale triangle sides to actual size for float math
-    float sideB = motorDat[1].lineLength;
-    float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-    PAYLOAD_CENTER[1] = tmp;
-    char prt[16]; // Print findings to UART terminal for verification
-    sprintf(prt,"Motor %d: Coordinate %d\n\r",0,(int)(tmp*1000));
-    UART_UartPutString(prt);
-    
-    sideA = motorDat[1].lineLength; // Scale triangle sides to actual size for float math
-    sideB = motorDat[2].lineLength;
-    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-    tmp = sideA * cos(tmp);
-    tmp = tmp * (-1);
-    sprintf(prt,"Motor %d: Coordinate %d\n\r",1,(int)(tmp*1000));
-    UART_UartPutString(prt);
-    
-    sideA = motorDat[2].lineLength; // Scale triangle sides to actual size for float math
-    sideB = motorDat[3].lineLength;
-    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-    tmp = tmp * (-1);
-    sprintf(prt,"Motor %d: Coordinate %d\n\r",2,(int)(tmp*1000));
-    UART_UartPutString(prt);
-    
-    sideA = motorDat[3].lineLength; // Scale triangle sides to actual size for float math
-    sideB = motorDat[0].lineLength;
-    tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-    tmp = acos(tmp) + (PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-    tmp = sideA * cos(tmp); // Convert to offset and scale by line length
-    PAYLOAD_CENTER[0] = tmp;
-    sprintf(prt,"Motor %d: Coordinate %d\n\r",3,(int)(tmp*1000));
-    UART_UartPutString(prt);
-}
 
 void payloadToLineLength(float* payload,float* length) // length should be an array of length 4 allocated on the heap
 { // payload should be any of the 1x2 payload coordinates arrays listed in locationMath.h

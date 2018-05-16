@@ -4,7 +4,6 @@ void motorSetSpeed(MotorAddress addr,int targetVelocity)
 {
 	uint8 buf[5];	//Set up a buffer for command code and argument
 	int stepVelocity = targetVelocity * STEP_SCALE;	//Normalize for internal scaling; targetVelocity is in steps * 10^(-4)
-	
 	buf[0] = 0xE3;	//Command code for set velocity
 	buf[1] = stepVelocity & 0xFF;	//Shift normalized argument value and save bytes in buffer
 	buf[2] = (stepVelocity >> 8) & 0xFF;

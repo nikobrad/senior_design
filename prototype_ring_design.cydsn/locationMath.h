@@ -14,11 +14,12 @@
     #define TIME_SLICE 0.050
     #define SLICE_DIVIDER 5 // Change later; arbitrary value and equally arbitrary scalar idea
     #define PI 3.142 //regular-pis
-    #define STEP_SIZE 7.500 // regular-degrees
-    #define FRAME_DIAMETER 15.750 //All in regular-inches
+    #define STEP_SIZE 7.5 // regular-degrees
+    #define MAX_MOTOR_STEP_SPEED 195
+    #define FRAME_DIAMETER 15.75 //All in regular-inches
     #define SPOOL_DIAMETER 1.000
-    #define PAYLOAD_SIDELEN 2.500
-    #define MAX_MOTOR_STEP_SPEED 195.0
+    #define PAYLOAD_DIAMETER 1.0
+    #define USABLE_RADIUS (FRAME_DIAMETER/2.828)
     #define LINE_START_LENGTH (FRAME_DIAMETER/2)
     #define sideC (FRAME_DIAMETER/1.414)
     
