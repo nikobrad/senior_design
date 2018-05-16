@@ -15,14 +15,16 @@
     #define SLICE_DIVIDER 5 // Change later; arbitrary value and equally arbitrary scalar idea
     #define PI 3.142 //regular-pis
     #define STEP_SIZE 7.500 // regular-degrees
-    #define FRAME_DIAMETER 13.500 //All in regular-inches
+    #define FRAME_DIAMETER 15.750 //All in regular-inches
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_SIDELEN 2.500
     #define MAX_MOTOR_STEP_SPEED 195.0
     
+    #define MAX_POSITION_ERROR 0.125
+    
     #define CALIBRATION_LENGTH_0 10.125
     #define CALIBRATION_LENGTH_1 10.75
-    #define CALIBRATION_LENGTH_2 8.5
+    #define CALIBRATION_LENGTH_2 8.95
     #define CALIBRATION_LENGTH_3 10.625
     
     #define CALIBRATION_INDEX_0 3
