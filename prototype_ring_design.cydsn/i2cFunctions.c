@@ -55,7 +55,7 @@ void motorDeenergize(MotorAddress addr)
     while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 }	//motorDeenergize()
 
-void motorCommand32(MotorAddress addr,uint8 cmd,uint32 arg)
+void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg)
 {
     if(arg)
     {

@@ -1,5 +1,120 @@
 #include "locationMath.h"
 
+void calibrateEncoders()
+{
+    
+    char prt[60];
+    float offsetLength;
+    
+    for(int i = 0; i< 4; i++)
+    {
+        motorDat[i].index = 0;   
+    }
+
+    //######################## MOTOR 0 #########################################
+    
+    motorSetSpeed(motorDat[0].addr, -1000); 
+    while(motorDat[0].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[0].addr, HaltAndHold, 0);
+    
+    motorDat[0].index = CALIBRATION_INDEX_0;
+    updateEncoderCount();
+    
+    sprintf(prt,"Motor 0: Calculated Length: %d\n\r", (int)(motorDat[0].lineLength * 100000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 0: Counter value: %d\n\r", (int)(QuadDec_0_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+    
+    offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;
+    motorDat[0].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorSetSpeed(motorDat[0].addr,500);
+    while((motorDat[0].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
+    {
+        updateEncoderCount();   
+    }
+    motorCommand(motorDat[0].addr,HaltAndHold,0);
+    
+    
+    //######################## MOTOR 1 #########################################
+    
+    motorSetSpeed(motorDat[1].addr, -1000); 
+    while(motorDat[1].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[1].addr, HaltAndHold, 0);
+    
+    motorDat[1].index = CALIBRATION_INDEX_1;
+    updateEncoderCount();
+    
+    sprintf(prt,"Motor 1: Calculated Length: %d\n\r", (int)(motorDat[1].lineLength * 100000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 1: Counter value: %d\n\r", (int)(QuadDec_1_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+    
+    offsetLength = CALIBRATION_LENGTH_1 - motorDat[1].lineLength;
+    motorDat[1].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorSetSpeed(motorDat[1].addr,500);
+    while((motorDat[1].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
+    {
+        updateEncoderCount();   
+    }
+    motorCommand(motorDat[1].addr,HaltAndHold,0);
+    
+    
+    //######################## MOTOR 2 #########################################
+    
+    motorSetSpeed(motorDat[2].addr, -1000); 
+    while(motorDat[2].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[2].addr, HaltAndHold, 0);
+    
+    motorDat[2].index = CALIBRATION_INDEX_2;
+    updateEncoderCount();
+    
+    sprintf(prt,"Motor 2: Calculated Length: %d\n\r", (int)(motorDat[2].lineLength * 100000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 2: Counter value: %d\n\r", (int)(QuadDec_2_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+    
+    offsetLength = CALIBRATION_LENGTH_2 - motorDat[2].lineLength;
+    motorDat[2].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorSetSpeed(motorDat[2].addr,500);
+    while((motorDat[2].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
+    {
+        updateEncoderCount();   
+    }
+    motorCommand(motorDat[2].addr,HaltAndHold,0);
+    
+    
+    //######################## MOTOR 3 #########################################    
+    
+    motorSetSpeed(motorDat[3].addr, -1000); 
+    while(motorDat[3].index == 0) {} //no index pulses have been read yet
+    motorCommand(motorDat[3].addr, HaltAndHold, 0);
+    
+    motorDat[3].index = CALIBRATION_INDEX_3;
+    updateEncoderCount();
+
+    sprintf(prt,"Motor 3: Calculated Length: %d\n\r", (int)(motorDat[3].lineLength * 100000));
+    UART_UartPutString(prt);
+    
+    sprintf(prt,"Motor 3: Counter value: %d\n\r", (int)(QuadDec_3_ReadCounter() - BASE_DECODER_REGISTER));
+    UART_UartPutString(prt);
+
+    offsetLength = CALIBRATION_LENGTH_3 - motorDat[3].lineLength;
+    motorDat[3].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
+    
+    motorSetSpeed(motorDat[3].addr,500);
+    while((motorDat[3].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
+    {
+        updateEncoderCount();   
+    }
+    motorCommand(motorDat[3].addr,HaltAndHold,0);  
+}
+
 void updateEncoderCount() // Now contains contents of linearConv as well
 {
     int counter[4];
@@ -11,11 +126,9 @@ void updateEncoderCount() // Now contains contents of linearConv as well
     int i;
     for(i = 0;i < 4;i = i + 1)
     {
-        if(calFlags[i])
-            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) - motorDat[i].calibrationSteps;
-        else
-            motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION);
-        motorDat[i].lineLength = ((((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER) + LINE_START_LENGTH; // normal-inches
+        //we should wither disable interrupts or aquire a lock on motorDat to prevent index from changing 
+        motorDat[i].counter = counter[i] + (motorDat[i].index * ENCODER_RESOLUTION) + motorDat[i].calibrationSteps;
+        motorDat[i].lineLength = (((float)(motorDat[i].counter)) / (float)ENCODER_RESOLUTION) * PI * SPOOL_DIAMETER; // normal-inches
     }
 }
 

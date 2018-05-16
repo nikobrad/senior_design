@@ -1436,8 +1436,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -2605,8 +2605,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -2931,8 +2931,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -3848,8 +3848,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -5495,10 +5495,10 @@
       <Terminal name="QuadDec_3.line_n" type="Instance Digital Output" />
     </Signal>
     <Signal name="Net_163" type="Digital" terminalCount="5">
-      <Terminal name="QuadDec_1.clock" type="Instance Digital Input" />
-      <Terminal name="QuadDec_0.clock" type="Instance Digital Input" />
       <Terminal name="QuadDec_3.clock" type="Instance Digital Input" />
+      <Terminal name="QuadDec_1.clock" type="Instance Digital Input" />
       <Terminal name="QuadDec_2.clock" type="Instance Digital Input" />
+      <Terminal name="QuadDec_0.clock" type="Instance Digital Input" />
       <Terminal name="Clk_1.clock_out" type="Instance Digital Output" />
     </Signal>
     <Signal name="Net_164" type="Digital" terminalCount="2">

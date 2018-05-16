@@ -49,10 +49,10 @@ int main(void)
     motorDat[2].addr = Motor2;
     motorDat[3].addr = Motor3;
     
-    motorDat[0].calibrationSteps = CALIBRATION_0;
-    motorDat[1].calibrationSteps = CALIBRATION_1;
-    motorDat[2].calibrationSteps = CALIBRATION_2;
-    motorDat[3].calibrationSteps = CALIBRATION_3;
+    motorDat[0].calibrationSteps = 0;
+    motorDat[1].calibrationSteps = 0;
+    motorDat[2].calibrationSteps = 0;
+    motorDat[3].calibrationSteps = 0;
     
     motorDat[0].index = 0;
     motorDat[1].index = 0;
@@ -76,6 +76,11 @@ int main(void)
     I2C_Enable();
     LED_Write(0);
     LED_Write(1);
+    //set all speeds to 0
+    motorCommand(motorDat[0].addr,HaltAndHold,0);
+    motorCommand(motorDat[1].addr,HaltAndHold,0);
+    motorCommand(motorDat[2].addr,HaltAndHold,0);
+    motorCommand(motorDat[3].addr,HaltAndHold,0);
     // exit safe start
     motorSafeStartExit(motorDat[0].addr);
     motorSafeStartExit(motorDat[1].addr);
@@ -90,8 +95,11 @@ int main(void)
     motorEnergize(motorDat[2].addr);
     motorEnergize(motorDat[3].addr);   
     
-    mainLoop();
+    //mainLoop();
     //testGetLineLengths();
+    
+    calibrateEncoders();
+    
     
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
