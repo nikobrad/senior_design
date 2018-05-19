@@ -13,7 +13,7 @@ void calibrateEncoders()
 
     //######################## MOTOR 0 #########################################
     
-    motorSetSpeed(motorDat[0].addr, -1000); 
+    motorSetSpeed(motorDat[0].addr, -10.0); 
     while(motorDat[0].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[0].addr, HaltAndHold, 0);
     
@@ -29,7 +29,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;
     motorDat[0].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[0].addr,1000);
+    motorSetSpeed(motorDat[0].addr,10.0);
     while((motorDat[0].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -39,7 +39,7 @@ void calibrateEncoders()
     
     //######################## MOTOR 1 #########################################
     
-    motorSetSpeed(motorDat[1].addr, -1000); 
+    motorSetSpeed(motorDat[1].addr, -10.0); 
     while(motorDat[1].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[1].addr, HaltAndHold, 0);
     
@@ -55,7 +55,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_1 - motorDat[1].lineLength;
     motorDat[1].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[1].addr,1000);
+    motorSetSpeed(motorDat[1].addr,10.0);
     while((motorDat[1].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -65,7 +65,7 @@ void calibrateEncoders()
     
     //######################## MOTOR 2 #########################################
     
-    motorSetSpeed(motorDat[2].addr, -1000); 
+    motorSetSpeed(motorDat[2].addr, -10.0); 
     while(motorDat[2].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[2].addr, HaltAndHold, 0);
     
@@ -81,7 +81,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_2 - motorDat[2].lineLength;
     motorDat[2].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[2].addr,1000);
+    motorSetSpeed(motorDat[2].addr,10.0);
     while((motorDat[2].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -91,7 +91,7 @@ void calibrateEncoders()
     
     //######################## MOTOR 3 #########################################    
     
-    motorSetSpeed(motorDat[3].addr, -1000); 
+    motorSetSpeed(motorDat[3].addr, -10.0); 
     while(motorDat[3].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[3].addr, HaltAndHold, 0);
     
@@ -107,7 +107,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_3 - motorDat[3].lineLength;
     motorDat[3].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[3].addr,1000);
+    motorSetSpeed(motorDat[3].addr,10.0);
     while((motorDat[3].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
