@@ -4,7 +4,7 @@
     #include "project.h"    
     #include "locationMath.h"
 
-    #define STEP_SCALE 1000
+    #define STEP_SCALE 100
 
     typedef enum
     { 

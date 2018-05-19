@@ -3,17 +3,19 @@
 void controlAlgorithm()
 {
     char tmp[64];
-    sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
-    UART_UartPutString(tmp);
+    //sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
+    //UART_UartPutString(tmp);
     float errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
     
     int i;
     while(errorDist > ACCEPTABLE_ERROR)
     {
-        sprintf(tmp,"Error: %d\n\r",(int)(errorDist*1000));
-        UART_UartPutString(tmp);
+        //sprintf(tmp,"Error: %d\n\r",(int)(errorDist*1000));
+        //UART_UartPutString(tmp);
+        //sprintf(tmp,"Motor 3 speed: %d\n\r",motorDat[3].stepSpeed);
+        //UART_UartPutString(tmp);
         findNextPayloadSlice();
-        payloadToLineLength(NEXT_PAYLOAD_SLICE,lineLengths);
+        payloadToLineLength(NEXT_PAYLOAD_SLICE);
         for(i = 0;i < 4;i = i + 1)
         {
             motorDat[i].nextLineLength = lineLengths[i];
@@ -22,11 +24,15 @@ void controlAlgorithm()
         deltaLToSpeed();
         for(i = 0;i < 4;i = i + 1)
         {
-            motorSetSpeed(motorDat[i].addr,motorDat[i].stepSpeed);
+            motorSetSpeed(motorDat[i].addr,(motorDat[i].stepSpeed * 4)); 
         }
-        CyDelay(100);
+        sprintf(tmp,"Speed: M0:%d\t\tM1:%d\t\tM2:%d\t\tM3:%d\n\r",motorDat[0].stepSpeed,motorDat[1].stepSpeed,motorDat[2].stepSpeed,motorDat[3].stepSpeed);
+        UART_UartPutString(tmp);
         updateEncoderCount();
         lineLengthToPayloadCenter();
+        findNextPayloadCenter();
+        //sprintf(tmp,"Payload Center: (%d,%d)\n\r", (int)PAYLOAD_CENTER[0]* 100000,(int)PAYLOAD_CENTER[1]* 100000);
+        //UART_UartPutString(tmp);
         errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
     }
     for(i = 0;i < 4;i = i + 1)
@@ -40,11 +46,11 @@ void mainLoop()
 {
     PAYLOAD_CENTER[0] = 0.0;
     PAYLOAD_CENTER[1] = 0.0;
-    NEXT_PAYLOAD_GOAL[0] = 3.0;
+    NEXT_PAYLOAD_GOAL[0] = -3.0;
     NEXT_PAYLOAD_GOAL[1] = 0.0;
     int i;
     
-    payloadToLineLength(PAYLOAD_CENTER,lineLengths);
+    payloadToLineLength(PAYLOAD_CENTER);
     for(i = 0;i < 4;i = i + 1)
     {
         motorDat[i].lineLength = lineLengths[i];

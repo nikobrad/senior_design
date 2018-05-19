@@ -21,7 +21,7 @@
 
 MotorData motorDat[4];
 float lineLengths[4]; // for use in payloadToLineLength in locationMath.{c,h}; declared extern for use elsewhere
-float MOUNT_POINTS[4][2] = {{(FRAME_DIAMETER/2.0),0},{0,(FRAME_DIAMETER/2.0)},{(-1*FRAME_DIAMETER/2.0),0},{0,(-1*FRAME_DIAMETER/2.0)}};
+float MOUNT_POINTS[4][2] = {{FRAME_RADIUS,0},{0,FRAME_RADIUS},{(-1)*FRAME_RADIUS,0},{0,(-1)*FRAME_RADIUS}};
 float PAYLOAD_CENTER[2];
 float NEXT_PAYLOAD_GOAL[2];
 float NEXT_PAYLOAD_SLICE[2];
@@ -29,7 +29,6 @@ uint8 calFlags[4];
 
 int main(void)
 {
-    
     
     CyGlobalIntDisable;
     QuadDec_0_Start();
@@ -95,12 +94,10 @@ int main(void)
     motorEnergize(motorDat[2].addr);
     motorEnergize(motorDat[3].addr);   
     
-    //mainLoop();
-    //testGetLineLengths();
-    
     calibrateEncoders();
-    
-    
+    mainLoop();
+    //testGetLineLengths();
+
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
     motorDeenergize(motorDat[2].addr);

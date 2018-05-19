@@ -17,10 +17,11 @@
     #define STEP_SIZE 7.5 // regular-degrees
     #define MAX_MOTOR_STEP_SPEED 195
     #define FRAME_DIAMETER 15.75 //All in regular-inches
+    #define FRAME_RADIUS (FRAME_DIAMETER / 2.0)
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_DIAMETER 1.0
     #define USABLE_RADIUS (FRAME_DIAMETER/2.828)
-    #define LINE_START_LENGTH (FRAME_DIAMETER/2)
+    #define LINE_START_LENGTH (FRAME_RADIUS)
     #define sideC (FRAME_DIAMETER/1.414)
     
     #define MAX_POSITION_ERROR 0.125
@@ -47,7 +48,8 @@
     void calibrateEncoders();
     void updateEncoderCount();
     void lineLengthToPayloadCenter();
-    void payloadToLineLength(float* payload,float* length);
+    void payloadToLineLength(float* payload);
+    void findNextPayloadCenter();
     void findNextPayloadSlice();
     void lToDeltaL();
     void deltaLToSpeed();
