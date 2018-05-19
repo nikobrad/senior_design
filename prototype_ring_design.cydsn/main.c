@@ -26,6 +26,8 @@ float PAYLOAD_CENTER[2];
 float NEXT_PAYLOAD_GOAL[2];
 float NEXT_PAYLOAD_SLICE[2];
 uint8 calFlags[4];
+uint32 timerCount = 0;
+uint8 time = 0;
 
 int main(void)
 {
@@ -40,6 +42,9 @@ int main(void)
     QuadIsr_1_StartEx(QuadInt1);
     QuadIsr_2_StartEx(QuadInt2);
     QuadIsr_3_StartEx(QuadInt3);
+    TIMER_Start();
+    TIMERISR_StartEx(TimerInt);
+    TIMERISR_Disable();
     //UartIsr_StartEx(UartInt);
     CyGlobalIntEnable; /* Enable global interrupts. */
     
@@ -68,7 +73,7 @@ int main(void)
     lineLengths[2] = 0.0;
     lineLengths[3] = 0.0;
     
-    UART_UartPutString("Welcome to Senior Design\n\r");
+    
     
     // start and enable master
     I2C_Start();
@@ -94,14 +99,62 @@ int main(void)
     motorEnergize(motorDat[2].addr);
     motorEnergize(motorDat[3].addr);   
     
+    UART_UartPutString("Welcome to Senior Design\n\r");
+    
     calibrateEncoders();
-    mainLoop();
+    
+    PAYLOAD_CENTER[0] = 0.0;
+    PAYLOAD_CENTER[1] = 0.0;
+    NEXT_PAYLOAD_GOAL[0] = 1.0;
+    NEXT_PAYLOAD_GOAL[1] = 3.0;
+    int i;
+    payloadToLineLength(PAYLOAD_CENTER);
+    for(i = 0;i < 4;i = i + 1)
+    {
+        motorDat[i].lineLength = lineLengths[i];
+    }
+    TIMER_Enable();
+    TIMERISR_Enable();
+    
+    while(1)
+    {
+        while(!time);
+        time = 0;
+        controlAlgorithm();
+        if(timerCount < 500)
+        {
+            NEXT_PAYLOAD_GOAL[0] = 1.0;
+            NEXT_PAYLOAD_GOAL[1] = 3.0;
+        }
+        else if(timerCount >= 500 && timerCount < 1000)
+        {
+            NEXT_PAYLOAD_GOAL[0] = 3.0;
+            NEXT_PAYLOAD_GOAL[1] = -1.0;
+        }
+        else if(timerCount >= 1000 && timerCount < 1500)
+        {
+            NEXT_PAYLOAD_GOAL[0] = -1.0;
+            NEXT_PAYLOAD_GOAL[1] = -3.0;
+        }
+        else if(timerCount >= 1500 && timerCount < 2000)
+        {
+            NEXT_PAYLOAD_GOAL[0] = -3.0;
+            NEXT_PAYLOAD_GOAL[1] = 1.0;
+        }
+        else if(timerCount >= 2000)
+            timerCount = 0;
+    }
+    
+    
     //testGetLineLengths();
 
     motorDeenergize(motorDat[0].addr);
     motorDeenergize(motorDat[1].addr);
     motorDeenergize(motorDat[2].addr);
     motorDeenergize(motorDat[3].addr); 
+   
+    
+    
     
     return(0);
 }

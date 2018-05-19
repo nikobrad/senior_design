@@ -164,67 +164,56 @@ void payloadCorners() // moot; not needed
 
 void lineLengthToPayloadCenter()
 {
+    float offsets[4];
     int i;
     for(i = 0;i < 4;i = i + 1)
-    {
-        /*
-        float sideA = motorDat[i].lineLength; // Scale triangle sides to actual size for float math
-        float sideB = motorDat[(i + 1) % 4].lineLength;
-        float tmp = ((sideA*sideA) + (sideC*sideC) - (sideB*sideB)) / (2*sideA*sideC); // Law of Cosines; find angle theta of line attached to motor motorNum
-        tmp = acos(tmp) + ((float)PI/4.0); // Take acos to find angle; add pi/4 = 45 degrees to switch frames of reference
-        tmp = sideA * sin(tmp); // Convert to offset and scale by line length
-        char prt[32];
-        if(i < 2)
-            tmp = FRAME_RADIUS - tmp;
-        else
-            tmp = tmp - FRAME_RADIUS;
-
-        if(i == 0) // Once we get motor 3 to stop just reeling in, we should average opposed encoder readings maybe
-            PAYLOAD_CENTER[0] = tmp;
-        else if(i == 1)
-            PAYLOAD_CENTER[1] = tmp;
-        //sprintf(prt,"Motor %d: Coordinate %d\n\r",i,(int)(tmp*1000));
-        UART_UartPutString(prt);
-        */
-        
-        //char prt[32];
-               
+    {   
         float sideA = motorDat[i].lineLength;           // current motor's line length
         float sideB = motorDat[(i + 1) % 4].lineLength; // next motor's line length, going counter-clockwise (eg. if m0, this is m1)
         float unadjusted_ang = ((sideB*sideB) + (sideC*sideC) - (sideA*sideA)) / (2*sideB*sideC);       // Law of Cosines
-        unadjusted_ang = acos(unadjusted_ang) * (180 / PI);                                                          // arccos to find actual angle
+        unadjusted_ang = acos(unadjusted_ang);                                                          // arccos to find actual angle
         
         float adjusted_ang = 0;
         float offset = 0;
         
-        if (unadjusted_ang > 45){                   // if the angle is larger than 45 degrees 
-            adjusted_ang = unadjusted_ang - 45;     // adjust the angle to use for x or y calculations from the x or y axis
-            offset = sideB * cos(adjusted_ang * (PI / 180)); 
+        if (unadjusted_ang > (PI / 4)){                   // if the angle is larger than 45 degrees 
+            adjusted_ang = unadjusted_ang - (PI /4);     // adjust the angle to use for x or y calculations from the x or y axis
+            offset = sideB * sin(adjusted_ang); 
             
-        } else if (unadjusted_ang < 45) {           // if the angle is smaller than 45 degrees
-            adjusted_ang = 45 - unadjusted_ang;     // angle calculated is not relative to x or y axis, need to adjust
-            offset = sideB * cos(adjusted_ang * (PI / 180)); 
+            // convert to coordinate from offset
+            if (i < 2) {
+                offset = -offset;  
+            }
+            
+        } else if (unadjusted_ang < (PI / 4)) {           // if the angle is smaller than 45 degrees
+            adjusted_ang = (PI /4) - unadjusted_ang;     // angle calculated is not relative to x or y axis, need to adjust
+            offset = sideB * sin(adjusted_ang); 
+            
+            // convert to coordinate from offset
+            if (i > 1) {
+                offset = -offset;
+            }
+            
         } else {                                    // the angle was exactly 0 degrees
             offset = 0;                             // there's no offset so x or y is 0
         }
-        
-       // convert to coordinate from offset
-        if (i < 2) {
-            offset = FRAME_RADIUS - offset;   
-        } else {
-            offset = offset - FRAME_RADIUS;
-        }
-        
-        //sprintf(prt,"Motor %d: Angle %d, Coordinate %d\n\r",i,(int)(unadjusted_ang*1000),(int)(offset*1000));
+      
+        char prt[64];
+        //sprintf(prt,"Motor %d: Angle (rads): %d, Offset %d\n\r",i,(int)(unadjusted_ang*1000),(int)(offset*1000));
         //UART_UartPutString(prt);
         
         // use this info to get either x or y offset, depending which motor we're on
+        /*
         if (i % 2 == 0) {                           // we're getting an x val
             PAYLOAD_CENTER[0] = offset;
         } else {                                    // we're getting a y val
             PAYLOAD_CENTER[1] = offset;
         } 
+        */
+        offsets[i] = offset;
     }
+    PAYLOAD_CENTER[0] = (offsets[0] + offsets[2]) / 2;
+    PAYLOAD_CENTER[1] = (offsets[1] + offsets[3]) / 2;
 }
 
 
@@ -252,28 +241,17 @@ void findNextPayloadCenter()
     // Use physics calculations/arbitrary requests here, e.g.
     // NEXT_PAYLOAD_GOAL = {10.3,0.125};
     char prt[32];
-    sprintf(prt,"Payload goal: %d,%d\n\r",(int)(1000*NEXT_PAYLOAD_GOAL[0]),(int)(1000*NEXT_PAYLOAD_GOAL[1]));
-    UART_UartPutString(prt);
+    //sprintf(prt,"Payload goal: %d,%d\n\r",(int)(1000*NEXT_PAYLOAD_GOAL[0]),(int)(1000*NEXT_PAYLOAD_GOAL[1]));
+    //UART_UartPutString(prt);
 }
 
 void findNextPayloadSlice()
-{
-    
-    /* Time slice calculation (sort of)
-    float biggestMove;
-    if(abs((int)payloadDiff[0]) > abs((int)payloadDiff[1]))
-        biggestMove = payloadDiff[0];
-    else
-        biggestMove = payloadDiff[1];
-    float divisor = biggestMove;
-    */
-    /*
-    NEXT_PAYLOAD_SLICE[0] = PAYLOAD_CENTER[0] - (payloadDiff[0] / SLICE_DIVIDER); // I don't know if this is the best way to do this right now
-    NEXT_PAYLOAD_SLICE[1] = PAYLOAD_CENTER[1] - (payloadDiff[1] / SLICE_DIVIDER); // It's a placeholder at least
-    */
-    
+{   
+    // TODO: the math here needs to be redone
+    // change to percentage scaling, account for negative numbs please
     char prt[64];
     float payloadDiff = pointDistance(PAYLOAD_CENTER,NEXT_PAYLOAD_GOAL);
+
     if(payloadDiff < 0.5) // If it's under half an inch from the destination, just go to the destination
     {
         NEXT_PAYLOAD_SLICE[0] = NEXT_PAYLOAD_GOAL[0];
@@ -281,11 +259,12 @@ void findNextPayloadSlice()
     }
     else // Otherwise, move half an inch toward the destination
     {
-        NEXT_PAYLOAD_SLICE[0] = (PAYLOAD_CENTER[0] + ((NEXT_PAYLOAD_GOAL[0] - PAYLOAD_CENTER[0]) / (2 * payloadDiff)));
-        NEXT_PAYLOAD_SLICE[1] = (PAYLOAD_CENTER[1] + ((NEXT_PAYLOAD_GOAL[1] - PAYLOAD_CENTER[1]) / (2 * payloadDiff)));
+        NEXT_PAYLOAD_SLICE[0] = (PAYLOAD_CENTER[0] + ((NEXT_PAYLOAD_GOAL[0] - PAYLOAD_CENTER[0]) / DISTANCE_SCALAR));
+        NEXT_PAYLOAD_SLICE[1] = (PAYLOAD_CENTER[1] + ((NEXT_PAYLOAD_GOAL[1] - PAYLOAD_CENTER[1]) / DISTANCE_SCALAR));
     }
     
-    payloadDiff = sqrt((NEXT_PAYLOAD_SLICE[0]*NEXT_PAYLOAD_SLICE[0]) + (NEXT_PAYLOAD_SLICE[1]*NEXT_PAYLOAD_SLICE[1])); // Check that it's 0.5, should display as 500
+    payloadDiff = pointDistance(PAYLOAD_CENTER, NEXT_PAYLOAD_SLICE);
+       
     //sprintf(prt,"Current location: %d, %d; ",(int)(1000*PAYLOAD_CENTER[0]),(int)(1000*PAYLOAD_CENTER[1]));
     //UART_UartPutString(prt);
     //sprintf(prt,"Next payload slice: %d,%d; Distance: %d\n\r",(int)(1000*NEXT_PAYLOAD_SLICE[0]),(int)(1000*NEXT_PAYLOAD_SLICE[1]),(int)(1000*payloadDiff));
