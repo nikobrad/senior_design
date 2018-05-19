@@ -14,7 +14,7 @@ CY_ISR(QuadInt0)
     QuadDec_0_ClearInterrupt(QuadDec_0_GetInterruptSource());
     char prt[24];
     //sprintf(prt,"Motor 0 Index %d\n\r",motorDat[0].index);
-    UART_UartPutString(prt);
+    //UART_UartPutString(prt);
 }
 
 CY_ISR(QuadInt1)
@@ -29,7 +29,7 @@ CY_ISR(QuadInt1)
     QuadDec_1_ClearInterrupt(QuadDec_1_GetInterruptSource());
     char prt[24];
     //sprintf(prt,"Motor 1 Index %d\n\r",motorDat[1].index);
-    UART_UartPutString(prt);
+    //UART_UartPutString(prt);
 }
 
 CY_ISR(QuadInt2)
@@ -44,7 +44,7 @@ CY_ISR(QuadInt2)
     QuadDec_2_ClearInterrupt(QuadDec_2_GetInterruptSource());
     char prt[24];
     //sprintf(prt,"Motor 2 Index %d\n\r",motorDat[2].index);
-    UART_UartPutString(prt);
+    //UART_UartPutString(prt);
 }
 
 CY_ISR(QuadInt3)
@@ -59,7 +59,7 @@ CY_ISR(QuadInt3)
     QuadDec_3_ClearInterrupt(QuadDec_3_GetInterruptSource());
     char prt[24];
     //sprintf(prt,"Motor 3 Index %d\n\r",motorDat[3].index);
-    UART_UartPutString(prt);
+    //UART_UartPutString(prt);
 }
 
 //Timer interrupt handlers

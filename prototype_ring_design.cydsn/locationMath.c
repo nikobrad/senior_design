@@ -286,11 +286,11 @@ void findNextPayloadSlice()
     }
     
     payloadDiff = sqrt((NEXT_PAYLOAD_SLICE[0]*NEXT_PAYLOAD_SLICE[0]) + (NEXT_PAYLOAD_SLICE[1]*NEXT_PAYLOAD_SLICE[1])); // Check that it's 0.5, should display as 500
+    //sprintf(prt,"Current location: %d, %d; ",(int)(1000*PAYLOAD_CENTER[0]),(int)(1000*PAYLOAD_CENTER[1]));
+    //UART_UartPutString(prt);
+    //sprintf(prt,"Next payload slice: %d,%d; Distance: %d\n\r",(int)(1000*NEXT_PAYLOAD_SLICE[0]),(int)(1000*NEXT_PAYLOAD_SLICE[1]),(int)(1000*payloadDiff));
+    //UART_UartPutString(prt);
     
-    sprintf(prt,"Current location: \t\t%d, %d",(int)(1000*PAYLOAD_CENTER[0]),(int)(1000*PAYLOAD_CENTER[1]));
-    UART_UartPutString(prt);
-    sprintf(prt,"Next payload slice: \t\t%d,%d;\t\tDistance: %d\n\r",(int)(1000*NEXT_PAYLOAD_SLICE[0]),(int)(1000*NEXT_PAYLOAD_SLICE[1]),(int)(1000*payloadDiff));
-    UART_UartPutString(prt);
 }
 
 void lToDeltaL()
