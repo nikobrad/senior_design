@@ -4,7 +4,7 @@
     #include "project.h"    
     #include "locationMath.h"
 
-    #define STEP_SCALE 100
+    #define STEP_SCALE 10000
 
     typedef enum
     { 
@@ -30,7 +30,7 @@
 
     void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg);
 
-    void motorSetSpeed(MotorAddress addr,int targetVelocity);
+    void motorSetSpeed(MotorAddress addr,float targetVelocity);
     void motorSetPosition(MotorAddress addr,int targetPosition);
     void motorSafeStartExit(MotorAddress addr);
     void motorEnergize(MotorAddress addr);
