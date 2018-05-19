@@ -64,6 +64,14 @@ CY_ISR(QuadInt3)
 
 //Timer interrupt handlers
 
+CY_ISR(TimerInt)
+{
+    TIMER_ClearInterrupt(TIMER_GetInterruptSource());
+    TIMERISR_ClearPending();
+    time = 1;
+    timerCount = timerCount + 1;
+}
+
 //UART interrupt handlers
 
 CY_ISR(UartInt)

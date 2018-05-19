@@ -13,6 +13,7 @@
   <Group key="DWRInstGuidMapping">
     <Group key="Pin">
       <Data key="1f45dd3b-61ab-4a0d-a209-527de4339752" value="QuadIndex_1" />
+      <Data key="2a7c2437-7074-42f3-a92c-b7e65d1c3e5d" value="TEST_MEAS" />
       <Data key="2db770ec-b7a3-4f10-b1a1-799b74be9768" value="QuadB_0" />
       <Data key="3a6f7b14-c20b-4fba-b59d-d886b9a6f354" value="QuadB_2" />
       <Data key="4c6bd333-5fae-49c7-8074-3ea0a635edf1" value="QuadB_1" />
@@ -3584,6 +3585,11 @@
     <Group key="1f45dd3b-61ab-4a0d-a209-527de4339752">
       <Group key="0">
         <Data key="Port Format" value="0,3" />
+      </Group>
+    </Group>
+    <Group key="2a7c2437-7074-42f3-a92c-b7e65d1c3e5d">
+      <Group key="0">
+        <Data key="Port Format" value="1,7" />
       </Group>
     </Group>
     <Group key="2db770ec-b7a3-4f10-b1a1-799b74be9768">

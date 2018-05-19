@@ -2,7 +2,9 @@
 #define interruptHandlers_h
 
     #include "i2cFunctions.h"
+    #include "locationMath.h"
     #include "project.h"
+    #include "testBench.h"
     #include <stdio.h>
     
     //Quadrature decoder interrupt handlers
@@ -12,7 +14,8 @@
     CY_ISR(QuadInt3);
 
     //Timer interrupt handlers
-
+    CY_ISR(TimerInt);
+    
     //UART interrupt handlers
     CY_ISR(UartInt);
 
