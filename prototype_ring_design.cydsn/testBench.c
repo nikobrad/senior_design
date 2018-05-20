@@ -3,9 +3,11 @@
 void controlAlgorithm()
 {
     TEST_MEAS_Write(0);
-    char tmp[64];
+    //char tmp[64];
     //sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
     //UART_UartPutString(tmp);
+    updateEncoderCount();
+    lineLengthToPayloadCenter();
     float errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
     
     int i;
@@ -30,12 +32,11 @@ void controlAlgorithm()
         }
         //sprintf(tmp,"Speed: M0:%d\t\tM1:%d\t\tM2:%d\t\tM3:%d\n\r",motorDat[0].stepSpeed,motorDat[1].stepSpeed,motorDat[2].stepSpeed,motorDat[3].stepSpeed);
         //UART_UartPutString(tmp);
-        updateEncoderCount();
-        lineLengthToPayloadCenter();
+        //updateEncoderCount();
+        //lineLengthToPayloadCenter();
         findNextPayloadCenter();
         //sprintf(tmp,"Payload Center: (%d,%d)\n\r", (int)(PAYLOAD_CENTER[0] * 100000),(int)(PAYLOAD_CENTER[1] * 100000));
         //UART_UartPutString(tmp);
-        errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
         
     }
     else

@@ -15,12 +15,12 @@
     #define SLICE_DIVIDER 5 // Change later; arbitrary value and equally arbitrary scalar idea
     #define PI 3.142 //regular-pis
     #define STEP_SIZE 7.5 // regular-degrees
-    #define MAX_MOTOR_STEP_SPEED 40.0
+    #define MAX_MOTOR_STEP_SPEED 85.0
     #define FRAME_DIAMETER 15.75 //All in regular-inches
     #define FRAME_RADIUS (FRAME_DIAMETER / 2.0)
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_DIAMETER 1.0
-    #define USABLE_RADIUS (FRAME_DIAMETER/2.828)
+    #define USABLE_RADIUS ((FRAME_DIAMETER/2.828) - 1.5)
     #define LINE_START_LENGTH (FRAME_RADIUS)
     #define sideC (FRAME_DIAMETER/1.414)
     #define MINIMUM_GOAL_DISTANCE 0.25
@@ -31,7 +31,7 @@
     #define CALIBRATION_LENGTH_0 10.125
     #define CALIBRATION_LENGTH_1 10.75
     #define CALIBRATION_LENGTH_2 8.95
-    #define CALIBRATION_LENGTH_3 10.625
+    #define CALIBRATION_LENGTH_3 10.1
     
     #define CALIBRATION_INDEX_0 3
     #define CALIBRATION_INDEX_1 3
@@ -59,5 +59,6 @@
     void lToDeltaL();
     void deltaLToSpeed();
     float pointDistance(float* payloadObserved,float* payloadExpected);
+    float getChassisRotation();
 
 #endif

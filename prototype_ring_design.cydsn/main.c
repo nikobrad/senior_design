@@ -103,16 +103,15 @@ int main(void)
     
     calibrateEncoders();
     
-    PAYLOAD_CENTER[0] = 0.0;
-    PAYLOAD_CENTER[1] = 0.0;
-    NEXT_PAYLOAD_GOAL[0] = 1.0;
-    NEXT_PAYLOAD_GOAL[1] = 3.0;
+    float coordX[16];
+    float coordY[16];
     int i;
-    payloadToLineLength(PAYLOAD_CENTER);
-    for(i = 0;i < 4;i = i + 1)
+    for(i = 0;i < 16;i = i + 1)
     {
-        motorDat[i].lineLength = lineLengths[i];
+        coordX[i] = USABLE_RADIUS * cos((PI * i) / 8);
+        coordY[i] = USABLE_RADIUS * sin((PI * i) / 8);
     }
+
     TIMER_Enable();
     TIMERISR_Enable();
     
@@ -121,27 +120,9 @@ int main(void)
         while(!time);
         time = 0;
         controlAlgorithm();
-        if(timerCount < 500)
-        {
-            NEXT_PAYLOAD_GOAL[0] = 1.0;
-            NEXT_PAYLOAD_GOAL[1] = 3.0;
-        }
-        else if(timerCount >= 500 && timerCount < 1000)
-        {
-            NEXT_PAYLOAD_GOAL[0] = 3.0;
-            NEXT_PAYLOAD_GOAL[1] = -1.0;
-        }
-        else if(timerCount >= 1000 && timerCount < 1500)
-        {
-            NEXT_PAYLOAD_GOAL[0] = -1.0;
-            NEXT_PAYLOAD_GOAL[1] = -3.0;
-        }
-        else if(timerCount >= 1500 && timerCount < 2000)
-        {
-            NEXT_PAYLOAD_GOAL[0] = -3.0;
-            NEXT_PAYLOAD_GOAL[1] = 1.0;
-        }
-        else if(timerCount >= 2000)
+        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 30)];
+        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 30)];
+        if(timerCount >= 480)
             timerCount = 0;
     }
     

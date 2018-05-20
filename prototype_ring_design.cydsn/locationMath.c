@@ -13,7 +13,8 @@ void calibrateEncoders()
 
     //######################## MOTOR 0 #########################################
     
-    motorSetSpeed(motorDat[0].addr, -10.0); 
+    CyDelay(500);
+    motorSetSpeed(motorDat[0].addr, -25.0); 
     while(motorDat[0].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[0].addr, HaltAndHold, 0);
     
@@ -29,7 +30,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_0 - motorDat[0].lineLength;
     motorDat[0].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[0].addr,10.0);
+    motorSetSpeed(motorDat[0].addr,25.0);
     while((motorDat[0].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -39,7 +40,8 @@ void calibrateEncoders()
     
     //######################## MOTOR 1 #########################################
     
-    motorSetSpeed(motorDat[1].addr, -10.0); 
+    CyDelay(500);
+    motorSetSpeed(motorDat[1].addr, -25.0); 
     while(motorDat[1].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[1].addr, HaltAndHold, 0);
     
@@ -55,7 +57,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_1 - motorDat[1].lineLength;
     motorDat[1].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[1].addr,10.0);
+    motorSetSpeed(motorDat[1].addr,25.0);
     while((motorDat[1].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -65,7 +67,8 @@ void calibrateEncoders()
     
     //######################## MOTOR 2 #########################################
     
-    motorSetSpeed(motorDat[2].addr, -10.0); 
+    CyDelay(500);
+    motorSetSpeed(motorDat[2].addr, -25.0); 
     while(motorDat[2].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[2].addr, HaltAndHold, 0);
     
@@ -81,7 +84,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_2 - motorDat[2].lineLength;
     motorDat[2].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[2].addr,10.0);
+    motorSetSpeed(motorDat[2].addr,25.0);
     while((motorDat[2].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -91,7 +94,8 @@ void calibrateEncoders()
     
     //######################## MOTOR 3 #########################################    
     
-    motorSetSpeed(motorDat[3].addr, -10.0); 
+    CyDelay(500);
+    motorSetSpeed(motorDat[3].addr, -25.0); 
     while(motorDat[3].index == 0) {} //no index pulses have been read yet
     motorCommand(motorDat[3].addr, HaltAndHold, 0);
     
@@ -107,7 +111,7 @@ void calibrateEncoders()
     offsetLength = CALIBRATION_LENGTH_3 - motorDat[3].lineLength;
     motorDat[3].calibrationSteps = (offsetLength * ENCODER_RESOLUTION) / (PI * SPOOL_DIAMETER);
     
-    motorSetSpeed(motorDat[3].addr,10.0);
+    motorSetSpeed(motorDat[3].addr,25.0);
     while((motorDat[3].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
         updateEncoderCount();   
@@ -145,23 +149,6 @@ void updateEncoderCount() // Now contains contents of linearConv as well
     }
 }
 
-/*
-void payloadCorners() // moot; not needed
-{
-    PAYLOAD_CORNERS[0][0] = PAYLOAD_CENTER[0] + (PAYLOAD_SIDELEN / 1.414); // Add to and subtract from payload center coordinates using payload dimensions to find corner coordinates
-    PAYLOAD_CORNERS[0][1] = PAYLOAD_CENTER[1];
-    
-    PAYLOAD_CORNERS[1][0] = PAYLOAD_CENTER[0];
-    PAYLOAD_CORNERS[1][1] = PAYLOAD_CENTER[1] + (PAYLOAD_SIDELEN / 1.414);
-    
-    PAYLOAD_CORNERS[2][0] = PAYLOAD_CENTER[0] - (PAYLOAD_SIDELEN / 1.414);
-    PAYLOAD_CORNERS[2][1] = PAYLOAD_CENTER[1];
-    
-    PAYLOAD_CORNERS[3][0] = PAYLOAD_CENTER[0];
-    PAYLOAD_CORNERS[3][1] = PAYLOAD_CENTER[1] - (PAYLOAD_SIDELEN / 1.414);
-}
-*/
-
 void lineLengthToPayloadCenter()
 {
     float offsets[4];
@@ -185,31 +172,23 @@ void lineLengthToPayloadCenter()
                 offset = -offset;  
             }
             
-        } else if (unadjusted_ang < (PI / 4)) {           // if the angle is smaller than 45 degrees
+        } 
+        else if (unadjusted_ang < (PI / 4)) 
+        {           // if the angle is smaller than 45 degrees
             adjusted_ang = (PI /4) - unadjusted_ang;     // angle calculated is not relative to x or y axis, need to adjust
             offset = sideB * sin(adjusted_ang); 
             
             // convert to coordinate from offset
-            if (i > 1) {
+            if (i > 1) 
+            {
                 offset = -offset;
             }
             
-        } else {                                    // the angle was exactly 0 degrees
+        } 
+        else 
+        {                                    // the angle was exactly 0 degrees
             offset = 0;                             // there's no offset so x or y is 0
         }
-      
-        char prt[64];
-        //sprintf(prt,"Motor %d: Angle (rads): %d, Offset %d\n\r",i,(int)(unadjusted_ang*1000),(int)(offset*1000));
-        //UART_UartPutString(prt);
-        
-        // use this info to get either x or y offset, depending which motor we're on
-        /*
-        if (i % 2 == 0) {                           // we're getting an x val
-            PAYLOAD_CENTER[0] = offset;
-        } else {                                    // we're getting a y val
-            PAYLOAD_CENTER[1] = offset;
-        } 
-        */
         offsets[i] = offset;
     }
     PAYLOAD_CENTER[0] = (offsets[0] + offsets[2]) / 2;
@@ -240,17 +219,15 @@ void findNextPayloadCenter()
     NEXT_PAYLOAD_GOAL[1] = NEXT_PAYLOAD_GOAL[1];
     // Use physics calculations/arbitrary requests here, e.g.
     // NEXT_PAYLOAD_GOAL = {10.3,0.125};
-    char prt[32];
+    //char prt[32];
     //sprintf(prt,"Payload goal: %d,%d\n\r",(int)(1000*NEXT_PAYLOAD_GOAL[0]),(int)(1000*NEXT_PAYLOAD_GOAL[1]));
     //UART_UartPutString(prt);
 }
 
 void findNextPayloadSlice()
 {   
-    // TODO: the math here needs to be redone
-    // change to percentage scaling, account for negative numbs please
-    char prt[64];
     float payloadDiff = pointDistance(PAYLOAD_CENTER,NEXT_PAYLOAD_GOAL);
+    
 
     if(payloadDiff < 0.5) // If it's under half an inch from the destination, just go to the destination
     {
@@ -263,13 +240,15 @@ void findNextPayloadSlice()
         NEXT_PAYLOAD_SLICE[1] = (PAYLOAD_CENTER[1] + ((NEXT_PAYLOAD_GOAL[1] - PAYLOAD_CENTER[1]) / DISTANCE_SCALAR));
     }
     
-    payloadDiff = pointDistance(PAYLOAD_CENTER, NEXT_PAYLOAD_SLICE);
-       
-    //sprintf(prt,"Current location: %d, %d; ",(int)(1000*PAYLOAD_CENTER[0]),(int)(1000*PAYLOAD_CENTER[1]));
-    //UART_UartPutString(prt);
-    //sprintf(prt,"Next payload slice: %d,%d; Distance: %d\n\r",(int)(1000*NEXT_PAYLOAD_SLICE[0]),(int)(1000*NEXT_PAYLOAD_SLICE[1]),(int)(1000*payloadDiff));
-    //UART_UartPutString(prt);
-    
+    /* //Experimental, should account for chassis rotation given a function getChassisRotation that adequately estimates the total rotation
+    float tmp[2];
+    float theta = getChassisRotation();
+    tmp[0] = (NEXT_PAYLOAD_SLICE[0] * cos(theta)) - (NEXT_PAYLOAD_SLICE[1] * sin(theta));
+    tmp[1] = (NEXT_PAYLOAD_SLICE[0] * sin(theta)) + (NEXT_PAYLOAD_SLICE[1] * cos(theta));
+    NEXT_PAYLOAD_SLICE[0] = tmp[0];
+    NEXT_PAYLOAD_SLICE[1] = tmp[1];
+    */
+    //###################################################################################################################
 }
 
 void lToDeltaL()
@@ -277,7 +256,6 @@ void lToDeltaL()
     int i;
     for(i = 0;i < 4;i = i + 1)
     {
-        //motorDat[i].deltaL = motorDat[i].nextLineLength - motorDat[i].lineLength; // Positive for longer line; negative for shorter line; doesn't match speed inputs
         motorDat[i].deltaL = motorDat[i].lineLength - motorDat[i].nextLineLength; // Signs match speed control inputs
     }
 }
@@ -288,23 +266,16 @@ void deltaLToSpeed()
     int i;
     float q = 0.0;
     float speed[4];
-    //char prt[32];
     for(i = 0;i < 4;i = i + 1)
     {
         speed[i] = (motorDat[i].deltaL * 360.0) / (PI * SPOOL_DIAMETER * TIME_SLICE * STEP_SIZE);
         if(abs((int)speed[i]) > abs((int)q))
             q = speed[i];
-        //sprintf(prt,"Motor %d speed: %d\n\r",i,(int)(motorDat[i].deltaL*1000));
-        //UART_UartPutString(prt);
     }
     for(i = 0;i < 4;i = i + 1)
     {
-        motorDat[i].stepSpeed = (int)((speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q));
+        motorDat[i].stepSpeed = ((float)speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q);
     }
-    
-    
-    // re-try
-    
 }
 
 float pointDistance(float* payloadObserved,float* payloadExpected)
@@ -318,4 +289,9 @@ float pointDistance(float* payloadObserved,float* payloadExpected)
     
     distance = sqrt(dx + dy);
     return distance;
+}
+
+float getChassisRotation()
+{
+    return 0.0;
 }

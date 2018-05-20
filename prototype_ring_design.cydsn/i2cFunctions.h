@@ -20,7 +20,7 @@
     	int16 counter; // NOT a uint8
     	int index;
         int calibrationSteps;
-        int stepSpeed;
+        float stepSpeed;
         float lineLength;
         float nextLineLength;
         float deltaL;
