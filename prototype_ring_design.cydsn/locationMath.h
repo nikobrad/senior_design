@@ -26,6 +26,11 @@
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
     
+    #define TORQUE_CONSTANT 1.0 // For physics; 1 is a placeholder
+    #define GRAVITY 386.09 // inches per second per second
+    #define PAYLOAD_MASS 1
+    #define FRAME_MASS 1
+    
     #define MAX_POSITION_ERROR 0.125
     
     #define CALIBRATION_LENGTH_0 10.125
@@ -43,7 +48,12 @@
     extern float PAYLOAD_CENTER[2];
     extern float NEXT_PAYLOAD_GOAL[2];
     extern float NEXT_PAYLOAD_SLICE[2];
-    extern uint8 calFlags[4];
+    
+    extern float rotation[8];
+    extern float velocity;
+    extern float acceleration;
+    extern float nextVelocity;
+    
     
     extern uint8 time;
     extern uint32 timerCount;
@@ -59,6 +69,7 @@
     void lToDeltaL();
     void deltaLToSpeed();
     float pointDistance(float* payloadObserved,float* payloadExpected);
-    float getChassisRotation();
+    void getChassisRotation();
+    void getChassisVelocity();
 
 #endif

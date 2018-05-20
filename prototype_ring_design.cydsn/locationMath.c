@@ -217,11 +217,39 @@ void findNextPayloadCenter()
 {
     NEXT_PAYLOAD_GOAL[0] = NEXT_PAYLOAD_GOAL[0];
     NEXT_PAYLOAD_GOAL[1] = NEXT_PAYLOAD_GOAL[1];
-    // Use physics calculations/arbitrary requests here, e.g.
-    // NEXT_PAYLOAD_GOAL = {10.3,0.125};
-    //char prt[32];
-    //sprintf(prt,"Payload goal: %d,%d\n\r",(int)(1000*NEXT_PAYLOAD_GOAL[0]),(int)(1000*NEXT_PAYLOAD_GOAL[1]));
-    //UART_UartPutString(prt);
+    
+    getChassisRotation();
+    getChassisVelocity();
+    
+    float velDiff = nextVelocity - velocity;
+    float accel = velDiff / TIME_SLICE;
+    
+    if(velocity < MAX_POSITION_ERROR && nextVelocity < MAX_POSITION_ERROR)
+    {
+        NEXT_PAYLOAD_GOAL[0] = 0.0;
+        NEXT_PAYLOAD_GOAL[1] = -3.0;
+    }
+    else
+    {
+        NEXT_PAYLOAD_GOAL[0] = (accel * FRAME_MASS) / (PAYLOAD_MASS * GRAVITY * FRAME_RADIUS); // Get torque as close to required acceleration as possible
+        NEXT_PAYLOAD_GOAL[1] = 0.0;
+    }
+    
+    //Experimental, should account for chassis rotation given a function getChassisRotation that adequately estimates the total rotation
+    float rotate[2];
+    float theta = rotation[0];
+    rotate[0] = (NEXT_PAYLOAD_GOAL[0] * cos(theta)) - (NEXT_PAYLOAD_GOAL[1] * sin(theta));
+    rotate[1] = (NEXT_PAYLOAD_GOAL[0] * sin(theta)) + (NEXT_PAYLOAD_GOAL[1] * cos(theta));
+    NEXT_PAYLOAD_GOAL[0] = rotate[0];
+    NEXT_PAYLOAD_GOAL[1] = rotate[1];
+    
+    float origin[2] = {0.0,0.0};
+    float tmp = pointDistance(NEXT_PAYLOAD_GOAL,origin); // Magnitude of goal vector
+    if(tmp > USABLE_RADIUS) // If goal is outside usable radius, move it to the edge of the usable radius
+    {
+        NEXT_PAYLOAD_GOAL[0] = (NEXT_PAYLOAD_GOAL[0] * USABLE_RADIUS) / tmp;
+        NEXT_PAYLOAD_GOAL[1] = (NEXT_PAYLOAD_GOAL[1] * USABLE_RADIUS) / tmp;
+    }
 }
 
 void findNextPayloadSlice()
@@ -240,15 +268,7 @@ void findNextPayloadSlice()
         NEXT_PAYLOAD_SLICE[1] = (PAYLOAD_CENTER[1] + ((NEXT_PAYLOAD_GOAL[1] - PAYLOAD_CENTER[1]) / DISTANCE_SCALAR));
     }
     
-    /* //Experimental, should account for chassis rotation given a function getChassisRotation that adequately estimates the total rotation
-    float tmp[2];
-    float theta = getChassisRotation();
-    tmp[0] = (NEXT_PAYLOAD_SLICE[0] * cos(theta)) - (NEXT_PAYLOAD_SLICE[1] * sin(theta));
-    tmp[1] = (NEXT_PAYLOAD_SLICE[0] * sin(theta)) + (NEXT_PAYLOAD_SLICE[1] * cos(theta));
-    NEXT_PAYLOAD_SLICE[0] = tmp[0];
-    NEXT_PAYLOAD_SLICE[1] = tmp[1];
-    */
-    //###################################################################################################################
+    
 }
 
 void lToDeltaL()
@@ -291,7 +311,23 @@ float pointDistance(float* payloadObserved,float* payloadExpected)
     return distance;
 }
 
-float getChassisRotation()
+void getChassisVelocity()
 {
-    return 0.0;
+    float vels[4];
+    int i;
+    for(i = 0;i < 8;i = i + 2)
+    {
+        vels[i] = rotation[i] - rotation[i + 1];
+    }
+    velocity = vels[0] + vels[1] + vels[2] + vels[3]; // Experimental, might not work at all
+}
+
+void getChassisRotation()
+{
+    int i;
+    for(i = 7;i > 0;i = i - 1)
+    {
+        rotation[i] = rotation[i - 1];
+    }
+    rotation[0] = 0.0; // Placeholder; replace with sensor readings
 }

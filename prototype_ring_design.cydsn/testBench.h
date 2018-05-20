@@ -13,4 +13,7 @@
     void mainLoop();
     void testGetLineLengths();
     
+    void demoA();
+    void demoB();
+    
 #endif

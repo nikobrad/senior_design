@@ -25,9 +25,14 @@ float MOUNT_POINTS[4][2] = {{FRAME_RADIUS,0},{0,FRAME_RADIUS},{(-1)*FRAME_RADIUS
 float PAYLOAD_CENTER[2];
 float NEXT_PAYLOAD_GOAL[2];
 float NEXT_PAYLOAD_SLICE[2];
-uint8 calFlags[4];
+
 uint32 timerCount = 0;
 uint8 time = 0;
+
+float rotation[8];
+float velocity = 0;
+float acceleration = 0;
+float nextVelocity = 0;
 
 int main(void)
 {
@@ -102,29 +107,11 @@ int main(void)
     UART_UartPutString("Welcome to Senior Design\n\r");
     
     calibrateEncoders();
-    
-    float coordX[16];
-    float coordY[16];
-    int i;
-    for(i = 0;i < 16;i = i + 1)
-    {
-        coordX[i] = USABLE_RADIUS * cos((PI * i) / 8);
-        coordY[i] = USABLE_RADIUS * sin((PI * i) / 8);
-    }
-
     TIMER_Enable();
     TIMERISR_Enable();
     
-    while(1)
-    {
-        while(!time);
-        time = 0;
-        controlAlgorithm();
-        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 30)];
-        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 30)];
-        if(timerCount >= 480)
-            timerCount = 0;
-    }
+    demoA();
+    //demoB();
     
     
     //testGetLineLengths();

@@ -1,5 +1,43 @@
 #include "testBench.h"
 
+void demoA()
+{
+    float coordX[16];
+    float coordY[16];
+    int i;
+    for(i = 0;i < 16;i = i + 1)
+    {
+        coordX[i] = USABLE_RADIUS * cos((PI * i) / 8);
+        coordY[i] = USABLE_RADIUS * sin((PI * i) / 8);
+    }
+    while(1)
+    {
+        while(!time);
+        time = 0;
+        controlAlgorithm();
+        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 30)];
+        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 30)];
+        if(timerCount >= 480)
+            timerCount = 0;
+    } 
+}
+
+void demoB()
+{
+   float coordX[16] = {3,-3,3,-3,-3,-2,-3,-1,-3,0,-3,1,-3,2,-3,3};
+   float coordY[16] = {3,3,-3,-3,-2,-3,-1,-3,0,-3,1,-3,2,-3,3,-3};
+   while(1)
+    {
+        while(!time);
+        time = 0;
+        controlAlgorithm();
+        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 150)];
+        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 150)];
+        if(timerCount >= 2400)
+            timerCount = 0;
+    } 
+}
+
 void controlAlgorithm()
 {
     TEST_MEAS_Write(0);
