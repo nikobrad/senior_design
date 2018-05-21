@@ -50,11 +50,6 @@ void controlAlgorithm()
     int i;
     if(errorDist > ACCEPTABLE_ERROR)
     {
-        
-        //sprintf(tmp,"Error: %d\n\r",(int)(errorDist*1000));
-        //UART_UartPutString(tmp);
-        //sprintf(tmp,"Motor 3 speed: %d\n\r",motorDat[3].stepSpeed);
-        //UART_UartPutString(tmp);
         findNextPayloadSlice();
         payloadToLineLength(NEXT_PAYLOAD_SLICE);
         for(i = 0;i < 4;i = i + 1)
@@ -67,14 +62,7 @@ void controlAlgorithm()
         {
             motorSetSpeed(motorDat[i].addr,(motorDat[i].stepSpeed)); 
         }
-        //sprintf(tmp,"Speed: M0:%d\t\tM1:%d\t\tM2:%d\t\tM3:%d\n\r",motorDat[0].stepSpeed,motorDat[1].stepSpeed,motorDat[2].stepSpeed,motorDat[3].stepSpeed);
-        //UART_UartPutString(tmp);
-        //updateEncoderCount();
-        //lineLengthToPayloadCenter();
-        findNextPayloadCenter();
-        //sprintf(tmp,"Payload Center: (%d,%d)\n\r", (int)(PAYLOAD_CENTER[0] * 100000),(int)(PAYLOAD_CENTER[1] * 100000));
-        //UART_UartPutString(tmp);
-        
+        //findNextPayloadCenter(); // Commented out so we can test working code in chassis before implementing physics
     }
     else
     {

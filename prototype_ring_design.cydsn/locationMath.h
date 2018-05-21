@@ -26,6 +26,7 @@
     #define sideC (FRAME_DIAMETER/1.414)
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
+    #define ACCEPTABLE_ERROR 0.25 // inches
     
     #define MAX_ROTATION_TIME 200 // How long should the system wait with no change in rotation before assuming velocity is 0?
     #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section 

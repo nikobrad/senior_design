@@ -224,7 +224,7 @@ void findNextPayloadCenter()
     float velDiff = nextVelocity - velocity;
     float accel = velDiff / TIME_SLICE;
     
-    if(velocity < MAX_POSITION_ERROR && nextVelocity < MAX_POSITION_ERROR)
+    if(velocity < ACCEPTABLE_ERROR && nextVelocity < ACCEPTABLE_ERROR)
     {
         NEXT_PAYLOAD_GOAL[0] = 0.0;
         NEXT_PAYLOAD_GOAL[1] = -3.0;
