@@ -27,8 +27,9 @@ void init();
 
 int main(void)
 {
-    CyGlobalIntDisable;
     while(StartButton_Read()); // Wait for someone to press the button
+    while(!StartButton_Read());
+    CyGlobalIntDisable;
     init(); // Run initialization code
     CyGlobalIntEnable;
     

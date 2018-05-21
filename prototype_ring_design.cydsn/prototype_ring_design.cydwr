@@ -28,6 +28,7 @@
       <Data key="8111f56f-4574-4e9f-b5fa-931e25077bca" value="QuadIndex_2" />
       <Data key="a6322c40-0b85-4743-b7c5-aa5a3b87d18a" value="QuadA_3" />
       <Data key="aa469a3d-0a8a-4a41-b15b-086a29c8bae3" value="QuadB_3" />
+      <Data key="b2353cd9-6d34-4ad5-a1b8-2cfd6b36b180" value="StartButton" />
       <Data key="bb58d0f5-5930-4325-8942-d7ecbb8b839b" value="LED" />
       <Data key="e851a3b9-efb8-48be-bbb8-b303b216c393" value="I2CSCL" />
       <Data key="fdc6f855-cd8e-4be7-acae-254dca0525e8" value="QuadA_1" />
@@ -3651,7 +3652,7 @@
     </Group>
     <Group key="1598aa34-7c22-4cdb-ae9f-1146fdd7d7d4">
       <Group key="0">
-        <Data key="Port Format" value="0,7" />
+        <Data key="Port Format" value="1,3" />
       </Group>
     </Group>
     <Group key="8111f56f-4574-4e9f-b5fa-931e25077bca">
@@ -3667,6 +3668,11 @@
     <Group key="aa469a3d-0a8a-4a41-b15b-086a29c8bae3">
       <Group key="0">
         <Data key="Port Format" value="0,1" />
+      </Group>
+    </Group>
+    <Group key="b2353cd9-6d34-4ad5-a1b8-2cfd6b36b180">
+      <Group key="0">
+        <Data key="Port Format" value="0,7" />
       </Group>
     </Group>
     <Group key="bb58d0f5-5930-4325-8942-d7ecbb8b839b">

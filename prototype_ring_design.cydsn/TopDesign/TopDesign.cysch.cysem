@@ -5184,7 +5184,7 @@
         <Value />
       </Parameter>
       <Parameter name="DriveModes">
-        <Value>011</Value>
+        <Value>010</Value>
       </Parameter>
       <Parameter name="HotSwaps">
         <Value />
