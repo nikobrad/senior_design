@@ -17,7 +17,7 @@
     typedef struct
     {
         MotorAddress addr;
-    	int16 counter; // NOT a uint8
+    	int16 counter;
     	int index;
         int calibrationSteps;
         float stepSpeed;

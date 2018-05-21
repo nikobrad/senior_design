@@ -76,36 +76,3 @@ void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg)
     }
     while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 }   //motorCommand32
-
-//***Experimental/in development
-
-/*
-
-int* getCounters()
-{
-	int counters[4];
-	counters[0] = QuadDec0_GetCounter();	//Just get all the counters
-	counters[1] = QuadDec1_GetCounter();
-	counters[2] = QuadDec2_GetCounter();
-	counters[3] = QuadDec3_GetCounter();
-	return(counters);
-}	//getCounters()
-	
-int* getAbsPositions()
-{
-	int i;
-	int counters[4] = getCounters();	//Just get all the counters
-	int absPos[4];	//Each step is 7.5 degrees; 360 degrees/revolution / 7.5 degrees/step = 48 steps per revolution
-	for(i=0;i<4;i=i+1)
-	{
-		absPos[i] = (48 * decInd[i]) + counters[i];
-	}
-	return(absPos);
-}	//getAbsPosition()
-
-int radialToLinear(float rotVal)
-{
-	float linear = rotVal * (float)(1.0/48.0) * (float)(2.0*PI*SPOOL_RADIUS);	//rotVal steps * 1/48 rotations/step * 2*PI*SPOOL_RADIUS units/rotation = linear units
-	return linear;
-}	//radialToLinear()
-*/
