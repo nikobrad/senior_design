@@ -236,12 +236,12 @@ void findNextPayloadCenter()
     }
     
     //Experimental, should account for chassis rotation given a function getChassisRotation that adequately estimates the total rotation
-    float rotate[2];
-    float theta = rotation[0];
-    rotate[0] = (NEXT_PAYLOAD_GOAL[0] * cos(theta)) - (NEXT_PAYLOAD_GOAL[1] * sin(theta));
-    rotate[1] = (NEXT_PAYLOAD_GOAL[0] * sin(theta)) + (NEXT_PAYLOAD_GOAL[1] * cos(theta));
-    NEXT_PAYLOAD_GOAL[0] = rotate[0];
-    NEXT_PAYLOAD_GOAL[1] = rotate[1];
+    float matMult[2];
+    float theta = rotation;
+    matMult[0] = (NEXT_PAYLOAD_GOAL[0] * cos(theta)) - (NEXT_PAYLOAD_GOAL[1] * sin(theta));
+    matMult[1] = (NEXT_PAYLOAD_GOAL[0] * sin(theta)) + (NEXT_PAYLOAD_GOAL[1] * cos(theta));
+    NEXT_PAYLOAD_GOAL[0] = matMult[0];
+    NEXT_PAYLOAD_GOAL[1] = matMult[1];
     
     float origin[2] = {0.0,0.0};
     float tmp = pointDistance(NEXT_PAYLOAD_GOAL,origin); // Magnitude of goal vector
@@ -309,25 +309,4 @@ float pointDistance(float* payloadObserved,float* payloadExpected)
     
     distance = sqrt(dx + dy);
     return distance;
-}
-
-void getChassisVelocity()
-{
-    float vels[4];
-    int i;
-    for(i = 0;i < 8;i = i + 2)
-    {
-        vels[i] = rotation[i] - rotation[i + 1];
-    }
-    velocity = vels[0] + vels[1] + vels[2] + vels[3]; // Experimental, might not work at all
-}
-
-void getChassisRotation()
-{
-    int i;
-    for(i = 7;i > 0;i = i - 1)
-    {
-        rotation[i] = rotation[i - 1];
-    }
-    rotation[0] = 0.0; // Placeholder; replace with sensor readings
 }

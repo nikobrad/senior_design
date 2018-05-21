@@ -12,13 +12,13 @@ void demoA()
     }
     while(1)
     {
-        while(!time);
-        time = 0;
+        while(!executeFlag);
+        executeFlag = 0;
         controlAlgorithm();
-        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 30)];
-        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 30)];
-        if(timerCount >= 480)
-            timerCount = 0;
+        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(goalUpdateTimer / 30)];
+        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(goalUpdateTimer / 30)];
+        if(goalUpdateTimer >= 480)
+            goalUpdateTimer = 0;
     } 
 }
 
@@ -28,19 +28,18 @@ void demoB()
    float coordY[16] = {3,3,-3,-3,-2,-3,-1,-3,0,-3,1,-3,2,-3,3,-3};
    while(1)
     {
-        while(!time);
-        time = 0;
+        while(!executeFlag);
+        executeFlag = 0;
         controlAlgorithm();
-        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(timerCount / 150)];
-        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(timerCount / 150)];
-        if(timerCount >= 2400)
-            timerCount = 0;
+        NEXT_PAYLOAD_GOAL[0] = coordX[(int)(goalUpdateTimer / 150)];
+        NEXT_PAYLOAD_GOAL[1] = coordY[(int)(goalUpdateTimer / 150)];
+        if(goalUpdateTimer >= 2400)
+            goalUpdateTimer = 0;
     } 
 }
 
 void controlAlgorithm()
 {
-    TEST_MEAS_Write(0);
     //char tmp[64];
     //sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
     //UART_UartPutString(tmp);
@@ -82,8 +81,6 @@ void controlAlgorithm()
         for(i = 0;i < 4;i = i + 1)
             motorSetSpeed(motorDat[i].addr,0);
     }
-    //UART_UartPutString("Goal reached.\n\r");
-    TEST_MEAS_Write(1);
 }
 
 void mainLoop()

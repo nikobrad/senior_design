@@ -68,8 +68,34 @@ CY_ISR(TimerInt)
 {
     TIMER_ClearInterrupt(TIMER_GetInterruptSource());
     TIMERISR_ClearPending();
-    time = 1;
-    timerCount = timerCount + 1;
+    executeFlag = 1;
+    goalUpdateTimer = goalUpdateTimer + 1;
+    rotationTimer = rotationTimer + 1;
+}
+
+// Inclinometer decoder interrupt handlers
+
+CY_ISR(IncInt)
+{
+    IncDec_ClearInterrupt(); // Get rid of interrupt
+    IncIsr_ClearPending();
+    
+    int tmp = IncDec_Read();
+    if(tmp == rotation) // Accidentally retriggered; ignore interrupt
+        return;
+    
+    char prt[16]; // Print value; for testing, delete later
+    sprintf(prt,"%d\n\r",tmp);
+    UART_UartPutString(prt);
+
+    rotation = (float)tmp * ROTATION_SCALAR; // Get that sweet sweet value
+    
+    rotationTimes[1] = rotationTimes[0]; // Shift old time values out; update with new value
+    rotationTimes[0] = TIMER_ReadCounter() + (rotationTimer * 10000);
+    rotationTimer = 0;
+    
+    // Averaged velocity between two previous readings
+    velocity = (ROTATION_SCALAR * (float)CLOCK_SECONDS_CONVERSION) / ((float)(rotationTimes[0] + rotationTimes[1]) * PI);
 }
 
 //UART interrupt handlers

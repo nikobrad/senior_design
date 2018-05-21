@@ -7,6 +7,7 @@
     #include <stdio.h>
     #include <stdlib.h>
 
+    #define CLOCK_SECONDS_CONVERSION 1000000 // 1 MHz clock; 1000000 ticks per second
     #define MEASUREMENT_SCALE 1000 //scale values up to 
     #define STEP_CONSTANT 48
     #define ENCODER_RESOLUTION 500 //quadrature states per revolution (125 ppr, 4x resolution)
@@ -26,6 +27,7 @@
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
     
+    #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section 
     #define TORQUE_CONSTANT 1.0 // For physics; 1 is a placeholder
     #define GRAVITY 386.09 // inches per second per second
     #define PAYLOAD_MASS 1
@@ -49,14 +51,15 @@
     extern float NEXT_PAYLOAD_GOAL[2];
     extern float NEXT_PAYLOAD_SLICE[2];
     
-    extern float rotation[8];
+    extern int rotationTimes[2];
+    extern float rotation;
     extern float velocity;
     extern float acceleration;
     extern float nextVelocity;
     
-    
-    extern uint8 time;
-    extern uint32 timerCount;
+    extern uint32 rotationTimer;
+    extern uint8 executeFlag;
+    extern uint32 goalUpdateTimer;
 
     // void linearConv(uint8 motorNum); // Now contained in updateEncoderCount
     // void payloadCorners(); // Moot; unneeded
