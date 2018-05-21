@@ -27,6 +27,7 @@
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
     
+    #define MAX_ROTATION_TIME 200 // How long should the system wait with no change in rotation before assuming velocity is 0?
     #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section 
     #define TORQUE_CONSTANT 1.0 // For physics; 1 is a placeholder
     #define GRAVITY 386.09 // inches per second per second
@@ -57,6 +58,7 @@
     extern float acceleration;
     extern float nextVelocity;
     
+    extern uint32 timerRegisters[2];
     extern uint32 rotationTimer;
     extern uint8 executeFlag;
     extern uint32 goalUpdateTimer;

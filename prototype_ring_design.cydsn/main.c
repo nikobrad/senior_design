@@ -15,8 +15,8 @@ float NEXT_PAYLOAD_SLICE[2]; // Immediate destination for payload
 
 uint32 goalUpdateTimer = 0; // Counts timer interrupts, for use in static tests
 uint8 executeFlag = 0; // High if control algorithm should execute; otherwise, low
-
 uint32 rotationTimer = 0; // Tracks time between inclinometer interrupt triggers
+uint32 timerRegisters[2]; // Stores timer counter register for speed calculation
 int rotationTimes[2]; // Stores previous two delays between new inclinometer readings
 float rotation; // Tracks current incline of chassis
 float velocity = 0; // Tracks current velocity of chassis
@@ -74,6 +74,7 @@ void init()
     
     rotationTimes[0] = 0;
     rotationTimes[1] = 0;
+    timerRegisters[0] = 0;
     
     int i;
     for(i = 0;i < 4;i = i + 1) // Set initial conditions for motors
