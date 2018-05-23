@@ -70,39 +70,34 @@ CY_ISR(TimerInt)
     TIMERISR_ClearPending();
     executeFlag = 1;
     goalUpdateTimer = goalUpdateTimer + 1;
-    rotationTimer = rotationTimer + 1;
-    if(rotationTimer > MAX_ROTATION_TIME) // Set velocity to 0 if rotation hasn't changed in over 2 seconds
-    {
-        velocity = 0;
-        rotationTimer = 0; // Avoid ruining results if chassis starts moving again
-    }
 }
 
 // Inclinometer decoder interrupt handlers
 
 CY_ISR(IncInt)
 {
-    IncDec_ClearInterrupt(); // Get rid of interrupt
+    IncIsr_Disable();
+    
     IncIsr_ClearPending();
+    uint8 intSrc = IncDec_ClearInterrupt();
+    int i;
+    for(i = 0;i < 8;i = i + 1)
+    {
+        if(intSrc & (0x01 << i))
+        {
+            angle = ROTATION_SCALAR * i;
+            if(i == (prevAngle + 1) % 8) // Figure out which way it's turning; 
+                position = position + ((FRAME_DIAMETER * PI) / 8);
+            else if((i + 1) % 8 == prevAngle) // If it's not either of these, it skipped at least one segment and we can't be sure anymore
+                position = position + ((FRAME_DIAMETER * PI) / 8); // Or it's just bouncy and should be ignored
+            prevAngle = i;
+        }
+    }
     
-    rotationTimes[1] = rotationTimes[0]; // Shift old time values out; update with new value
-    timerRegisters[1] = timerRegisters[0];
-    timerRegisters[0] = TIMER_ReadCounter();
-    rotationTimes[0] = timerRegisters[0] + (rotationTimer * 10000) - timerRegisters[1];
-    rotationTimer = 0;
-    
-    int tmp = IncDec_Read();
-    if(tmp == (int)(rotation / ROTATION_SCALAR)) // Accidentally retriggered; ignore interrupt
-        return;
-    
-    char prt[16]; // Print value; for testing, delete later
-    sprintf(prt,"%d\n\r",tmp);
+    char prt[32];
+    sprintf(prt,"Rotation: %d miliradians\n\r",(int)(angle * 1000));
     UART_UartPutString(prt);
-
-    rotation = (float)tmp * ROTATION_SCALAR; // Get that sweet sweet value
-    
-    // Averaged velocity between two previous readings
-    velocity = (ROTATION_SCALAR * (float)CLOCK_SECONDS_CONVERSION) / ((float)(rotationTimes[0] + rotationTimes[1]) * PI);
+    IncIsr_Enable();
 }
 
 //UART interrupt handlers

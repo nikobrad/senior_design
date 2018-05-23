@@ -53,14 +53,11 @@
     extern float NEXT_PAYLOAD_GOAL[2];
     extern float NEXT_PAYLOAD_SLICE[2];
     
-    extern int rotationTimes[2];
-    extern float rotation;
-    extern float velocity;
-    extern float acceleration;
-    extern float nextVelocity;
+    extern uint8 prevAngle;
+    extern float angle;
+    extern float position;
+    extern float nextPosition;
     
-    extern uint32 timerRegisters[2];
-    extern uint32 rotationTimer;
     extern uint8 executeFlag;
     extern uint32 goalUpdateTimer;
 
@@ -75,7 +72,6 @@
     void lToDeltaL();
     void deltaLToSpeed();
     float pointDistance(float* payloadObserved,float* payloadExpected);
-    void getChassisRotation();
-    void getChassisVelocity();
+    void rotationMatrix(float* coordinates,float theta,float* retval);
 
 #endif
