@@ -1,5 +1,5 @@
 #ifndef controls_h
-    #define controls_h
+#define controls_h
     
     #include "i2cFunctions.h"
     #include "interruptHandlers.h"
