@@ -26,14 +26,9 @@
     #define sideC (FRAME_DIAMETER/1.414)
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
-    #define ACCEPTABLE_ERROR 0.25 // inches
-    
-    #define MAX_ROTATION_TIME 200 // How long should the system wait with no change in rotation before assuming velocity is 0?
-    #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section 
-    #define TORQUE_CONSTANT 1.0 // For physics; 1 is a placeholder
-    #define GRAVITY 386.09 // inches per second per second
-    #define PAYLOAD_MASS 1
-    #define FRAME_MASS 1
+    #define ACCEPTABLE_ERROR 0.25
+    #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section
+    #define POSITION_ERROR_COEFFICIENT 0.5
     
     #define MAX_POSITION_ERROR 0.125
     
@@ -72,6 +67,6 @@
     void lToDeltaL();
     void deltaLToSpeed();
     float pointDistance(float* payloadObserved,float* payloadExpected);
-    void rotationMatrix(float* coordinates,float theta,float* retval);
+    void rotationMatrix(float theta);
 
 #endif

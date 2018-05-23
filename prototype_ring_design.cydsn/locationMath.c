@@ -216,40 +216,20 @@ void payloadToLineLength(float* payload) // payload should be any of the 1x2 pay
 void findNextPayloadCenter()
 {
     float matMult[2];
-    float errDist = nextPosition - position;
-    float halfCircumference = FRAME_RADIUS * PI;
-    errDist = sqrt(errDist * errDist); // Absolute value
-    float angleScale;
+    float error = nextPosition - position; // Position error in inches
+    error = error * POSITION_ERROR_COEFFICIENT; // Scale to make sense compared with radians
     
+    NEXT_PAYLOAD_GOAL[0] = 0.0; // Go to stable rest position
+    NEXT_PAYLOAD_GOAL[1] = -USABLE_RADIUS;
     
-    NEXT_PAYLOAD_GOAL[1] = 0.0;
-    if(nextPosition < position) // We're going left
-    {
-        NEXT_PAYLOAD_GOAL[0] = USABLE_RADIUS * (-1); // Go hard left
-        if(errDist < (halfCircumference)) // If we're within half the circumference, rotate those coordinates counterclockwise
-        {
-            angleScale = ((halfCircumference - errDist) * PI) / (halfCircumference * 2.0); // Should start close to 0 and approach pi/2 as errDist approaches 0
-            rotationMatrix(NEXT_PAYLOAD_GOAL,angleScale,matMult); // Shoot through rotation matrix with calculated angle
-            NEXT_PAYLOAD_GOAL[0] = matMult[0];
-            NEXT_PAYLOAD_GOAL[1] = matMult[1];
-        }
-    }
-    else if(nextPosition > position) // We're going right
-    {
-        NEXT_PAYLOAD_GOAL[0] = USABLE_RADIUS; // Go hard right
-        if(errDist < (halfCircumference))
-        {
-            angleScale = (((halfCircumference - errDist) * PI) / (halfCircumference * 2.0)) * (-1.0); // Same math as above, but rotating clockwise
-            rotationMatrix(NEXT_PAYLOAD_GOAL,angleScale,matMult);
-            NEXT_PAYLOAD_GOAL[0] = matMult[0];
-            NEXT_PAYLOAD_GOAL[1] = matMult[1];
-        }
-    }
+    if(error > (PI / 2)) // Limit values to lower half of usable plane
+        error = PI / 2;
+    else if(error < (-PI / 2))
+        error = -PI / 2;
     
-    //Experimental, should account for chassis rotation given a function getChassisRotation that adequately estimates the total rotation
-    rotationMatrix(NEXT_PAYLOAD_GOAL,angle,matMult);
-    NEXT_PAYLOAD_GOAL[0] = matMult[0];
-    NEXT_PAYLOAD_GOAL[1] = matMult[1];
+    error = error + angle; // Add measured chassis rotation to account for rotating coordinate system
+    
+    rotationMatrix(error); // Apply rotation matrix to NEXT_PAYLOAD_GOAL
     
     float origin[2] = {0.0,0.0};
     float tmp = pointDistance(NEXT_PAYLOAD_GOAL,origin); // Magnitude of goal vector
@@ -319,8 +299,11 @@ float pointDistance(float* payloadObserved,float* payloadExpected)
     return distance;
 }
 
-void rotationMatrix(float* coordinates,float theta,float* retval)
+void rotationMatrix(float theta)
 {
-    retval[0] = (coordinates[0] * cos(theta)) - (coordinates[1] * sin(theta));
-    retval[1] = (coordinates[0] * sin(theta)) + (coordinates[1] * cos(theta));
+    float retval[2];
+    retval[0] = (NEXT_PAYLOAD_GOAL[0] * cos(theta)) - (NEXT_PAYLOAD_GOAL[1] * sin(theta));
+    retval[1] = (NEXT_PAYLOAD_GOAL[0] * sin(theta)) + (NEXT_PAYLOAD_GOAL[1] * cos(theta));
+    NEXT_PAYLOAD_GOAL[0] = retval[0];
+    NEXT_PAYLOAD_GOAL[1] = retval[1];
 }
