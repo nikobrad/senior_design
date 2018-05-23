@@ -228,7 +228,7 @@ void findNextPayloadCenter()
         NEXT_PAYLOAD_GOAL[0] = USABLE_RADIUS * (-1); // Go hard left
         if(errDist < (halfCircumference)) // If we're within half the circumference, rotate those coordinates counterclockwise
         {
-            angleScale = ((halfCircumference - errDist) * PI) / (halfCircumference * 2); // Should start close to 0 and approach pi/2 as errDist approaches 0
+            angleScale = ((halfCircumference - errDist) * PI) / (halfCircumference * 2.0); // Should start close to 0 and approach pi/2 as errDist approaches 0
             rotationMatrix(NEXT_PAYLOAD_GOAL,angleScale,matMult); // Shoot through rotation matrix with calculated angle
             NEXT_PAYLOAD_GOAL[0] = matMult[0];
             NEXT_PAYLOAD_GOAL[1] = matMult[1];
@@ -237,9 +237,9 @@ void findNextPayloadCenter()
     else if(nextPosition > position) // We're going right
     {
         NEXT_PAYLOAD_GOAL[0] = USABLE_RADIUS; // Go hard right
-        if(errDist < (FRAME_RADIUS * PI))
+        if(errDist < (halfCircumference))
         {
-            angleScale = (((halfCircumference - errDist) * PI) / (halfCircumference * 2)) * (-1); // Same math as above, but rotating clockwise
+            angleScale = (((halfCircumference - errDist) * PI) / (halfCircumference * 2.0)) * (-1.0); // Same math as above, but rotating clockwise
             rotationMatrix(NEXT_PAYLOAD_GOAL,angleScale,matMult);
             NEXT_PAYLOAD_GOAL[0] = matMult[0];
             NEXT_PAYLOAD_GOAL[1] = matMult[1];
@@ -302,7 +302,7 @@ void deltaLToSpeed()
     }
     for(i = 0;i < 4;i = i + 1)
     {
-        motorDat[i].stepSpeed = ((float)speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q);
+        motorDat[i].stepSpeed = (speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q);
     }
 }
 

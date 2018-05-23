@@ -1,5 +1,5 @@
-#ifndef testBench_h
-    #define testBench_h
+#ifndef controls_h
+    #define controls_h
     
     #include "i2cFunctions.h"
     #include "interruptHandlers.h"

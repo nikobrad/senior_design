@@ -2,11 +2,11 @@
 #include "interruptHandlers.h"
 #include "locationMath.h"
 #include "project.h"
-#include "testBench.h"
+#include "controls.h"
 #include <stdlib.h>
 
 //Extern variables:
-float MOUNT_POINTS[4][2] = {{FRAME_RADIUS,0},{0,FRAME_RADIUS},{(-1)*FRAME_RADIUS,0},{0,(-1)*FRAME_RADIUS}}; // Effectively a constant
+const float MOUNT_POINTS[4][2] = {{FRAME_RADIUS,0},{0,FRAME_RADIUS},{(-1)*FRAME_RADIUS,0},{0,(-1)*FRAME_RADIUS}}; // Effectively a constant, but it didn't want to let me #define an array
 MotorData motorDat[4]; // Stores motor state data
 float lineLengths[4]; // for use in payloadToLineLength
 float PAYLOAD_CENTER[2]; // Current payload location, Cartesian coordinates
