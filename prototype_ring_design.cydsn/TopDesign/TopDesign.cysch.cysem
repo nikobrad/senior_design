@@ -212,6 +212,196 @@
         <Value>false</Value>
       </Parameter>
     </Instance>
+    <Instance guid="1a924b76-9ef4-46e0-ac2c-795202d55086" name="IncDec" component="cy_pins_v2_20">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DedicatedInterrupts">
+        <Value>1</Value>
+      </Parameter>
+      <Parameter name="DisplayAsBus">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DisplayInputHWConnections">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="DisplayOutputHWConnections">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveCurrents">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveModes">
+        <Value>011,011,011</Value>
+      </Parameter>
+      <Parameter name="HotSwaps">
+        <Value />
+      </Parameter>
+      <Parameter name="HysteresisModes">
+        <Value />
+      </Parameter>
+      <Parameter name="InClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="InitialDriveStates">
+        <Value />
+      </Parameter>
+      <Parameter name="InputBuffersEnabled">
+        <Value />
+      </Parameter>
+      <Parameter name="InputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="InputSyncModes">
+        <Value>0,0,0</Value>
+      </Parameter>
+      <Parameter name="InputSyncs">
+        <Value>1,1,1</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>IncDec</Value>
+      </Parameter>
+      <Parameter name="InterruptModes">
+        <Value>01,01,01,01,01,01,01,01</Value>
+      </Parameter>
+      <Parameter name="InterruptModes_1">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_2">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_3">
+        <Value />
+      </Parameter>
+      <Parameter name="InvertInClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="IOVoltages">
+        <Value />
+      </Parameter>
+      <Parameter name="LayoutMode">
+        <Value>2</Value>
+        <Expression>eCONTIGUOUS_NONSPANNING</Expression>
+      </Parameter>
+      <Parameter name="NumPins">
+        <Value>8</Value>
+      </Parameter>
+      <Parameter name="OEResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OESyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="OutClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="OutputClockModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputDriveLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OutputSyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="PaPin">
+        <Value>-1</Value>
+      </Parameter>
+      <Parameter name="PinAliases">
+        <Value />
+      </Parameter>
+      <Parameter name="PinTypes">
+        <Value />
+      </Parameter>
+      <Parameter name="PowerOnResetState">
+        <Value>4</Value>
+        <Expression>eUNSPECIFIED</Expression>
+      </Parameter>
+      <Parameter name="ShowAnnotationTerm">
+        <Value />
+      </Parameter>
+      <Parameter name="ShowInClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="SIOGroups">
+        <Value />
+      </Parameter>
+      <Parameter name="SlewRates">
+        <Value />
+      </Parameter>
+      <Parameter name="TermMode_interrupt">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="ThresholdLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="UsePaInClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInRst">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutRst">
+        <Value>false</Value>
+      </Parameter>
+    </Instance>
     <Instance guid="1f45dd3b-61ab-4a0d-a209-527de4339752" name="QuadIndex_1" component="cy_pins_v2_20">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -2384,27 +2574,6 @@
         <Value>false</Value>
       </Parameter>
     </Instance>
-    <Instance guid="48b98832-e857-4ef7-b055-33df41f15348" name="IncIsr" component="cy_isr_v1_70">
-      <Parameter name="CY_COMMENT">
-        <Value />
-      </Parameter>
-      <Parameter name="CY_CONST_CONFIG">
-        <Value>true</Value>
-      </Parameter>
-      <Parameter name="CY_REMOVE">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="CY_SUPPRESS_API_GEN">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="INSTANCE_NAME">
-        <Value>IncIsr</Value>
-      </Parameter>
-      <Parameter name="InterruptType">
-        <Value>0</Value>
-        <Expression>DERIVED</Expression>
-      </Parameter>
-    </Instance>
     <Instance guid="4c6bd333-5fae-49c7-8074-3ea0a635edf1" name="QuadB_1" component="cy_pins_v2_20">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -3627,195 +3796,6 @@
         <Value>false</Value>
       </Parameter>
     </Instance>
-    <Instance guid="83ec4330-edf6-4cfc-9be4-d16acd63320b" name="IncDec" component="cy_pins_v2_20">
-      <Parameter name="CY_COMMENT">
-        <Value />
-      </Parameter>
-      <Parameter name="CY_CONST_CONFIG">
-        <Value>true</Value>
-      </Parameter>
-      <Parameter name="CY_REMOVE">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="CY_SUPPRESS_API_GEN">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="DedicatedInterrupts">
-        <Value>1,1,1</Value>
-      </Parameter>
-      <Parameter name="DisplayAsBus">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="DisplayInputHWConnections">
-        <Value>0,0,0</Value>
-      </Parameter>
-      <Parameter name="DisplayOutputHWConnections">
-        <Value />
-      </Parameter>
-      <Parameter name="DriveCurrents">
-        <Value />
-      </Parameter>
-      <Parameter name="DriveModes">
-        <Value />
-      </Parameter>
-      <Parameter name="HotSwaps">
-        <Value />
-      </Parameter>
-      <Parameter name="HysteresisModes">
-        <Value />
-      </Parameter>
-      <Parameter name="InClkEnableMode">
-        <Value>0</Value>
-      </Parameter>
-      <Parameter name="InitialDriveStates">
-        <Value />
-      </Parameter>
-      <Parameter name="InputBuffersEnabled">
-        <Value />
-      </Parameter>
-      <Parameter name="InputMultipliers">
-        <Value />
-      </Parameter>
-      <Parameter name="InputSyncModes">
-        <Value>0,0,0</Value>
-      </Parameter>
-      <Parameter name="InputSyncs">
-        <Value>1,1,1</Value>
-      </Parameter>
-      <Parameter name="INSTANCE_NAME">
-        <Value>IncDec</Value>
-      </Parameter>
-      <Parameter name="InterruptModes">
-        <Value>11,11,11</Value>
-      </Parameter>
-      <Parameter name="InterruptModes_1">
-        <Value />
-      </Parameter>
-      <Parameter name="InterruptModes_2">
-        <Value />
-      </Parameter>
-      <Parameter name="InterruptModes_3">
-        <Value />
-      </Parameter>
-      <Parameter name="InvertInClock">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="InvertInClockEn">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="InvertInReset">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="InvertOutClock">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="InvertOutClockEn">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="InvertOutReset">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="IOVoltages">
-        <Value />
-      </Parameter>
-      <Parameter name="LayoutMode">
-        <Value>2</Value>
-      </Parameter>
-      <Parameter name="NumPins">
-        <Value>3</Value>
-      </Parameter>
-      <Parameter name="OEResetEnabled">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="OESyncs">
-        <Value />
-      </Parameter>
-      <Parameter name="OutClkEnableMode">
-        <Value>0</Value>
-      </Parameter>
-      <Parameter name="OutputClockModes">
-        <Value />
-      </Parameter>
-      <Parameter name="OutputDriveLevels">
-        <Value />
-      </Parameter>
-      <Parameter name="OutputModes">
-        <Value />
-      </Parameter>
-      <Parameter name="OutputMultipliers">
-        <Value />
-      </Parameter>
-      <Parameter name="OutputResetEnabled">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="OutputSyncs">
-        <Value />
-      </Parameter>
-      <Parameter name="PaPin">
-        <Value>-1</Value>
-      </Parameter>
-      <Parameter name="PinAliases">
-        <Value />
-      </Parameter>
-      <Parameter name="PinTypes">
-        <Value>0000,0000,0000</Value>
-      </Parameter>
-      <Parameter name="PowerOnResetState">
-        <Value>4</Value>
-        <Expression>eUNSPECIFIED</Expression>
-      </Parameter>
-      <Parameter name="ShowAnnotationTerm">
-        <Value>0,0,0</Value>
-      </Parameter>
-      <Parameter name="ShowInClkEnTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="ShowInClkTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="ShowInRstTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="ShowOutClkEnTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="ShowOutClkTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="ShowOutRstTerm">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="SIOGroups">
-        <Value />
-      </Parameter>
-      <Parameter name="SlewRates">
-        <Value />
-      </Parameter>
-      <Parameter name="TermMode_interrupt">
-        <Value>0</Value>
-      </Parameter>
-      <Parameter name="ThresholdLevels">
-        <Value />
-      </Parameter>
-      <Parameter name="UsePaInClk">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="UsePaInClkEn">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="UsePaInRst">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="UsePaOutClk">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="UsePaOutClkEn">
-        <Value>false</Value>
-      </Parameter>
-      <Parameter name="UsePaOutRst">
-        <Value>false</Value>
-      </Parameter>
-    </Instance>
     <Instance guid="88b7cf3c-3142-49a3-9550-feee14edbd98" name="TIMERISR" component="cy_isr_v1_70">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -4042,6 +4022,27 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>QuadIsr_2</Value>
+      </Parameter>
+      <Parameter name="InterruptType">
+        <Value>0</Value>
+        <Expression>DERIVED</Expression>
+      </Parameter>
+    </Instance>
+    <Instance guid="911f35d3-392d-4807-a4a3-90c006ba7680" name="IncIsr" component="cy_isr_v1_70">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>IncIsr</Value>
       </Parameter>
       <Parameter name="InterruptType">
         <Value>0</Value>
@@ -6414,7 +6415,7 @@
       <Terminal name="TIMERISR.int_signal" type="Instance Digital Input" />
       <Terminal name="TIMER.interrupt" type="Instance Digital Output" />
     </Signal>
-    <Signal name="Net_239" type="Digital" terminalCount="2">
+    <Signal name="Net_252" type="Digital" terminalCount="2">
       <Terminal name="IncIsr.int_signal" type="Instance Digital Input" />
       <Terminal name="IncDec.interrupt_0" type="Instance Digital Output" />
     </Signal>
