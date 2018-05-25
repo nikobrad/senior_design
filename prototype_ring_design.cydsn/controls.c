@@ -38,6 +38,17 @@ void demoB()
     } 
 }
 
+void demoLinear()
+{
+    nextPosition = 10.0;
+    while(1)
+    {
+        while(!executeFlag);
+        executeFlag = 0;
+        controlAlgorithm();
+    }
+}
+
 void controlAlgorithm()
 {
     //char tmp[64];
