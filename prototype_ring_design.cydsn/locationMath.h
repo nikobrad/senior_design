@@ -17,7 +17,7 @@
     #define PI 3.142 //regular-pis
     #define STEP_SIZE 7.5 // regular-degrees
     #define MAX_MOTOR_STEP_SPEED 85.0
-    #define FRAME_DIAMETER 15.75 //All in regular-inches
+    #define FRAME_DIAMETER 11.6 //All in regular-inches
     #define FRAME_RADIUS (FRAME_DIAMETER / 2.0)
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_DIAMETER 1.0
@@ -32,15 +32,15 @@
     
     #define MAX_POSITION_ERROR 0.125
     
-    #define CALIBRATION_LENGTH_0 10.125
-    #define CALIBRATION_LENGTH_1 10.75
-    #define CALIBRATION_LENGTH_2 8.95
-    #define CALIBRATION_LENGTH_3 10.1
+    #define CALIBRATION_LENGTH_0 8.125
+    #define CALIBRATION_LENGTH_1 6.75
+    #define CALIBRATION_LENGTH_2 7.0
+    #define CALIBRATION_LENGTH_3 8.5
     
-    #define CALIBRATION_INDEX_0 3
-    #define CALIBRATION_INDEX_1 3
-    #define CALIBRATION_INDEX_2 3
-    #define CALIBRATION_INDEX_3 3
+    #define CALIBRATION_INDEX_0 2
+    #define CALIBRATION_INDEX_1 2
+    #define CALIBRATION_INDEX_2 2
+    #define CALIBRATION_INDEX_3 2
 
     extern float lineLengths[4];
     extern const float MOUNT_POINTS[4][2];
