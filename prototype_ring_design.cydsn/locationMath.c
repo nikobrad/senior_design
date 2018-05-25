@@ -218,9 +218,11 @@ void payloadToLineLength(float* payload) // payload should be any of the 1x2 pay
 void findNextPayloadCenter()
 {
     float error = nextPosition - position; // Position error in inches
+    /*
     char prt[32];
     sprintf(prt,"Position: %d\tError: %d\n\r",(int)(position * 1000),(int)(error * 1000));
     //UART_UartPutString(prt);
+    */
     error = error * POSITION_ERROR_COEFFICIENT; // Scale to make sense compared with radians
     
     NEXT_PAYLOAD_GOAL[0] = 0.0; // Go to stable rest position
@@ -290,11 +292,13 @@ void deltaLToSpeed()
         if(abs((int)speed[i]) > abs((int)q))
             q = speed[i];
     }
+    /*
     if(abs((int)q) > abs((int)r))
     {
         sprintf(prt,"Top speed: %d\n\r",(int)(1000*q));
         UART_UartPutString(prt);
     }
+    */
     if(abs((int)q) > MAX_MOTOR_STEP_SPEED)
     {
         for(i = 0;i < 4;i = i + 1)

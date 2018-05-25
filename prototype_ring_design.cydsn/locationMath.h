@@ -27,7 +27,7 @@
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
     #define LINEAR_SPEED_SCALAR 9.5
-    #define ACCEPTABLE_ERROR 0.25
+    #define ACCEPTABLE_ERROR 0.2
     #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section
     #define POSITION_ERROR_COEFFICIENT 0.5
     

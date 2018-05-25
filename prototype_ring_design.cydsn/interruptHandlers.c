@@ -96,18 +96,18 @@ CY_ISR(IncInt)
             if(prevAngle == i)
                 return;
             prevAngle = i;
-            sprintf(prt,"Section %d - ",i);
-            UART_UartPutString(prt);
+            //sprintf(prt,"Section %d - ",i);
+            //UART_UartPutString(prt);
             break;
         }
     }
     
     
-    sprintf(prt,"Rotation: %d miliradians = ",(int)(angle * 1000));
-    UART_UartPutString(prt);
-    int deg = (int)(angle * 1000 * 180 / PI);
-    sprintf(prt,"%d degrees\n\r",deg);
-    UART_UartPutString(prt);
+    //sprintf(prt,"Rotation: %d miliradians = ",(int)(angle * 1000));
+    //UART_UartPutString(prt);
+    //int deg = (int)(angle * 1000 * 180 / PI);
+    //sprintf(prt,"%d degrees\n\r",deg);
+    //UART_UartPutString(prt);
     IncIsr_Enable();
 }
 
