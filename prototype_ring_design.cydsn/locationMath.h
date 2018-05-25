@@ -21,21 +21,22 @@
     #define FRAME_RADIUS (FRAME_DIAMETER / 2.0)
     #define SPOOL_DIAMETER 1.000
     #define PAYLOAD_DIAMETER 1.0
-    #define USABLE_RADIUS ((FRAME_DIAMETER/2.828) - 1.5)
+    #define USABLE_RADIUS ((FRAME_DIAMETER/2.828) - 1.75)
     #define LINE_START_LENGTH (FRAME_RADIUS)
     #define sideC (FRAME_DIAMETER/1.414)
     #define MINIMUM_GOAL_DISTANCE 0.25
     #define DISTANCE_SCALAR 5.0
+    #define LINEAR_SPEED_SCALAR 9.5
     #define ACCEPTABLE_ERROR 0.25
     #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section
     #define POSITION_ERROR_COEFFICIENT 0.5
     
     #define MAX_POSITION_ERROR 0.125
     
-    #define CALIBRATION_LENGTH_0 8.125
-    #define CALIBRATION_LENGTH_1 6.75
-    #define CALIBRATION_LENGTH_2 7.0
-    #define CALIBRATION_LENGTH_3 8.5
+    #define CALIBRATION_LENGTH_0 7.5
+    #define CALIBRATION_LENGTH_1 6.4
+    #define CALIBRATION_LENGTH_2 6.6
+    #define CALIBRATION_LENGTH_3 8.0
     
     #define CALIBRATION_INDEX_0 2
     #define CALIBRATION_INDEX_1 2

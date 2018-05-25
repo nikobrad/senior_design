@@ -60,7 +60,9 @@ void calibrateEncoders()
     motorSetSpeed(motorDat[1].addr,25.0);
     while((motorDat[1].lineLength > (MAX_POSITION_ERROR + (FRAME_DIAMETER / 2))))// || (motorDat[i].lineLength < (MAX_POSITION_ERROR - (FRAME_DIAMETER / 2))))
     {
-        updateEncoderCount();   
+        updateEncoderCount();
+        sprintf(prt,"Motor 1: Calculated Length: %d\n\r", (int)(motorDat[1].lineLength * 100000));
+        UART_UartPutString(prt);
     }
     motorCommand(motorDat[1].addr,HaltAndHold,0);
     
@@ -215,8 +217,10 @@ void payloadToLineLength(float* payload) // payload should be any of the 1x2 pay
 
 void findNextPayloadCenter()
 {
-    float matMult[2];
     float error = nextPosition - position; // Position error in inches
+    char prt[32];
+    sprintf(prt,"Position: %d\tError: %d\n\r",(int)(position * 1000),(int)(error * 1000));
+    //UART_UartPutString(prt);
     error = error * POSITION_ERROR_COEFFICIENT; // Scale to make sense compared with radians
     
     NEXT_PAYLOAD_GOAL[0] = 0.0; // Go to stable rest position
@@ -227,9 +231,11 @@ void findNextPayloadCenter()
     else if(error < (-PI / 2))
         error = -PI / 2;
     
-    error = error + angle; // Add measured chassis rotation to account for rotating coordinate system
+    //error = error - angle; // Add measured chassis rotation to account for rotating coordinate system
     
     rotationMatrix(error); // Apply rotation matrix to NEXT_PAYLOAD_GOAL
+    
+    rotationMatrix(-angle);
     
     float origin[2] = {0.0,0.0};
     float tmp = pointDistance(NEXT_PAYLOAD_GOAL,origin); // Magnitude of goal vector
@@ -273,16 +279,32 @@ void deltaLToSpeed()
     
     int i;
     float q = 0.0;
+    float r = 0.0;
     float speed[4];
+    char prt[32];
     for(i = 0;i < 4;i = i + 1)
     {
-        speed[i] = (motorDat[i].deltaL * 360.0) / (PI * SPOOL_DIAMETER * TIME_SLICE * STEP_SIZE);
+        if(abs((int)motorDat[i].stepSpeed) > abs((int)r))
+            r = motorDat[i].stepSpeed;
+        speed[i] = (motorDat[i].deltaL * 360.0) / (PI * SPOOL_DIAMETER * TIME_SLICE * STEP_SIZE * LINEAR_SPEED_SCALAR);
         if(abs((int)speed[i]) > abs((int)q))
             q = speed[i];
     }
-    for(i = 0;i < 4;i = i + 1)
+    if(abs((int)q) > abs((int)r))
     {
-        motorDat[i].stepSpeed = (speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q);
+        sprintf(prt,"Top speed: %d\n\r",(int)(1000*q));
+        UART_UartPutString(prt);
+    }
+    if(abs((int)q) > MAX_MOTOR_STEP_SPEED)
+    {
+        for(i = 0;i < 4;i = i + 1)
+        {
+            motorDat[i].stepSpeed = (speed[i] * MAX_MOTOR_STEP_SPEED) / (float)abs((int)q);
+        }
+    }
+    else
+    {
+        motorDat[i].stepSpeed = speed[i];
     }
 }
 

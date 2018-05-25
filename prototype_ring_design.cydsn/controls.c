@@ -38,19 +38,33 @@ void demoB()
     } 
 }
 
+void demoLinear()
+{
+    nextPosition = -10.0;
+    while(1)
+    {
+        while(!executeFlag);
+        executeFlag = 0;
+        controlAlgorithm();
+    }
+}
+
 void controlAlgorithm()
 {
-    //char tmp[64];
-    //sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
-    //UART_UartPutString(tmp);
     IncIsr_Disable();
+    char prt[64];
+    sprintf(prt,"Payload: %d,%d\t\tPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
+    //UART_UartPutString(prt);
+    
     updateEncoderCount();
     lineLengthToPayloadCenter();
+    findNextPayloadCenter(); // Commented out so we can test working code in chassis before implementing physics
     float errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
     
     int i;
     if(errorDist > ACCEPTABLE_ERROR)
     {
+        
         findNextPayloadSlice();
         payloadToLineLength(NEXT_PAYLOAD_SLICE);
         for(i = 0;i < 4;i = i + 1)
@@ -63,7 +77,7 @@ void controlAlgorithm()
         {
             motorSetSpeed(motorDat[i].addr,(motorDat[i].stepSpeed)); 
         }
-        //findNextPayloadCenter(); // Commented out so we can test working code in chassis before implementing physics
+        
     }
     else
     {

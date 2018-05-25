@@ -81,20 +81,28 @@ CY_ISR(IncInt)
     IncIsr_ClearPending();
     uint8 intSrc = IncDec_ClearInterrupt();
     int i;
-    for(i = 0;i < 8;i = i + 1)
+    int j;
+    char prt[64];
+    for(j = 0;j < 8;j = j + 1)
     {
-        if(intSrc & (0x01 << i))
+        if(intSrc & (0x01 << j))
         {
+            i = (j + 7) % 8;
             angle = ROTATION_SCALAR * i;
             if(i == (prevAngle + 1) % 8) // Figure out which way it's turning; 
-                position = position + ((FRAME_DIAMETER * PI) / 8);
+                position = position - ((FRAME_DIAMETER * PI) / 8);
             else if((i + 1) % 8 == prevAngle) // If it's not either of these, it skipped at least one segment and we can't be sure anymore
                 position = position + ((FRAME_DIAMETER * PI) / 8); // Or it's just bouncy and should be ignored
+            if(prevAngle == i)
+                return;
             prevAngle = i;
+            sprintf(prt,"Section %d - ",i);
+            UART_UartPutString(prt);
+            break;
         }
     }
     
-    char prt[32];
+    
     sprintf(prt,"Rotation: %d miliradians = ",(int)(angle * 1000));
     UART_UartPutString(prt);
     int deg = (int)(angle * 1000 * 180 / PI);

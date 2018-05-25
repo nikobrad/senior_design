@@ -22,7 +22,7 @@ float nextPosition = 0; // Tracks current acceleration of chassis based on curre
 
 void init();
 
-int main(void) // Push The Start Button.
+int main() // Push The Start Button.
 {
     while(StartButton_Read()) // Wait for someone to press the button
     {
@@ -30,20 +30,22 @@ int main(void) // Push The Start Button.
         CyDelay(50);
     }
     while(!StartButton_Read());
-    LED_Write(1);
-    CyGlobalIntDisable;
+    LED_Write(0);
+    
     init(); // Run initialization code
-    CyGlobalIntEnable;
+    
     UART_UartPutString("Welcome to Senior Design\n\r");
     
     calibrateEncoders();
     
+    IncIsr_Enable();
     TIMER_Enable();
     TIMERISR_Enable();
     
     //Pick a control function:
     
-    demoA();
+    demoLinear();
+    //demoA();
     //demoB();
 
     int i;
@@ -55,6 +57,7 @@ int main(void) // Push The Start Button.
 
 void init()
 {
+    CyGlobalIntDisable;
     QuadDec_0_Start(); // Initialize the quadrature decoders and interrupts
     QuadDec_1_Start();
     QuadDec_2_Start();
@@ -68,9 +71,13 @@ void init()
     TIMERISR_Disable();
     IncDec_SetInterruptMode(IncDec_INTR_ALL,IncDec_INTR_BOTH);
     IncIsr_StartEx(IncInt); // Initialize the inclinometer
+    IncIsr_Disable();
     I2C_Start(); // Initialize the I2C master
     I2C_Enable();
     UART_Start(); // Initialize the UART
+    CyGlobalIntEnable;
+    
+    UART_UartPutString("Electronic components initialized...\n\r");
     
     motorDat[0].addr = Motor0;
     motorDat[1].addr = Motor1;
@@ -91,6 +98,8 @@ void init()
         
     for(i = 0;i < 4;i = i + 1) // Energize motors
         motorEnergize(motorDat[0].addr);
+        
+    UART_UartPutString("Motors initialized...\n\r");
 }
 
 /* [] END OF FILE */

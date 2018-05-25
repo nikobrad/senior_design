@@ -13,5 +13,6 @@
     
     void demoA();
     void demoB();
+    void demoLinear();
     
 #endif
