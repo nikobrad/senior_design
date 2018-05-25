@@ -215,7 +215,6 @@ void payloadToLineLength(float* payload) // payload should be any of the 1x2 pay
 
 void findNextPayloadCenter()
 {
-    float matMult[2];
     float error = nextPosition - position; // Position error in inches
     error = error * POSITION_ERROR_COEFFICIENT; // Scale to make sense compared with radians
     
