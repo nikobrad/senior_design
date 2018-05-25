@@ -40,7 +40,7 @@ void demoB()
 
 void demoLinear()
 {
-    nextPosition = -10.0;
+    nextPosition = 20;
     while(1)
     {
         while(!executeFlag);

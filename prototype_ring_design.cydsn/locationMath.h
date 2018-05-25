@@ -29,7 +29,7 @@
     #define LINEAR_SPEED_SCALAR 9.5
     #define ACCEPTABLE_ERROR 0.2
     #define ROTATION_SCALAR (PI / 4.0) // Radians per inclinometer section
-    #define POSITION_ERROR_COEFFICIENT 0.5
+    #define POSITION_ERROR_COEFFICIENT 0.2
     
     #define MAX_POSITION_ERROR 0.125
     
