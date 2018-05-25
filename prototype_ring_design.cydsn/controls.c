@@ -62,6 +62,7 @@ void controlAlgorithm()
         {
             motorSetSpeed(motorDat[i].addr,(motorDat[i].stepSpeed)); 
         }
+        //getRotation();
         //findNextPayloadCenter(); // Commented out so we can test working code in chassis before implementing physics
     }
     else

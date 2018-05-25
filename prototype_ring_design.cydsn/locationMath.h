@@ -68,5 +68,6 @@
     void deltaLToSpeed();
     float pointDistance(float* payloadObserved,float* payloadExpected);
     void rotationMatrix(float theta);
+    void getRotation();
 
 #endif

@@ -75,7 +75,7 @@
     void motorSafeStartExit(MotorAddress addr);
     void motorEnergize(MotorAddress addr);
     void motorDeenergize(MotorAddress addr);
-    void accelerometerRead(uint8* result);
+    void accelerometerReadXY(uint8* result);
 
 
 //From Tic C++ Arduino library:

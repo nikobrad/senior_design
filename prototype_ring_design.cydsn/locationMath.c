@@ -306,3 +306,27 @@ void rotationMatrix(float theta)
     NEXT_PAYLOAD_GOAL[0] = retval[0];
     NEXT_PAYLOAD_GOAL[1] = retval[1];
 }
+
+void getRotation()
+{
+    int16 xcoord;
+    int16 ycoord;
+    uint8 accelReg[4];
+    float theta;
+    accelerometerReadXY(accelReg); // Load X0, X1, Y0, Y1 into accelReg
+    xcoord = accelReg[1]; // Load them into their own variables; X1 and Y1 are most significant bytes
+    xcoord = accelReg[0] | (xcoord >> 8); // X0 and Y0 are least significant bytes
+    ycoord = accelReg[3];
+    ycoord = accelReg[2] | (ycoord >> 8);
+    theta = angle; // Save old rotation for distance calculation
+    angle = atan((float)ycoord / (float)xcoord); // Arctangent of y/x gives angle of gravity
+    // Add offset angle depending on accelerometer orientation on chassis; if x+ points down offset should be 0
+    position = position + ((angle - theta) * FRAME_RADIUS); // Position + new distance traveled = new position
+    
+    // Test printing, remove later
+    char prt[64];
+    int rad = (int)(angle * 1000);
+    int deg = (int)(angle * 1000 * 180 / PI);
+    sprintf(prt,"Angle: %d (rad)\t%d (deg)\n\r",rad,deg);
+    UART_UartPutString(prt);
+}

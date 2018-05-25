@@ -72,34 +72,6 @@ CY_ISR(TimerInt)
     goalUpdateTimer = goalUpdateTimer + 1;
 }
 
-// Inclinometer decoder interrupt handlers
-
-CY_ISR(IncInt)
-{
-    IncIsr_Disable();
-    
-    IncIsr_ClearPending();
-    uint8 intSrc = IncDec_ClearInterrupt();
-    int i;
-    for(i = 0;i < 8;i = i + 1)
-    {
-        if(intSrc & (0x01 << i))
-        {
-            angle = ROTATION_SCALAR * i;
-            if(i == (prevAngle + 1) % 8) // Figure out which way it's turning; 
-                position = position + ((FRAME_DIAMETER * PI) / 8);
-            else if((i + 1) % 8 == prevAngle) // If it's not either of these, it skipped at least one segment and we can't be sure anymore
-                position = position + ((FRAME_DIAMETER * PI) / 8); // Or it's just bouncy and should be ignored
-            prevAngle = i;
-        }
-    }
-    
-    char prt[32];
-    sprintf(prt,"Rotation: %d miliradians\n\r",(int)(angle * 1000));
-    UART_UartPutString(prt);
-    IncIsr_Enable();
-}
-
 //UART interrupt handlers
 
 CY_ISR(UartInt)

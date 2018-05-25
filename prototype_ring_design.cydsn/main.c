@@ -30,6 +30,12 @@ int main(void)
     init(); // Run initialization code
     CyGlobalIntEnable;
     
+    while(1)
+    {
+        getRotation();
+        CyDelay(250);
+    }
+    
     calibrateEncoders();
     
     TIMER_Enable();

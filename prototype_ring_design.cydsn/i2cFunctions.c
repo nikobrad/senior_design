@@ -77,8 +77,11 @@ void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg)
     while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 }   //motorCommand32
 
-void accelerometerRead(uint8* result)
+void accelerometerReadXY(uint8* result)
 {
-    I2C_I2CMasterReadBuf(Accel,result,4,I2C_I2C_MODE_COMPLETE_XFER);
+    result[0] = 0x32;
+    I2C_I2CMasterWriteBuf(Accel1,result,1,I2C_I2C_MODE_COMPLETE_XFER);
+    while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
+    I2C_I2CMasterReadBuf(Accel1,result,4,I2C_I2C_MODE_COMPLETE_XFER);
     while(I2C_I2CMasterStatus() == I2C_I2C_MSTAT_XFER_INP); //Wait for any previous transmission to end
 }

@@ -16,9 +16,6 @@
     //Timer interrupt handlers
     CY_ISR(TimerInt);
     
-    //Inclinometer decoder interrupt handlers
-    CY_ISR(IncInt);
-    
     //UART interrupt handlers
     CY_ISR(UartInt);
 
