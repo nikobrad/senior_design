@@ -22,14 +22,20 @@ float nextPosition = 0; // Tracks current acceleration of chassis based on curre
 
 void init();
 
-int main(void)
+int main(void) // Push The Start Button.
 {
-    while(StartButton_Read()); // Wait for someone to press the button
+    while(StartButton_Read()) // Wait for someone to press the button
+    {
+        LED_Write(!LED_Read());
+        CyDelay(50);
+    }
     while(!StartButton_Read());
+    LED_Write(1);
     CyGlobalIntDisable;
     init(); // Run initialization code
     CyGlobalIntEnable;
-    while(1);
+    UART_UartPutString("Welcome to Senior Design\n\r");
+    
     calibrateEncoders();
     
     TIMER_Enable();
@@ -37,7 +43,7 @@ int main(void)
     
     //Pick a control function:
     
-    //demoA();
+    demoA();
     //demoB();
 
     int i;

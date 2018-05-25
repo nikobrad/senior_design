@@ -43,6 +43,7 @@ void controlAlgorithm()
     //char tmp[64];
     //sprintf(tmp,"Payload: %d,%d\n\rPayload goal: %d,%d\n\r",(int)(PAYLOAD_CENTER[0]*1000),(int)(PAYLOAD_CENTER[1]*1000),(int)(NEXT_PAYLOAD_GOAL[0]*1000),(int)(NEXT_PAYLOAD_GOAL[1]*1000));
     //UART_UartPutString(tmp);
+    IncIsr_Disable();
     updateEncoderCount();
     lineLengthToPayloadCenter();
     float errorDist = pointDistance(NEXT_PAYLOAD_GOAL,PAYLOAD_CENTER);
@@ -69,6 +70,7 @@ void controlAlgorithm()
         for(i = 0;i < 4;i = i + 1)
             motorSetSpeed(motorDat[i].addr,0);
     }
+    IncIsr_Enable();
 }
 
 void mainLoop()
