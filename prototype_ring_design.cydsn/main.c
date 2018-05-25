@@ -29,7 +29,7 @@ int main(void)
     CyGlobalIntDisable;
     init(); // Run initialization code
     CyGlobalIntEnable;
-    
+    while(1);
     calibrateEncoders();
     
     TIMER_Enable();
