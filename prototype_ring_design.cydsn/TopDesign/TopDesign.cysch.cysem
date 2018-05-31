@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Document xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" release="PSoC Creator  4.2" xmlns="http://cypress.com/xsd/cysem">
-  <Instances count="28">
+  <Instances count="33">
     <Instance guid="0b35283e-83dd-4ab3-93fe-dd5ee65bcf70" name="QuadIsr_0" component="cy_isr_v1_70">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -119,6 +119,196 @@
       </Parameter>
       <Parameter name="NumPins">
         <Value>1</Value>
+      </Parameter>
+      <Parameter name="OEResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OESyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="OutClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="OutputClockModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputDriveLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OutputSyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="PaPin">
+        <Value>-1</Value>
+      </Parameter>
+      <Parameter name="PinAliases">
+        <Value />
+      </Parameter>
+      <Parameter name="PinTypes">
+        <Value />
+      </Parameter>
+      <Parameter name="PowerOnResetState">
+        <Value>4</Value>
+        <Expression>eUNSPECIFIED</Expression>
+      </Parameter>
+      <Parameter name="ShowAnnotationTerm">
+        <Value />
+      </Parameter>
+      <Parameter name="ShowInClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="SIOGroups">
+        <Value />
+      </Parameter>
+      <Parameter name="SlewRates">
+        <Value />
+      </Parameter>
+      <Parameter name="TermMode_interrupt">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="ThresholdLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="UsePaInClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInRst">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutRst">
+        <Value>false</Value>
+      </Parameter>
+    </Instance>
+    <Instance guid="1a924b76-9ef4-46e0-ac2c-795202d55086" name="IncDec" component="cy_pins_v2_20">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DedicatedInterrupts">
+        <Value>1</Value>
+      </Parameter>
+      <Parameter name="DisplayAsBus">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DisplayInputHWConnections">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="DisplayOutputHWConnections">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveCurrents">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveModes">
+        <Value>011,011,011</Value>
+      </Parameter>
+      <Parameter name="HotSwaps">
+        <Value />
+      </Parameter>
+      <Parameter name="HysteresisModes">
+        <Value />
+      </Parameter>
+      <Parameter name="InClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="InitialDriveStates">
+        <Value />
+      </Parameter>
+      <Parameter name="InputBuffersEnabled">
+        <Value />
+      </Parameter>
+      <Parameter name="InputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="InputSyncModes">
+        <Value>0,0,0</Value>
+      </Parameter>
+      <Parameter name="InputSyncs">
+        <Value>1,1,1</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>IncDec</Value>
+      </Parameter>
+      <Parameter name="InterruptModes">
+        <Value>01,01,01,01,01,01,01,01</Value>
+      </Parameter>
+      <Parameter name="InterruptModes_1">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_2">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_3">
+        <Value />
+      </Parameter>
+      <Parameter name="InvertInClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="IOVoltages">
+        <Value />
+      </Parameter>
+      <Parameter name="LayoutMode">
+        <Value>2</Value>
+        <Expression>eCONTIGUOUS_NONSPANNING</Expression>
+      </Parameter>
+      <Parameter name="NumPins">
+        <Value>8</Value>
       </Parameter>
       <Parameter name="OEResetEnabled">
         <Value>false</Value>
@@ -592,6 +782,332 @@
         <Value>false</Value>
       </Parameter>
     </Instance>
+    <Instance guid="35c87239-3fcc-4616-a568-92ea77ba21ec" name="TIMER" component="TCPWM_P4_v2_10">
+      <Parameter name="Clock_CheckTolerance">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="Clock_desired_freq">
+        <Value>12</Value>
+      </Parameter>
+      <Parameter name="Clock_desired_freq_unit">
+        <Value>6</Value>
+      </Parameter>
+      <Parameter name="Clock_divisor">
+        <Value>1</Value>
+      </Parameter>
+      <Parameter name="Clock_FractDividerDenominator">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="Clock_FractDividerNumerator">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="Clock_FractDividerUsed">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="Clock_is_direct">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="Clock_is_divider">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="Clock_is_freq">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="Clock_minus_tolerance">
+        <Value>5</Value>
+      </Parameter>
+      <Parameter name="Clock_ph_align_clock_id">
+        <Value />
+      </Parameter>
+      <Parameter name="Clock_ph_align_clock_name">
+        <Value />
+      </Parameter>
+      <Parameter name="Clock_plus_tolerance">
+        <Value>5</Value>
+      </Parameter>
+      <Parameter name="Clock_source_clock_id">
+        <Value />
+      </Parameter>
+      <Parameter name="Clock_source_clock_name">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>TIMER</Value>
+      </Parameter>
+      <Parameter name="PWMCompare">
+        <Value>65535</Value>
+        <Expression>65535u</Expression>
+      </Parameter>
+      <Parameter name="PWMCompareBuf">
+        <Value>65535</Value>
+        <Expression>65535u</Expression>
+      </Parameter>
+      <Parameter name="PWMCompareSwap">
+        <Value>0</Value>
+        <Expression>SWAP_DISABLE</Expression>
+      </Parameter>
+      <Parameter name="PWMCountMode">
+        <Value>3</Value>
+        <Expression>TRIG_LEVEL</Expression>
+      </Parameter>
+      <Parameter name="PWMCountPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="PWMDeadTimeCycle">
+        <Value>0</Value>
+        <Expression>0u</Expression>
+      </Parameter>
+      <Parameter name="PWMInterruptMask">
+        <Value>1</Value>
+        <Expression>INTR_MASK_TC</Expression>
+      </Parameter>
+      <Parameter name="PWMKillEvent">
+        <Value>0</Value>
+        <Expression>ASYNCH</Expression>
+      </Parameter>
+      <Parameter name="PWMLinenSignal">
+        <Value>0</Value>
+        <Expression>DIRECT</Expression>
+      </Parameter>
+      <Parameter name="PWMLineSignal">
+        <Value>0</Value>
+        <Expression>DIRECT</Expression>
+      </Parameter>
+      <Parameter name="PWMMode">
+        <Value>4</Value>
+        <Expression>PWM</Expression>
+      </Parameter>
+      <Parameter name="PWMPeriod">
+        <Value>65535</Value>
+        <Expression>65535u</Expression>
+      </Parameter>
+      <Parameter name="PWMPeriodBuf">
+        <Value>65535</Value>
+        <Expression>65535u</Expression>
+      </Parameter>
+      <Parameter name="PWMPeriodSwap">
+        <Value>0</Value>
+        <Expression>SWAP_DISABLE</Expression>
+      </Parameter>
+      <Parameter name="PWMPrescaler">
+        <Value>0</Value>
+        <Expression>0u</Expression>
+      </Parameter>
+      <Parameter name="PWMReloadMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="PWMReloadPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="PWMRunMode">
+        <Value>0</Value>
+        <Expression>Continuous</Expression>
+      </Parameter>
+      <Parameter name="PWMSetAlign">
+        <Value>0</Value>
+        <Expression>LEFT</Expression>
+      </Parameter>
+      <Parameter name="PWMStartMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="PWMStartPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="PWMStopEvent">
+        <Value>0</Value>
+        <Expression>DONT_STOP</Expression>
+      </Parameter>
+      <Parameter name="PWMStopMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="PWMStopPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="PWMSwitchMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="PWMSwitchPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="QuadAutoStart">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="QuadEncodingModes">
+        <Value>0</Value>
+        <Expression>X1</Expression>
+      </Parameter>
+      <Parameter name="QuadIndexMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="QuadIndexPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="QuadInterruptMask">
+        <Value>1</Value>
+        <Expression>INTR_MASK_TC</Expression>
+      </Parameter>
+      <Parameter name="QuadPhiAMode">
+        <Value>3</Value>
+        <Expression>TRIG_LEVEL</Expression>
+      </Parameter>
+      <Parameter name="QuadPhiBMode">
+        <Value>3</Value>
+        <Expression>TRIG_LEVEL</Expression>
+      </Parameter>
+      <Parameter name="QuadStopMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="QuadStopPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCCaptureMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="TCCapturePresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCCompare">
+        <Value>10000</Value>
+        <Expression>10000u</Expression>
+      </Parameter>
+      <Parameter name="TCCompareBuf">
+        <Value>65535</Value>
+        <Expression>65535u</Expression>
+      </Parameter>
+      <Parameter name="TCCompareSwap">
+        <Value>0</Value>
+        <Expression>SWAP_DISABLE</Expression>
+      </Parameter>
+      <Parameter name="TCCompCapMode">
+        <Value>0</Value>
+        <Expression>Compare</Expression>
+      </Parameter>
+      <Parameter name="TCCountingModes">
+        <Value>0</Value>
+        <Expression>COUNT_UP</Expression>
+      </Parameter>
+      <Parameter name="TCCountMode">
+        <Value>3</Value>
+        <Expression>TRIG_LEVEL</Expression>
+      </Parameter>
+      <Parameter name="TCCountPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCInterruptMask">
+        <Value>3</Value>
+        <Expression>INTR_MASK_TC_CC</Expression>
+      </Parameter>
+      <Parameter name="TCPeriod">
+        <Value>10000</Value>
+        <Expression>10000u</Expression>
+      </Parameter>
+      <Parameter name="TCPrescaler">
+        <Value>0</Value>
+        <Expression>0u</Expression>
+      </Parameter>
+      <Parameter name="TCPWMCapturePresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCPWMConfig">
+        <Value>1</Value>
+        <Expression>TIMER</Expression>
+      </Parameter>
+      <Parameter name="TCPWMCountPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCPWMReloadPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCPWMStartPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCPWMStopPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCReloadMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="TCReloadPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCRunMode">
+        <Value>0</Value>
+        <Expression>Continuous</Expression>
+      </Parameter>
+      <Parameter name="TCStartMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="TCStartPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TCStopMode">
+        <Value>0</Value>
+        <Expression>TRIG_RISING</Expression>
+      </Parameter>
+      <Parameter name="TCStopPresent">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="TermMode_capture">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_cc">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_clock">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_count">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_interrupt">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_line">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_line_n">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_ov">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_reload">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_start">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_stop">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermMode_un">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="TermModeStates">
+        <Value />
+      </Parameter>
+    </Instance>
     <Instance guid="3a6f7b14-c20b-4fba-b59d-d886b9a6f354" name="QuadB_2" component="cy_pins_v2_20">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -880,10 +1396,11 @@
         <Value>false</Value>
       </Parameter>
       <Parameter name="I2cClockFromTerm">
-        <Value>true</Value>
+        <Value>false</Value>
       </Parameter>
       <Parameter name="I2cDataRate">
-        <Value>100</Value>
+        <Value>1000</Value>
+        <Expression>1000u</Expression>
       </Parameter>
       <Parameter name="I2cExternIntrHandler">
         <Value>false</Value>
@@ -1435,8 +1952,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -2604,8 +3121,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -2930,8 +3447,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -3279,6 +3796,27 @@
         <Value>false</Value>
       </Parameter>
     </Instance>
+    <Instance guid="88b7cf3c-3142-49a3-9550-feee14edbd98" name="TIMERISR" component="cy_isr_v1_70">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>TIMERISR</Value>
+      </Parameter>
+      <Parameter name="InterruptType">
+        <Value>0</Value>
+        <Expression>DERIVED</Expression>
+      </Parameter>
+    </Instance>
     <Instance guid="8d318d8b-cf7b-4b6b-b02c-ab1c5c49d0ba" name="QuadA_0" component="cy_pins_v2_20">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -3484,6 +4022,27 @@
       </Parameter>
       <Parameter name="INSTANCE_NAME">
         <Value>QuadIsr_2</Value>
+      </Parameter>
+      <Parameter name="InterruptType">
+        <Value>0</Value>
+        <Expression>DERIVED</Expression>
+      </Parameter>
+    </Instance>
+    <Instance guid="911f35d3-392d-4807-a4a3-90c006ba7680" name="IncIsr" component="cy_isr_v1_70">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>IncIsr</Value>
       </Parameter>
       <Parameter name="InterruptType">
         <Value>0</Value>
@@ -3847,8 +4406,8 @@
         <Value>true</Value>
       </Parameter>
       <Parameter name="QuadEncodingModes">
-        <Value>1</Value>
-        <Expression>X2</Expression>
+        <Value>2</Value>
+        <Expression>X4</Expression>
       </Parameter>
       <Parameter name="QuadIndexMode">
         <Value>0</Value>
@@ -4597,6 +5156,196 @@
         <Expression>DERIVED</Expression>
       </Parameter>
     </Instance>
+    <Instance guid="b2353cd9-6d34-4ad5-a1b8-2cfd6b36b180" name="StartButton" component="cy_pins_v2_20">
+      <Parameter name="CY_COMMENT">
+        <Value />
+      </Parameter>
+      <Parameter name="CY_CONST_CONFIG">
+        <Value>true</Value>
+      </Parameter>
+      <Parameter name="CY_REMOVE">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="CY_SUPPRESS_API_GEN">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DedicatedInterrupts">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="DisplayAsBus">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="DisplayInputHWConnections">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="DisplayOutputHWConnections">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveCurrents">
+        <Value />
+      </Parameter>
+      <Parameter name="DriveModes">
+        <Value>010</Value>
+      </Parameter>
+      <Parameter name="HotSwaps">
+        <Value />
+      </Parameter>
+      <Parameter name="HysteresisModes">
+        <Value />
+      </Parameter>
+      <Parameter name="InClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="InitialDriveStates">
+        <Value />
+      </Parameter>
+      <Parameter name="InputBuffersEnabled">
+        <Value />
+      </Parameter>
+      <Parameter name="InputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="InputSyncModes">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="InputSyncs">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="INSTANCE_NAME">
+        <Value>StartButton</Value>
+      </Parameter>
+      <Parameter name="InterruptModes">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_1">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_2">
+        <Value />
+      </Parameter>
+      <Parameter name="InterruptModes_3">
+        <Value />
+      </Parameter>
+      <Parameter name="InvertInClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertInReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClock">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutClockEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="InvertOutReset">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="IOVoltages">
+        <Value />
+      </Parameter>
+      <Parameter name="LayoutMode">
+        <Value>2</Value>
+        <Expression>eCONTIGUOUS_NONSPANNING</Expression>
+      </Parameter>
+      <Parameter name="NumPins">
+        <Value>1</Value>
+      </Parameter>
+      <Parameter name="OEResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OESyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="OutClkEnableMode">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="OutputClockModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputDriveLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputModes">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputMultipliers">
+        <Value />
+      </Parameter>
+      <Parameter name="OutputResetEnabled">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="OutputSyncs">
+        <Value />
+      </Parameter>
+      <Parameter name="PaPin">
+        <Value>-1</Value>
+      </Parameter>
+      <Parameter name="PinAliases">
+        <Value />
+      </Parameter>
+      <Parameter name="PinTypes">
+        <Value />
+      </Parameter>
+      <Parameter name="PowerOnResetState">
+        <Value>4</Value>
+        <Expression>eUNSPECIFIED</Expression>
+      </Parameter>
+      <Parameter name="ShowAnnotationTerm">
+        <Value />
+      </Parameter>
+      <Parameter name="ShowInClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowInRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkEnTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutClkTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="ShowOutRstTerm">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="SIOGroups">
+        <Value />
+      </Parameter>
+      <Parameter name="SlewRates">
+        <Value />
+      </Parameter>
+      <Parameter name="TermMode_interrupt">
+        <Value>0</Value>
+      </Parameter>
+      <Parameter name="ThresholdLevels">
+        <Value />
+      </Parameter>
+      <Parameter name="UsePaInClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaInRst">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClk">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutClkEn">
+        <Value>false</Value>
+      </Parameter>
+      <Parameter name="UsePaOutRst">
+        <Value>false</Value>
+      </Parameter>
+    </Instance>
     <Instance guid="bb58d0f5-5930-4325-8942-d7ecbb8b839b" name="LED" component="cy_pins_v2_20">
       <Parameter name="CY_COMMENT">
         <Value />
@@ -4804,10 +5553,10 @@
         <Value>false</Value>
       </Parameter>
       <Parameter name="desired_freq">
-        <Value>400</Value>
+        <Value>1</Value>
       </Parameter>
       <Parameter name="desired_freq_unit">
-        <Value>3</Value>
+        <Value>6</Value>
       </Parameter>
       <Parameter name="divisor">
         <Value>1</Value>
@@ -5331,11 +6080,7 @@
       </Parameter>
     </Instance>
   </Instances>
-  <Signals count="91">
-    <Signal name="Net_4" type="Digital" terminalCount="2">
-      <Terminal name="I2C.clock" type="Instance Digital Input" />
-      <Terminal name="Clk.clock_out" type="Instance Digital Output" />
-    </Signal>
+  <Signals count="104">
     <Signal name="Net_21" type="Digital" terminalCount="2">
       <Terminal name="I2CSDA.io_0" type="Instance Digital InOut" />
       <Terminal name="I2C.sda_b" type="Instance Digital InOut" />
@@ -5495,8 +6240,8 @@
       <Terminal name="QuadDec_3.line_n" type="Instance Digital Output" />
     </Signal>
     <Signal name="Net_163" type="Digital" terminalCount="5">
-      <Terminal name="QuadDec_1.clock" type="Instance Digital Input" />
       <Terminal name="QuadDec_0.clock" type="Instance Digital Input" />
+      <Terminal name="QuadDec_1.clock" type="Instance Digital Input" />
       <Terminal name="QuadDec_3.clock" type="Instance Digital Input" />
       <Terminal name="QuadDec_2.clock" type="Instance Digital Input" />
       <Terminal name="Clk_1.clock_out" type="Instance Digital Output" />
@@ -5628,6 +6373,51 @@
     </Signal>
     <Signal name="Net_207" type="Digital" terminalCount="1">
       <Terminal name="I2C.rx_tx_out" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_208" type="Digital" terminalCount="1">
+      <Terminal name="I2C.clock" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_209" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.stop" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_210" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.reload" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_211" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.start" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_212" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.count" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_213" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.capture" type="Instance Digital Input" />
+    </Signal>
+    <Signal name="Net_215" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.ov" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_216" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.un" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_217" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.cc" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_218" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.line" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_219" type="Digital" terminalCount="1">
+      <Terminal name="TIMER.line_n" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_220" type="Digital" terminalCount="2">
+      <Terminal name="TIMER.clock" type="Instance Digital Input" />
+      <Terminal name="Clk.clock_out" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_221" type="Digital" terminalCount="2">
+      <Terminal name="TIMERISR.int_signal" type="Instance Digital Input" />
+      <Terminal name="TIMER.interrupt" type="Instance Digital Output" />
+    </Signal>
+    <Signal name="Net_252" type="Digital" terminalCount="2">
+      <Terminal name="IncIsr.int_signal" type="Instance Digital Input" />
+      <Terminal name="IncDec.interrupt_0" type="Instance Digital Output" />
     </Signal>
   </Signals>
   <Properties>

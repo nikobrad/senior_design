@@ -1,32 +1,42 @@
-#include "project.h"
+#ifndef i2cFunctions_h
+#define i2cFunctions_h
 
-#define STEP_SCALE 100
-#define PI 3.1415927
-#define SPOOL_RADIUS 1
+    #include "project.h"    
+    #include "locationMath.h"
 
-typedef enum
-{ 
-	Motor0 		= 	10,
-	Motor1 		= 	11,
-	Motor2 		= 	12,
-	Motor3 		= 	13,
-} MotorAddress;
+    #define STEP_SCALE 10000
 
-typedef struct
-{
-	int counter;
-	int index;
-} MotorPositions;
+    typedef enum
+    { 
+    	Motor0 		= 	10,
+    	Motor1 		= 	11,
+    	Motor2 		= 	12,
+    	Motor3 		= 	13,
+    } MotorAddress;
 
-extern MotorPositions motorPos[4];
+    typedef struct
+    {
+        MotorAddress addr;
+    	int16 counter;
+    	int index;
+        int calibrationSteps;
+        float stepSpeed;
+        float lineLength;
+        float nextLineLength;
+        float deltaL;
+    } MotorData;
 
-void motorCommand(MotorAddress MA,uint8 cmd,uint32 arg);
+    extern MotorData motorDat[4];
 
-void motorSetSpeed(MotorAddress MA,int targetVelocity);
-void motorSetPosition(MotorAddress MA,int targetPosition);
-void motorSafeStartExit(MotorAddress MA);
-void motorEnergize(MotorAddress MA);
-void motorDeenergize(MotorAddress MA);
+    void motorCommand(MotorAddress addr,uint8 cmd,uint32 arg);
+
+    void motorSetSpeed(MotorAddress addr,float targetVelocity);
+    void motorSetPosition(MotorAddress addr,int targetPosition);
+    void motorSafeStartExit(MotorAddress addr);
+    void motorEnergize(MotorAddress addr);
+    void motorDeenergize(MotorAddress addr);
+
+
 
 //From Tic C++ Arduino library:
 /*
@@ -47,7 +57,7 @@ typedef enum
   Crc                      = 19,
   EncoderSkip              = 20,
 } TicError;
-
+*/
 typedef enum
 {
   SetTargetPosition                 = 0xE0,
@@ -72,7 +82,7 @@ typedef enum
   GetVariableAndClearErrorsOccurred = 0xA2,
   GetSetting                        = 0xA8,
 } TicCommand;
-
+/*
 typedef enum
 {
   Reset             = 0,
@@ -131,4 +141,4 @@ typedef enum
   OutputHigh    = 3,
 } TicPinState;
 */
-	
+#endif
